@@ -1,0 +1,31 @@
+:root {
+  --bg-0: #ffffff;
+  --bg-1: #f8fafc;
+  --bg-2: #f1f5f9;
+
+  --ink: #0f172a;
+  --ink-dim: #475569;
+  --ink-mute: #94a3b8;
+
+  --green: #16a34a;
+  --green-2: #22c55e;
+  --green-deep: #15803d;
+  --green-glow: rgba(22, 163, 74, .35);
+
+  --blue: #2563eb;
+  --blue-2: #3b82f6;
+  --blue-glow: rgba(37, 99, 235, .3);
+
+  --border: #e2e8f0;
+  --shadow: 0 12px 32px rgba(15, 23, 42, .08);
+  --shadow-lg: 0 24px 60px rgba(15, 23, 42, .12);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  --f-body: "Inter", system-ui, sans-serif;
+
+  --container: 1240px;
+}

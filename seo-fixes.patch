@@ -1,0 +1,234 @@
+diff --git a/package.json b/package.json
+index 08c085f..58741da 100644
+--- a/package.json
++++ b/package.json
+@@ -9,15 +9,19 @@
+     "preview": "vite preview"
+   },
+   "dependencies": {
++    "@unhead/vue": "^3.1.8",
+     "@vueuse/motion": "^3.0.3",
+     "vue": "^3.5.24",
+     "vue-i18n": "^11.4.6",
+     "vue-router": "^4.6.4"
+   },
+   "devDependencies": {
++    "@prerenderer/renderer-puppeteer": "^1.2.4",
++    "@prerenderer/rollup-plugin": "^0.3.12",
+     "@vitejs/plugin-vue": "^6.0.1",
+     "autoprefixer": "^10.4.23",
+     "postcss": "^8.5.6",
++    "puppeteer": "^25.3.0",
+     "sharp": "^0.35.3",
+     "tailwindcss": "^3.4.17",
+     "vite": "^7.2.4"
+diff --git a/src/App.vue b/src/App.vue
+index b29f97c..470d24b 100644
+--- a/src/App.vue
++++ b/src/App.vue
+@@ -14,6 +14,9 @@
+ </template>
+ 
+ <script setup>
++import { useRouteMeta } from './composables/useRouteMeta.js'
++
++useRouteMeta()
+ </script>
+ 
+ <style>
+diff --git a/src/composables/useRouteMeta.js b/src/composables/useRouteMeta.js
+new file mode 100644
+index 0000000..d140fbb
+--- /dev/null
++++ b/src/composables/useRouteMeta.js
+@@ -0,0 +1,28 @@
++import { useHead } from '@unhead/vue'
++import { useRoute } from 'vue-router'
++
++const DEFAULT_TITLE = 'Cam Network Soluciones S.A.S.'
++const DEFAULT_DESCRIPTION = 'Cam Network Soluciones S.A.S. — Diseño gráfico, identidad corporativa y desarrollo de software a medida.'
++const SITE_URL = 'https://franklinsc.vercel.app'
++
++// Aplica el title/description de route.meta como <title> y <meta name="description">
++// reales en el <head>. Cada ruta define su propio meta.title / meta.description en
++// src/router/index.js — para agregar una página nueva, solo hay que añadir esos dos
++// campos ahí; no hace falta tocar este archivo.
++export function useRouteMeta() {
++  const route = useRoute()
++
++  useHead({
++    title: () => route.meta.title || DEFAULT_TITLE,
++    meta: [
++      { name: 'description', content: () => route.meta.description || DEFAULT_DESCRIPTION },
++      { property: 'og:title', content: () => route.meta.title || DEFAULT_TITLE },
++      { property: 'og:description', content: () => route.meta.description || DEFAULT_DESCRIPTION },
++      { property: 'og:url', content: () => `${SITE_URL}${route.path}` },
++      { property: 'og:type', content: 'website' }
++    ],
++    link: [
++      { rel: 'canonical', href: () => `${SITE_URL}${route.path}` }
++    ]
++  })
++}
+diff --git a/src/main.js b/src/main.js
+index 80c6a44..a8805af 100644
+--- a/src/main.js
++++ b/src/main.js
+@@ -1,4 +1,5 @@
+ import { createApp } from 'vue'
++import { createHead } from '@unhead/vue/client'
+ import './assets/tokens.css'
+ import './style.css'
+ import App from './App.vue'
+@@ -7,7 +8,9 @@ import { MotionPlugin } from '@vueuse/motion'  // ← AGREGAR
+ import { i18n } from './i18n'
+ 
+ const app = createApp(App)
++const head = createHead()
+ app.use(router)
++app.use(head)
+ app.use(MotionPlugin)  // ← AGREGAR
+ app.use(i18n)
+ app.mount('#app')
+\ No newline at end of file
+diff --git a/src/router/index.js b/src/router/index.js
+index 3d6e2ef..7ddcbb7 100644
+--- a/src/router/index.js
++++ b/src/router/index.js
+@@ -7,42 +7,78 @@ const router = createRouter({
+     {
+       path: '/',
+       name: 'home',
+-      component: Home
++      component: Home,
++      meta: {
++        title: 'Cam Network Soluciones S.A.S. | Branding, diseño y desarrollo a medida',
++        description: 'Integramos branding, diseño, tecnología y fabricación digital para construir marcas con impacto.'
++      }
+     },
+     {
++      // Antes apuntaba a PortfolioDiseno.vue (contenido de diseño gráfico) — corregido
++      // para que la URL "identidad-marca" muestre realmente la página de Identidad de Marca.
+       path: '/identidad-marca',
+       name: 'identidad-marca',
+-      component: () => import('../views/PortfolioDiseno.vue')
++      component: () => import('../views/IdentidadMarca.vue'),
++      meta: {
++        title: 'Identidad de Marca | Cam Network Soluciones S.A.S.',
++        description: 'Sistemas visuales completos — estrategia, concepto y aplicación — para una identidad de marca coherente, memorable y confiable.'
++      }
+     },
+     {
++      // Antes apuntaba a IdentidadMarca.vue (contenido de identidad de marca) — corregido
++      // para que la URL "diseno-grafico" muestre el portafolio real de diseño gráfico.
+       path: '/diseno-grafico',
+       name: 'diseno-grafico',
+-      component: () => import('../views/IdentidadMarca.vue')
++      component: () => import('../views/PortfolioDiseno.vue'),
++      meta: {
++        title: 'Portafolio de Diseño Gráfico | Cam Network Soluciones S.A.S.',
++        description: 'Identidades visuales únicas que comunican la esencia de cada marca, desde el concepto inicial hasta la implementación final.'
++      }
+     },
+     {
+       path: '/diseno-empaques',
+       name: 'diseno-empaques',
+-      component: () => import('../views/DisenoEmpaques.vue')
++      component: () => import('../views/DisenoEmpaques.vue'),
++      meta: {
++        title: 'Diseño de Empaques | Cam Network Soluciones S.A.S.',
++        description: 'Packaging que protege, comunica y vende — desde la estructura y el troquel hasta el acabado gráfico final.'
++      }
+     },
+     {
+       path: '/impresion-3d',
+       name: 'impresion-3d',
+-      component: () => import('../views/Impresion3D.vue')
++      component: () => import('../views/Impresion3D.vue'),
++      meta: {
++        title: 'Diseño e Impresión 3D | Cam Network Soluciones S.A.S.',
++        description: 'Modelamos, prototipamos e imprimimos piezas a medida — desde validaciones rápidas de diseño hasta producción de series cortas.'
++      }
+     },
+     {
+       path: '/comunicacion-corporativa',
+       name: 'comunicacion-corporativa',
+-      component: () => import('../views/PortfolioComunicacion.vue')
++      component: () => import('../views/PortfolioComunicacion.vue'),
++      meta: {
++        title: 'Comunicación Corporativa y Marketing Digital | Cam Network Soluciones S.A.S.',
++        description: 'Estrategias de comunicación efectivas que fortalecen tu presencia corporativa y conectan con tu audiencia.'
++      }
+     },
+     {
+       path: '/consultoria-digital',
+       name: 'consultoria-digital',
+-      component: () => import('../views/PortfolioConsultoria.vue')
++      component: () => import('../views/PortfolioConsultoria.vue'),
++      meta: {
++        title: 'Consultoría Digital | Cam Network Soluciones S.A.S.',
++        description: 'Estrategias digitales que transforman negocios y optimizan procesos, con decisiones basadas en datos.'
++      }
+     },
+     {
+       path: '/desarrollo-software',
+       name: 'desarrollo-software',
+-      component: () => import('../views/PortfolioDesarrollo.vue')
++      component: () => import('../views/PortfolioDesarrollo.vue'),
++      meta: {
++        title: 'Desarrollo de Software a Medida | Cam Network Soluciones S.A.S.',
++        description: 'Productos digitales a medida, desde sitios web hasta plataformas completas — código limpio y resultados que impulsan tu negocio.'
++      }
+     }
+   ],
+   scrollBehavior(to, from, savedPosition) {
+diff --git a/vercel.json b/vercel.json
+index 0d199b2..20041ca 100644
+--- a/vercel.json
++++ b/vercel.json
+@@ -1,5 +1,4 @@
+ {
+-  "rewrites": [
+-    { "source": "/(.*)", "destination": "/index.html" }
+-  ]
++  "cleanUrls": true,
++  "trailingSlash": false
+ }
+diff --git a/vite.config.js b/vite.config.js
+index bbcf80c..49a898a 100644
+--- a/vite.config.js
++++ b/vite.config.js
+@@ -1,7 +1,32 @@
+ import { defineConfig } from 'vite'
+ import vue from '@vitejs/plugin-vue'
++import prerender from '@prerenderer/rollup-plugin'
++
++// Rutas reales de src/router/index.js. Si agregas una página nueva,
++// añádela aquí también para que se genere su HTML estático.
++const ROUTES = [
++  '/',
++  '/identidad-marca',
++  '/diseno-grafico',
++  '/diseno-empaques',
++  '/impresion-3d',
++  '/comunicacion-corporativa',
++  '/consultoria-digital',
++  '/desarrollo-software',
++]
+ 
+ // https://vite.dev/config/
+ export default defineConfig({
+-  plugins: [vue()],
++  plugins: [
++    vue(),
++    prerender({
++      routes: ROUTES,
++      renderer: '@prerenderer/renderer-puppeteer',
++      rendererOptions: {
++        // Vue no hace fetch de datos antes de montar, así que un margen fijo
++        // es suficiente y más simple que depender de una marca en el DOM.
++        renderAfterTime: 1000,
++      },
++    }),
++  ],
+ })

@@ -89,7 +89,7 @@ export const routes = [
     name: 'opiniones',
     component: () => import('../views/usuarios/OpinionesUsuarios.vue'),
     meta: {
-      title: `Opiniones de Usuarios | ${SITE}`,
+      title: `Testimonios | ${SITE}`,
       description: 'Conoce la experiencia de nuestros usuarios con los servicios de Cam Network Soluciones S.A.S.'
     }
   },

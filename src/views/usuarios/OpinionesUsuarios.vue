@@ -1,7 +1,7 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Usuarios" title="Opiniones de Usuarios" subtitle="Lo que dicen nuestros clientes sobre nuestros servicios." />
+    <PageHero eyebrow="Centro de Ayuda" title="Testimonios" subtitle="Lo que dicen nuestros clientes sobre nuestros servicios." />
     <ComingSoon />
   </main>
   <AppFooter />

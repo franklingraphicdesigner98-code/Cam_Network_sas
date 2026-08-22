@@ -1,7 +1,7 @@
 export default {
   nav: {
     inicio: 'Inicio',
-    empresa: 'Sobre Nosotros',
+    empresa: 'Empresa',
     quienesSomos: 'Quiénes Somos',
     nuestroEquipo: 'Nuestro Equipo',
     cobertura: 'Cobertura',
@@ -11,7 +11,8 @@ export default {
     pqrs: 'PQRS',
     testVelocidad: 'Test de Velocidad',
     preguntasFrecuentes: 'Preguntas Frecuentes',
-    opiniones: 'Opiniones de Usuarios',
+    opiniones: 'Testimonios',
+    pagoEnLinea: 'Pago en Línea',
     contacto: 'Contacto',
     contactanos: 'Contáctanos'
   },

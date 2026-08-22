@@ -26,6 +26,7 @@
               </router-link>
             </div>
           </div>
+          <a v-else-if="item.href" :href="item.href" target="_blank" rel="noopener noreferrer" class="nav-link" :class="{ 'nav-link-highlight': item.highlight }">{{ item.label }}</a>
           <router-link v-else :to="item.to" class="nav-link">{{ item.label }}</router-link>
         </template>
       </div>
@@ -53,6 +54,7 @@
             </router-link>
           </div>
         </div>
+        <a v-else-if="item.href" :href="item.href" target="_blank" rel="noopener noreferrer" :class="{ 'mobile-highlight': item.highlight }" @click="closeAll">{{ item.label }}</a>
         <router-link v-else :to="item.to" @click="closeAll">{{ item.label }}</router-link>
       </template>
       <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="primary" class="cta-mobile" @click="closeAll">{{ t('nav.contactanos') }}</BaseButton>
@@ -80,16 +82,18 @@ const menu = computed(() => [
     ]
   },
   { label: t('nav.cobertura'), to: '/cobertura' },
+  { label: t('nav.planes'), to: '/planes' },
   { label: t('nav.normatividad'), to: '/normatividad' },
   {
     label: t('nav.usuarios'),
     children: [
-      { label: t('nav.pqrs'), to: '/usuarios/pqrs' },
       { label: t('nav.testVelocidad'), to: '/usuarios/test-velocidad' },
+      { label: t('nav.pqrs'), to: '/usuarios/pqrs' },
       { label: t('nav.preguntasFrecuentes'), to: '/usuarios/preguntas-frecuentes' },
       { label: t('nav.opiniones'), to: '/usuarios/opiniones' }
     ]
-  }
+  },
+  { label: t('nav.contacto'), to: '/contacto' }
 ]);
 
 const isScrolled = ref(false);
@@ -156,6 +160,13 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   transition: color .2s ease, background .2s ease;
 }
 .nav-link:hover, .nav-link.router-link-active { color: var(--green-deep); background: var(--bg-1) }
+.nav-link-highlight {
+  color: #fff;
+  background: linear-gradient(135deg, var(--green-2), var(--green-deep));
+  border-radius: 999px;
+  padding: .6rem 1.1rem;
+}
+.nav-link-highlight:hover { color: #fff; background: linear-gradient(135deg, var(--green-2), var(--green-deep)); filter: brightness(1.06) }
 .chev { transition: transform .2s ease }
 .chev.rotated { transform: rotate(180deg) }
 
@@ -191,6 +202,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 }
 .mobile-children { display: flex; flex-direction: column; background: var(--bg-1) }
 .mobile-children a { padding: .85rem 2.2rem; font-size: .92rem; color: var(--ink-dim); border-bottom: 1px solid var(--border) }
+.mobile-menu > a.mobile-highlight {
+  color: #fff;
+  background: linear-gradient(135deg, var(--green-2), var(--green-deep));
+  border-radius: var(--r-md);
+  margin: .6rem 1.5rem;
+  width: calc(100% - 3rem);
+  border-bottom: none;
+}
 .cta-mobile { margin: .5rem 1.5rem; width: calc(100% - 3rem) }
 
 @media (max-width: 860px) {

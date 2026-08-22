@@ -1,7 +1,7 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Usuarios" title="PQRS" subtitle="Radica tus peticiones, quejas, reclamos y sugerencias." />
+    <PageHero eyebrow="Centro de Ayuda" title="PQRS" subtitle="Radica tus peticiones, quejas, reclamos y sugerencias." />
     <ComingSoon />
   </main>
   <AppFooter />

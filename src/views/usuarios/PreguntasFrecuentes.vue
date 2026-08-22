@@ -1,7 +1,7 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Usuarios" title="Preguntas Frecuentes" subtitle="Respuestas a las dudas más comunes sobre nuestros servicios." />
+    <PageHero eyebrow="Centro de Ayuda" title="Preguntas Frecuentes" subtitle="Respuestas a las dudas más comunes sobre nuestros servicios." />
     <ComingSoon />
   </main>
   <AppFooter />

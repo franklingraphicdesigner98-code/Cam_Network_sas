@@ -1,7 +1,7 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Usuarios" title="Test de Velocidad" subtitle="Mide la velocidad real de tu conexión a internet." />
+    <PageHero eyebrow="Centro de Ayuda" title="Test de Velocidad" subtitle="Mide la velocidad real de tu conexión a internet." />
 
     <section class="s">
       <div class="container speedtest">

@@ -7,7 +7,7 @@
       </div>
 
       <div class="hero-copy">
-        <span class="eyebrow eyebrow-on-dark reveal">Internet · Cámaras de Seguridad · Energía Solar</span>
+        <span class="eyebrow eyebrow-on-dark reveal">Internet · Cámaras de Seguridad · Energía Solar · Servicio de TV</span>
         <h1 class="display reveal reveal-1">
           Conectividad y seguridad para tu hogar y tu empresa
         </h1>
@@ -17,13 +17,14 @@
         </p>
         <div class="hero-actions reveal reveal-3">
           <BaseButton :to="{ name: 'planes' }" variant="primary">Conoce nuestros planes</BaseButton>
-          <BaseButton :to="{ name: 'contacto' }" variant="outline" class="on-dark">Contáctanos</BaseButton>
+          <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="outline" class="on-dark">Contáctanos</BaseButton>
         </div>
 
         <div class="hero-badges reveal reveal-4">
           <div class="badge"><Wifi :size="18" /><span>Internet</span></div>
-          <div class="badge"><Camera :size="18" /><span>Cámaras de Seguridad</span></div>
+          <a href="https://wa.me/c/98535559163990" target="_blank" rel="noopener noreferrer" class="badge badge-link"><Camera :size="18" /><span>Cámaras de Seguridad</span></a>
           <div class="badge"><Sun :size="18" /><span>Energía Solar</span></div>
+          <div class="badge"><Tv :size="18" /><span>Servicio de TV</span></div>
         </div>
       </div>
     </div>
@@ -31,7 +32,7 @@
 </template>
 
 <script setup>
-import { Wifi, Camera, Sun } from 'lucide-vue-next';
+import { Wifi, Camera, Sun, Tv } from 'lucide-vue-next';
 import BaseButton from '../ui/BaseButton.vue';
 import ImageCarousel from '../ui/ImageCarousel.vue';
 import NetworkBackground from '../ui/NetworkBackground.vue';
@@ -81,7 +82,10 @@ const images = [
   padding: .6rem 1.1rem; border-radius: 999px;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
   font-size: .85rem; font-weight: 500;
+  color: #fff;
 }
+.hero-badges .badge-link { cursor: pointer; transition: background .2s ease, border-color .2s ease }
+.hero-badges .badge-link:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4) }
 
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center }

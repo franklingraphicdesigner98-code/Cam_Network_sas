@@ -4,7 +4,6 @@
       <router-link to="/" class="brand" @click="closeAll">
         <span class="badge"><img src="/img/ico.png" alt="Cam Network" /></span>
         <span class="b1">Cam Network</span>
-        <span class="b2"> Soluciones</span>
       </router-link>
 
       <div class="nav-links">
@@ -33,7 +32,7 @@
 
       <div class="nav-right">
         <LanguageSwitcher class="lang-desktop" />
-        <BaseButton :to="{ name: 'contacto' }" variant="primary" class="cta-desktop">{{ t('nav.contactanos') }}</BaseButton>
+        <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="primary" class="cta-desktop">{{ t('nav.contactanos') }}</BaseButton>
         <button class="hamburger" @click="menuOpen = !menuOpen" aria-label="Menú">
           <X v-if="menuOpen" :size="24" />
           <Menu v-else :size="24" />
@@ -58,7 +57,7 @@
         <router-link v-else :to="item.to" @click="closeAll">{{ item.label }}</router-link>
       </template>
       <div class="mobile-lang"><LanguageSwitcher /></div>
-      <BaseButton :to="{ name: 'contacto' }" variant="primary" class="cta-mobile" @click="closeAll">{{ t('nav.contactanos') }}</BaseButton>
+      <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="primary" class="cta-mobile" @click="closeAll">{{ t('nav.contactanos') }}</BaseButton>
     </div>
   </nav>
 </template>
@@ -155,6 +154,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   position: absolute; top: calc(100% + 6px); left: 0; min-width: 230px;
   background: #fff; border: 1px solid var(--border); border-radius: var(--r-md);
   box-shadow: var(--shadow-lg); padding: .5rem; display: flex; flex-direction: column; gap: .15rem;
+}
+.dropdown-menu::before {
+  content: ''; position: absolute; top: -6px; left: 0; right: 0; height: 6px;
 }
 .dropdown-item {
   padding: .65rem .8rem; border-radius: 8px; font-size: .9rem; color: var(--ink-dim);

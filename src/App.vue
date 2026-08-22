@@ -2,7 +2,7 @@
   <NetworkBackground />
   <router-view />
   <a
-    href="https://api.whatsapp.com/send/?phone=%2B573112280533&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios"
+    href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios"
     target="_blank"
     rel="noopener noreferrer"
     class="wa-fab"

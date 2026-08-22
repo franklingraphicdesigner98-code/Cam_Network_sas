@@ -7,20 +7,19 @@
       </div>
 
       <div class="hero-copy">
-        <span class="eyebrow eyebrow-on-dark reveal">Internet · Cámaras de Seguridad · Energía Solar · Servicio de TV</span>
-        <div class="hero-actions reveal reveal-1">
+        <div class="hero-actions reveal">
           <BaseButton :to="{ name: 'planes' }" variant="primary">Conoce nuestros planes</BaseButton>
           <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="outline" class="on-dark">Contáctanos</BaseButton>
         </div>
-        <h1 class="display reveal reveal-2">
+        <h1 class="display reveal reveal-1">
           Conectividad y seguridad para tu hogar y tu empresa
         </h1>
-        <p class="lead subtitle reveal reveal-3">
+        <p class="lead subtitle reveal reveal-2">
           En Cam Network Soluciones integramos internet de alta velocidad, cámaras de seguridad y sistemas de energía solar,
           con instalación y soporte técnico especializado en toda nuestra zona de cobertura.
         </p>
 
-        <div class="hero-badges reveal reveal-4">
+        <div class="hero-badges reveal reveal-3">
           <div class="badge"><Wifi :size="18" /><span>Internet</span></div>
           <a href="https://wa.me/c/98535559163990" target="_blank" rel="noopener noreferrer" class="badge badge-link"><Camera :size="18" /><span>Cámaras de Seguridad</span></a>
           <div class="badge"><Sun :size="18" /><span>Energía Solar</span></div>
@@ -72,7 +71,7 @@ const images = [
 .eyebrow-on-dark::before { background: #fff; box-shadow: none }
 .subtitle { color: rgba(255,255,255,.88); margin: 1.3rem 0 0; max-width: 52ch }
 
-.hero-actions { display: flex; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap; justify-content: center }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center }
 .hero-actions :deep(.on-dark) { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); color: #fff }
 .hero-actions :deep(.on-dark:hover) { background: rgba(255,255,255,.18); border-color: #fff; color: #fff }
 

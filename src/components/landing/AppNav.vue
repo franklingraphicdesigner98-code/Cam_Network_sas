@@ -71,6 +71,7 @@ const { t } = useI18n();
 const route = useRoute();
 
 const menu = computed(() => [
+  { label: t('nav.inicio'), to: '/' },
   {
     label: t('nav.empresa'),
     children: [

@@ -20,7 +20,6 @@ export default {
     linksTitle: 'Links',
     legalTitle: 'Legal',
     contactTitle: 'Contact',
-    webmail: 'Webmail',
     politicaDatos: 'Personal Data Policy',
     avisoPrivacidad: 'Privacy Notice',
     terminos: 'Terms & Conditions',

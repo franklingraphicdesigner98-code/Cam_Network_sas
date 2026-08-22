@@ -45,8 +45,6 @@
         <a href="tel:+573112280533">311 228 0533</a>
         <a href="tel:+573104697936">310 469 7936</a>
         <a href="mailto:comercial@camnetworksoluciones.com">comercial@camnetworksoluciones.com</a>
-        <!-- TODO: reemplazar por la URL real del webmail de Cam Network Soluciones -->
-        <a href="https://webmail.camnetworksoluciones.com" target="_blank" rel="noopener noreferrer">{{ t('footer.webmail') }}</a>
       </div>
     </div>
 

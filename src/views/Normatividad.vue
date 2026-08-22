@@ -1,7 +1,13 @@
 <template>
   <AppNav />
   <main>
-    <PageHero title="Normatividad" subtitle="Normatividad vigente aplicable a nuestros servicios de telecomunicaciones." />
+    <header class="norm-hero">
+      <NetworkBackground :fixed="false" dot-color="#ffffff" line-color="#ffffff" />
+      <div class="container norm-hero-inner">
+        <h1 class="display reveal">Normatividad</h1>
+        <p class="lead subtitle reveal reveal-1">Normatividad vigente aplicable a nuestros servicios de telecomunicaciones.</p>
+      </div>
+    </header>
 
     <section class="s">
       <div class="container">
@@ -82,7 +88,7 @@ import { computed, onBeforeUnmount, ref } from 'vue';
 import { FileText, Eye, Download, X, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
 import AppFooter from '../components/landing/AppFooter.vue';
-import PageHero from '../components/ui/PageHero.vue';
+import NetworkBackground from '../components/ui/NetworkBackground.vue';
 import { useReveal } from '../composables/useReveal.js';
 
 useReveal();
@@ -141,6 +147,20 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.norm-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 9.5rem 0 5rem;
+  background: linear-gradient(135deg, #00620f 0%, #003e0c 100%);
+  color: #fff;
+  text-align: center;
+}
+.norm-hero-inner { position: relative; z-index: 1 }
+.norm-hero .display { color: #fff; font-size: clamp(2.1rem, 4vw, 3rem) }
+.norm-hero .subtitle { color: rgba(255,255,255,.88); margin: 1rem auto 0 }
+
+@media (max-width: 720px) { .norm-hero { padding: 7.5rem 0 3.5rem } }
+
 .doc-list {
   list-style: none;
   margin: 0 auto;

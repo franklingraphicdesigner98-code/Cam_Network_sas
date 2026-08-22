@@ -88,8 +88,7 @@ const menu = computed(() => [
       { label: t('nav.preguntasFrecuentes'), to: '/usuarios/preguntas-frecuentes' },
       { label: t('nav.opiniones'), to: '/usuarios/opiniones' }
     ]
-  },
-  { label: t('nav.contacto'), to: '/contacto' }
+  }
 ]);
 
 const isScrolled = ref(false);

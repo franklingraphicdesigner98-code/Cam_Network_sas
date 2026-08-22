@@ -7,17 +7,17 @@
       </div>
 
       <div class="hero-copy">
-        <div class="hero-actions reveal">
-          <BaseButton :to="{ name: 'planes' }" variant="primary">Conoce nuestros planes</BaseButton>
-          <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="outline" class="on-dark">Contáctanos</BaseButton>
-        </div>
-        <h1 class="display reveal reveal-1">
+        <h1 class="display reveal">
           Conectividad y seguridad para tu hogar y tu empresa
         </h1>
-        <p class="lead subtitle reveal reveal-2">
+        <p class="lead subtitle reveal reveal-1">
           En Cam Network Soluciones integramos internet de alta velocidad, cámaras de seguridad y sistemas de energía solar,
           con instalación y soporte técnico especializado en toda nuestra zona de cobertura.
         </p>
+        <div class="hero-actions reveal reveal-2">
+          <BaseButton :to="{ name: 'planes' }" variant="primary">Conoce nuestros planes</BaseButton>
+          <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="outline" class="on-dark">Contáctanos</BaseButton>
+        </div>
       </div>
     </div>
   </header>
@@ -63,7 +63,7 @@ const images = [
 .eyebrow-on-dark::before { background: #fff; box-shadow: none }
 .subtitle { color: rgba(255,255,255,.88); margin: 1.3rem 0 0; max-width: 52ch }
 
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start }
+.hero-actions { display: flex; gap: 1rem; margin-top: 1.8rem; flex-wrap: wrap; justify-content: flex-start }
 .hero-actions :deep(.on-dark) { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); color: #fff }
 .hero-actions :deep(.on-dark:hover) { background: rgba(255,255,255,.18); border-color: #fff; color: #fff }
 

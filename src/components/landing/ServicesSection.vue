@@ -85,7 +85,7 @@ const servicios = [
   flex-direction: column;
   border-radius: var(--r-xl);
   overflow: hidden;
-  border: 2px solid #263420;
+  border: 2px solid var(--green-deep);
   background: #fff;
 }
 
@@ -102,7 +102,7 @@ const servicios = [
 }
 
 .card-highlight {
-  background: #3d4f2e;
+  background: var(--green-deep);
   color: rgba(255, 255, 255, .92);
   font-size: .76rem;
   font-weight: 600;
@@ -115,7 +115,7 @@ const servicios = [
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: #263420;
+  background: linear-gradient(135deg, var(--green-2), var(--green-deep));
   color: #fff;
   padding: 1.3rem 1.4rem 1.5rem;
 }

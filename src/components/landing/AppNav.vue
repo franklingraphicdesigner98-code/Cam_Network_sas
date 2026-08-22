@@ -1,5 +1,5 @@
 <template>
-  <nav :class="['nav', { scrolled: isScrolled }]">
+  <nav :class="['nav', { scrolled: isScrolled, hidden: navHidden }]">
     <div class="inner container">
       <router-link to="/" class="brand" @click="closeAll">
         <span class="badge"><img src="/img/ico.png" alt="Cam Network" /></span>
@@ -97,11 +97,25 @@ const menu = computed(() => [
 ]);
 
 const isScrolled = ref(false);
+const navHidden = ref(false);
+const lastScrollY = ref(0);
 const menuOpen = ref(false);
 const desktopOpen = ref(null);
 const mobileOpen = ref(null);
 
-const onScroll = () => { isScrolled.value = window.scrollY > 12; };
+const onScroll = () => {
+  const currentY = window.scrollY;
+  isScrolled.value = currentY > 12;
+
+  if (menuOpen.value || currentY <= 80) {
+    navHidden.value = false;
+  } else if (currentY > lastScrollY.value) {
+    navHidden.value = true; // scrolling down -> hide
+  } else {
+    navHidden.value = false; // scrolling up -> show
+  }
+  lastScrollY.value = currentY;
+};
 
 function openDesktop(label) { desktopOpen.value = label; }
 function closeDesktop() { desktopOpen.value = null; }
@@ -123,7 +137,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   position: fixed; top: 0; left: 0; right: 0; z-index: 80;
   background: #fff;
   border-bottom: 1px solid transparent;
-  transition: box-shadow .25s ease, border-color .25s ease;
+  transition: box-shadow .25s ease, border-color .25s ease, transform .3s ease;
 }
 .nav.scrolled { box-shadow: 0 4px 20px rgba(15,23,42,.08); border-color: var(--border) }
 .inner {
@@ -188,5 +202,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   .nav-links, .cta-desktop, .lang-desktop { display: none }
   .hamburger { display: flex }
   .mobile-menu { display: block }
+}
+
+@media (min-width: 861px) {
+  .nav.hidden { transform: translateY(-100%) }
 }
 </style>

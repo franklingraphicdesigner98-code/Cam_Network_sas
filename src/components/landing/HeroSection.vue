@@ -72,7 +72,7 @@ const images = [
 .eyebrow-on-dark::before { background: #fff; box-shadow: none }
 .subtitle { color: rgba(255,255,255,.88); margin: 1.3rem 0 0; max-width: 52ch }
 
-.hero-actions { display: flex; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap }
+.hero-actions { display: flex; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap; justify-content: center }
 .hero-actions :deep(.on-dark) { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); color: #fff }
 .hero-actions :deep(.on-dark:hover) { background: rgba(255,255,255,.18); border-color: #fff; color: #fff }
 
@@ -90,7 +90,7 @@ const images = [
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center }
   .hero-copy { text-align: center }
-  .hero-actions, .hero-badges { justify-content: center }
+  .hero-badges { justify-content: center }
   .subtitle { margin-left: auto; margin-right: auto }
 }
 @media (max-width: 720px) { .hero { padding: 8.5rem 0 3.5rem } }

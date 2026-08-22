@@ -18,20 +18,12 @@
           En Cam Network Soluciones integramos internet de alta velocidad, cámaras de seguridad y sistemas de energía solar,
           con instalación y soporte técnico especializado en toda nuestra zona de cobertura.
         </p>
-
-        <div class="hero-badges reveal reveal-3">
-          <div class="badge"><Wifi :size="18" /><span>Internet</span></div>
-          <a href="https://wa.me/c/98535559163990" target="_blank" rel="noopener noreferrer" class="badge badge-link"><Camera :size="18" /><span>Cámaras de Seguridad</span></a>
-          <div class="badge"><Sun :size="18" /><span>Energía Solar</span></div>
-          <div class="badge"><Tv :size="18" /><span>Servicio de TV</span></div>
-        </div>
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import { Wifi, Camera, Sun, Tv } from 'lucide-vue-next';
 import BaseButton from '../ui/BaseButton.vue';
 import ImageCarousel from '../ui/ImageCarousel.vue';
 import NetworkBackground from '../ui/NetworkBackground.vue';
@@ -75,21 +67,10 @@ const images = [
 .hero-actions :deep(.on-dark) { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); color: #fff }
 .hero-actions :deep(.on-dark:hover) { background: rgba(255,255,255,.18); border-color: #fff; color: #fff }
 
-.hero-badges { display: flex; gap: .9rem; margin-top: 2.6rem; flex-wrap: wrap }
-.hero-badges .badge {
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .6rem 1.1rem; border-radius: 999px;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-  font-size: .85rem; font-weight: 500;
-  color: #fff;
-}
-.hero-badges .badge-link { cursor: pointer; transition: background .2s ease, border-color .2s ease }
-.hero-badges .badge-link:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4) }
-
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center }
   .hero-copy { text-align: center }
-  .hero-actions, .hero-badges { justify-content: center }
+  .hero-actions { justify-content: center }
   .subtitle { margin-left: auto; margin-right: auto }
 }
 @media (max-width: 720px) { .hero { padding: 8.5rem 0 3.5rem } }

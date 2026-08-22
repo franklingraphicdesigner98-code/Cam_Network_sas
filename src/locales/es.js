@@ -7,7 +7,7 @@ export default {
     cobertura: 'Cobertura',
     planes: 'Planes',
     normatividad: 'Normatividad',
-    usuarios: 'Usuarios',
+    usuarios: 'Centro de Ayuda',
     pqrs: 'PQRS',
     testVelocidad: 'Test de Velocidad',
     preguntasFrecuentes: 'Preguntas Frecuentes',

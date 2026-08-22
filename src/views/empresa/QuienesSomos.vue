@@ -1,17 +1,19 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Empresa" title="¿Quiénes Somos?" subtitle="La historia, la misión y los valores de Cam Network Soluciones S.A.S." />
-
-    <section class="s">
-      <div class="container intro">
-        <p class="lead reveal">
+    <header class="qs-hero">
+      <NetworkBackground :fixed="false" dot-color="#ffffff" line-color="#ffffff" />
+      <div class="container qs-hero-inner">
+        <span class="eyebrow eyebrow-on-dark reveal">Empresa</span>
+        <h1 class="display reveal reveal-1">¿Quiénes Somos?</h1>
+        <p class="lead subtitle reveal reveal-2">La historia, la misión y los valores de Cam Network Soluciones S.A.S.</p>
+        <p class="qs-hero-text reveal reveal-3">
           Cam Network Soluciones S.A.S. es una empresa colombiana dedicada a brindar servicios de internet, cámaras
           de seguridad y sistemas de energía solar, comprometida con llevar tecnología confiable y accesible a los
           hogares y empresas de la región.
         </p>
       </div>
-    </section>
+    </header>
 
     <section class="s history-section">
       <div class="container history-grid">
@@ -107,7 +109,7 @@
 import { Target, Eye } from 'lucide-vue-next';
 import AppNav from '../../components/landing/AppNav.vue';
 import AppFooter from '../../components/landing/AppFooter.vue';
-import PageHero from '../../components/ui/PageHero.vue';
+import NetworkBackground from '../../components/ui/NetworkBackground.vue';
 import AnimatedCounter from '../../components/ui/AnimatedCounter.vue';
 import { useReveal } from '../../composables/useReveal.js';
 
@@ -115,8 +117,28 @@ useReveal();
 </script>
 
 <style scoped>
-.intro { max-width: 780px; margin: 0 auto; text-align: center }
-.intro .lead { margin: 0 auto; font-size: 1.15rem }
+.qs-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 9.5rem 0 5rem;
+  background: linear-gradient(135deg, #00620f 0%, #003e0c 100%);
+  color: #fff;
+  text-align: center;
+}
+.qs-hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto }
+.qs-hero .display { color: #fff; font-size: clamp(2.1rem, 4vw, 3rem); margin-top: 1.2rem }
+.qs-hero .eyebrow-on-dark { color: #fff; background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25) }
+.qs-hero .eyebrow-on-dark::before { background: #fff; box-shadow: none }
+.qs-hero .subtitle { color: rgba(255,255,255,.88); margin: 1rem auto 0 }
+.qs-hero-text {
+  margin: 1.6rem auto 0;
+  max-width: 65ch;
+  color: rgba(255,255,255,.8);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 720px) { .qs-hero { padding: 7.5rem 0 3.5rem } }
 
 .history-section { background: var(--bg-1) }
 .history-grid {

@@ -31,7 +31,6 @@
       </div>
 
       <div class="nav-right">
-        <LanguageSwitcher class="lang-desktop" />
         <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="primary" class="cta-desktop">{{ t('nav.contactanos') }}</BaseButton>
         <button class="hamburger" @click="menuOpen = !menuOpen" aria-label="Menú">
           <X v-if="menuOpen" :size="24" />
@@ -56,7 +55,6 @@
         </div>
         <router-link v-else :to="item.to" @click="closeAll">{{ item.label }}</router-link>
       </template>
-      <div class="mobile-lang"><LanguageSwitcher /></div>
       <BaseButton href="https://api.whatsapp.com/send/?phone=%2B573104697936&text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios" variant="primary" class="cta-mobile" @click="closeAll">{{ t('nav.contactanos') }}</BaseButton>
     </div>
   </nav>
@@ -67,7 +65,6 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { Menu, X, ChevronDown } from 'lucide-vue-next';
-import LanguageSwitcher from './LanguageSwitcher.vue';
 import BaseButton from '../ui/BaseButton.vue';
 
 const { t } = useI18n();
@@ -82,7 +79,6 @@ const menu = computed(() => [
     ]
   },
   { label: t('nav.cobertura'), to: '/cobertura' },
-  { label: t('nav.planes'), to: '/planes' },
   { label: t('nav.normatividad'), to: '/normatividad' },
   {
     label: t('nav.usuarios'),
@@ -195,11 +191,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 }
 .mobile-children { display: flex; flex-direction: column; background: var(--bg-1) }
 .mobile-children a { padding: .85rem 2.2rem; font-size: .92rem; color: var(--ink-dim); border-bottom: 1px solid var(--border) }
-.mobile-lang { padding: 1.2rem 1.5rem }
 .cta-mobile { margin: .5rem 1.5rem; width: calc(100% - 3rem) }
 
 @media (max-width: 860px) {
-  .nav-links, .cta-desktop, .lang-desktop { display: none }
+  .nav-links, .cta-desktop { display: none }
   .hamburger { display: flex }
   .mobile-menu { display: block }
 }

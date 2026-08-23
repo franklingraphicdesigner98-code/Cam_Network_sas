@@ -82,7 +82,6 @@ const menu = computed(() => [
     ]
   },
   { label: t('nav.cobertura'), to: '/cobertura' },
-  { label: t('nav.planes'), to: '/planes' },
   { label: t('nav.normatividad'), to: '/normatividad' },
   {
     label: t('nav.usuarios'),
@@ -92,8 +91,7 @@ const menu = computed(() => [
       { label: t('nav.preguntasFrecuentes'), to: '/usuarios/preguntas-frecuentes' },
       { label: t('nav.opiniones'), to: '/usuarios/opiniones' }
     ]
-  },
-  { label: t('nav.contacto'), to: '/contacto' }
+  }
 ]);
 
 const isScrolled = ref(false);

@@ -131,8 +131,8 @@ const servicios = [
 
 .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; flex: 1; min-width: 0 }
 .tag {
-  font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .85);
-  background: rgba(255, 255, 255, .13);
+  font-size: .72rem; font-weight: 600; color: #fff;
+  background: #0f5c2e;
   padding: .35rem .65rem; border-radius: 999px;
   white-space: nowrap;
 }

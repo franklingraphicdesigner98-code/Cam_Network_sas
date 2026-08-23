@@ -13,18 +13,15 @@
       <div class="container">
         <div class="contact-grid">
           <div class="contact-card card reveal">
-            <span class="contact-icon"><Phone :size="22" /></span>
             <h2>Teléfono</h2>
             <a href="tel:+573112280533">311 228 0533</a>
             <a href="tel:+573104697936">310 469 7936</a>
           </div>
           <div class="contact-card card reveal reveal-1">
-            <span class="contact-icon"><Mail :size="22" /></span>
             <h2>Correo</h2>
             <a href="mailto:comercial@camnetworksoluciones.com">comercial@camnetworksoluciones.com</a>
           </div>
           <div class="contact-card card reveal reveal-2">
-            <span class="contact-icon"><MapPin :size="22" /></span>
             <h2>Ubicación</h2>
             <p>San Gil, Santander, Colombia</p>
             <a href="https://maps.app.goo.gl/57C54zkmF7vUMev89" target="_blank" rel="noopener noreferrer">Ver en Google Maps ↗</a>
@@ -50,7 +47,6 @@
 </template>
 
 <script setup>
-import { Phone, Mail, MapPin } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
 import AppFooter from '../components/landing/AppFooter.vue';
 import NetworkBackground from '../components/ui/NetworkBackground.vue';
@@ -88,13 +84,7 @@ useReveal();
   align-items: center;
   gap: .3rem;
 }
-.contact-icon {
-  display: grid; place-items: center;
-  width: 52px; height: 52px; border-radius: 14px; color: #fff;
-  background: linear-gradient(135deg, var(--green-2), var(--green-deep));
-  margin-bottom: .8rem;
-}
-.contact-card h2 { margin: 0 0 .4rem; font-size: 1.05rem; font-weight: 800; color: var(--ink) }
+.contact-card h2 { margin: 0 0 .6rem; font-size: 1.5rem; font-weight: 800; color: var(--ink) }
 .contact-card a { color: var(--ink-dim); font-size: .92rem; transition: color .2s ease }
 .contact-card a:hover { color: var(--green-deep) }
 .contact-card p { margin: 0; color: var(--ink-dim); font-size: .92rem }

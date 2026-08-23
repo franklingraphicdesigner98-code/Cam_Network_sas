@@ -17,7 +17,6 @@
           <div class="card-body">
             <div class="card-row">
               <h3>{{ service.title }}</h3>
-              <span class="card-icon"><component :is="service.icon" :size="18" /></span>
             </div>
             <div class="card-row card-row-bottom">
               <div class="card-tags">
@@ -33,12 +32,11 @@
 </template>
 
 <script setup>
-import { Wifi, Camera, Sun, Tv, ArrowUpRight } from 'lucide-vue-next';
+import { ArrowUpRight } from 'lucide-vue-next';
 
 const servicios = [
   {
     title: 'Internet',
-    icon: Wifi,
     image: '/img/instalacion-fibra-optica.jpeg',
     highlight: 'Instalación incluida este mes',
     tags: ['Fibra Óptica', 'Wifi 6', 'Alta velocidad'],
@@ -46,7 +44,6 @@ const servicios = [
   },
   {
     title: 'Cámaras de Seguridad',
-    icon: Camera,
     image: '/img/instalacion-antena-02.jpeg',
     highlight: 'Monitoreo las 24 horas',
     tags: ['HD', 'Grabación en la nube', 'Acceso remoto'],
@@ -54,7 +51,6 @@ const servicios = [
   },
   {
     title: 'Sistema Solar',
-    icon: Sun,
     image: '/img/instalacion-solar-aerea.jpeg',
     highlight: 'Ahorra en tu factura de luz',
     tags: ['Paneles Solares', 'Energía Limpia', 'Instalación'],
@@ -62,7 +58,6 @@ const servicios = [
   },
   {
     title: 'Servicio de TV',
-    icon: Tv,
     image: '/img/torre-telecomunicaciones-01.jpeg',
     highlight: 'Más de 80 canales en vivo',
     tags: ['HD', 'Variedad de canales', 'Streaming'],
@@ -122,12 +117,7 @@ const servicios = [
 .card-row { display: flex; align-items: flex-start; justify-content: center; gap: .6rem }
 .card-row-bottom { flex-direction: column; align-items: stretch; gap: .7rem }
 
-.card-body h3 { min-width: 0; margin: 0; font-size: 1.12rem; font-weight: 800; line-height: 1.25; text-align: center }
-.card-icon {
-  display: grid; place-items: center; flex: none;
-  width: 34px; height: 34px; border-radius: 999px;
-  background: rgba(255, 255, 255, .14); color: #fff;
-}
+.card-body h3 { min-width: 0; margin: 0; font-size: 1.4rem; font-weight: 800; line-height: 1.2; text-align: center }
 
 .card-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; flex: 1; min-width: 0 }
 .tag {

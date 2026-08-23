@@ -16,7 +16,8 @@
     </svg>
 
     <div class="hub">
-      <img src="/img/Icono-01.svg" alt="Cam Network" class="hub-logo" />
+      <img src="/img/ico.png" alt="" class="hub-logo" />
+      <span class="hub-text">CAM<br />NETWORK</span>
     </div>
 
     <div
@@ -67,10 +68,14 @@ const nodes = townNames.map((name, i) => {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: clamp(84px, 20%, 118px); aspect-ratio: 1/1; border-radius: 50%;
   background: #fff; box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; justify-content: center;
-  padding: .9rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .25rem;
+  padding: .5rem;
 }
-.hub-logo { width: 100%; height: 100%; object-fit: contain }
+.hub-logo { width: 30%; height: auto }
+.hub-text {
+  font-size: clamp(.55rem, 1.6vw, .72rem); font-weight: 800; line-height: 1.15;
+  color: var(--green-deep); text-align: center; letter-spacing: .02em;
+}
 
 .node {
   position: absolute; transform: translate(-50%, -50%);

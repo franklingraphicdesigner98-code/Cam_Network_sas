@@ -139,7 +139,7 @@ const servicios = [
 
 .card-cta {
   display: inline-flex; align-items: center; gap: .3rem;
-  align-self: flex-end;
+  align-self: center;
   font-size: .82rem; font-weight: 700; color: #fff;
   white-space: nowrap;
 }

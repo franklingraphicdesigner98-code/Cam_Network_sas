@@ -119,10 +119,10 @@ const servicios = [
   color: #fff;
   padding: 1.3rem 1.4rem 1.5rem;
 }
-.card-row { display: flex; align-items: center; justify-content: center; gap: .6rem }
+.card-row { display: flex; align-items: flex-start; justify-content: center; gap: .6rem }
 .card-row-bottom { flex-direction: column; align-items: stretch; gap: .7rem }
 
-.card-body h3 { margin: 0; font-size: 1.12rem; font-weight: 800; line-height: 1.25; text-align: center }
+.card-body h3 { min-width: 0; margin: 0; font-size: 1.12rem; font-weight: 800; line-height: 1.25; text-align: center }
 .card-icon {
   display: grid; place-items: center; flex: none;
   width: 34px; height: 34px; border-radius: 999px;

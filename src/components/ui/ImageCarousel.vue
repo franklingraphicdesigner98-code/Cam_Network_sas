@@ -84,7 +84,7 @@ onBeforeUnmount(pause);
 .carousel-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3.3;
+  aspect-ratio: 3 / 2;
 }
 .carousel-img {
   position: absolute;

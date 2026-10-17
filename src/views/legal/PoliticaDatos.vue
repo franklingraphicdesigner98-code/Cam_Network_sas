@@ -1,26 +1,16 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Legal" title="Política de Tratamiento de Datos Personales" subtitle="Ley 1581 de 2012 y Decreto 1377 de 2013" />
+    <PageHero :eyebrow="t('pages.legalEyebrow')" :title="t('legal.datos.title')" :subtitle="t('legal.datos.subtitle')" />
     <section class="s">
       <div class="container legal-doc reveal">
-        <!-- TODO: contenido genérico de placeholder — reemplazar por el texto legal definitivo revisado por Cam Network Soluciones S.A.S. -->
-        <p class="updated">Última actualización: pendiente de definir</p>
+        <!-- TODO: contenido genérico de placeholder — reemplazar por el texto legal definitivo revisado por Cam Network Soluciones S.A.S. (en src/locales/es.js y en.js) -->
+        <p class="updated">{{ t('legal.updated') }}</p>
 
-        <h2>1. Responsable del tratamiento</h2>
-        <p>Cam Network Soluciones S.A.S., identificada con NIT [pendiente], con domicilio en Colombia, es responsable del tratamiento de los datos personales que sus usuarios y clientes suministran a través de este sitio web y de los demás canales de atención.</p>
-
-        <h2>2. Finalidad del tratamiento</h2>
-        <p>Los datos personales recolectados serán utilizados para la gestión comercial y contractual de los servicios de internet, cámaras de seguridad y sistemas de energía solar, la atención de solicitudes, peticiones, quejas y reclamos (PQRS), el envío de información sobre productos y servicios, y el cumplimiento de obligaciones legales y regulatorias.</p>
-
-        <h2>3. Derechos del titular</h2>
-        <p>De acuerdo con la Ley 1581 de 2012, el titular de los datos tiene derecho a conocer, actualizar, rectificar y suprimir su información personal, así como a revocar la autorización otorgada para su tratamiento, salvo las excepciones previstas por la ley.</p>
-
-        <h2>4. Procedimiento para ejercer sus derechos</h2>
-        <p>El titular podrá ejercer sus derechos a través del canal de PQRS disponible en este sitio web o mediante los datos de contacto que se encuentran en el pie de página.</p>
-
-        <h2>5. Vigencia</h2>
-        <p>La presente política rige a partir de su publicación y permanecerá vigente mientras se mantenga el tratamiento de los datos personales conforme a las finalidades aquí descritas.</p>
+        <template v-for="(section, i) in tm('legal.datos.sections')" :key="i">
+          <h2>{{ rt(section.title) }}</h2>
+          <p>{{ rt(section.body) }}</p>
+        </template>
       </div>
     </section>
   </main>
@@ -28,11 +18,13 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n';
 import AppNav from '../../components/landing/AppNav.vue';
 import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import { useReveal } from '../../composables/useReveal.js';
 
+const { t, tm, rt } = useI18n();
 useReveal();
 </script>
 

@@ -1,31 +1,41 @@
 :root {
+  /* Fondos claros con un leve tinte verde */
   --bg-0: #ffffff;
-  --bg-1: #f8fafc;
-  --bg-2: #f1f5f9;
+  --bg-1: #f4f8f5;
+  --bg-2: #eaf2ec;
 
-  --ink: #0f172a;
-  --ink-dim: #475569;
-  --ink-mute: #94a3b8;
+  --ink: #0e1a13;
+  --ink-dim: #4a5a51;
+  --ink-mute: #8b9a91;
 
+  /* Verde — color dominante de la marca */
   --green: #16a34a;
   --green-2: #22c55e;
+  --green-3: #4ade80;
   --green-deep: #15803d;
+  --green-soft: #ecf8f0;
   --green-glow: rgba(22, 163, 74, .35);
 
+  /* Verde bosque — bloques oscuros (tarjeta de seguridad, footer) */
+  --forest: #0a2a17;
+  --forest-2: #0f3d22;
+
+  /* Azul — acento secundario puntual */
   --blue: #2563eb;
   --blue-2: #3b82f6;
   --blue-glow: rgba(37, 99, 235, .3);
 
-  --border: #e2e8f0;
-  --shadow: 0 12px 32px rgba(15, 23, 42, .08);
-  --shadow-lg: 0 24px 60px rgba(15, 23, 42, .12);
+  --border: #e2ebe5;
+  --shadow: 0 10px 30px rgba(14, 58, 32, .07);
+  --shadow-lg: 0 22px 54px rgba(14, 58, 32, .12);
 
   --r-sm: 10px;
   --r-md: 16px;
-  --r-lg: 20px;
-  --r-xl: 28px;
+  --r-lg: 22px;
+  --r-xl: 30px;
 
   --f-body: "Inter", system-ui, sans-serif;
 
   --container: 1240px;
+  --nav-h: 84px;
 }

@@ -21,11 +21,11 @@ const { t } = useI18n();
 .coming-soon {
   max-width: 520px; margin: 0 auto; text-align: center;
   padding: 3rem 2rem;
-  background: var(--bg-1);
+  background: #fff;
   border: 1px dashed var(--border);
   border-radius: var(--r-lg);
 }
-.coming-soon .icon { margin: 0 auto 1rem; color: var(--blue) }
+.coming-soon .icon { margin: 0 auto 1rem; color: var(--green) }
 .coming-soon h2 { font-size: 1.4rem; font-weight: 700; margin: 0 0 .6rem; color: var(--ink) }
 .coming-soon .lead { margin: 0 auto }
 </style>

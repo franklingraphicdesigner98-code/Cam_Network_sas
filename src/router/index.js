@@ -1,133 +1,102 @@
 import Home from '../views/Home.vue'
 
-const SITE = 'Cam Network Soluciones S.A.S.'
-
+// meta.i18n apunta a la clave en src/locales/*.js → meta.<clave>.title / .description
 export const routes = [
   {
     path: '/',
     name: 'home',
     component: Home,
-    meta: {
-      title: `${SITE} | Internet, Cámaras de Seguridad y Energía Solar`,
-      description: 'Servicio de internet, cámaras de seguridad y sistemas de energía solar para hogares y empresas en Colombia.'
-    }
+    meta: { i18n: 'home', siteFirst: true }
   },
   {
     path: '/empresa/quienes-somos',
     name: 'quienes-somos',
     component: () => import('../views/empresa/QuienesSomos.vue'),
-    meta: {
-      title: `Quiénes Somos | ${SITE}`,
-      description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'quienesSomos' }
   },
   {
     path: '/empresa/nuestro-equipo',
     name: 'nuestro-equipo',
     component: () => import('../views/empresa/NuestroEquipo.vue'),
-    meta: {
-      title: `Nuestro Equipo | ${SITE}`,
-      description: 'Conoce al equipo de profesionales detrás de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'nuestroEquipo' }
   },
   {
     path: '/cobertura',
     name: 'cobertura',
     component: () => import('../views/Cobertura.vue'),
-    meta: {
-      title: `Cobertura | ${SITE}`,
-      description: 'Consulta las zonas de cobertura de nuestro servicio de internet, cámaras de seguridad y energía solar.'
-    }
+    meta: { i18n: 'cobertura' }
   },
   {
     path: '/planes',
     name: 'planes',
     component: () => import('../views/Planes.vue'),
-    meta: {
-      title: `Planes | ${SITE}`,
-      description: 'Planes de internet hogar y empresarial con la mejor velocidad y cobertura.'
-    }
+    meta: { i18n: 'planes' }
   },
   {
     path: '/normatividad',
     name: 'normatividad',
     component: () => import('../views/Normatividad.vue'),
-    meta: {
-      title: `Normatividad | ${SITE}`,
-      description: 'Normatividad vigente aplicable a los servicios de telecomunicaciones de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'normatividad' }
   },
   {
     path: '/usuarios/pqrs',
     name: 'pqrs',
     component: () => import('../views/usuarios/PQRS.vue'),
-    meta: {
-      title: `PQRS | ${SITE}`,
-      description: 'Radica tus peticiones, quejas, reclamos y sugerencias con Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'pqrs' }
   },
   {
     path: '/usuarios/test-velocidad',
     name: 'test-velocidad',
     component: () => import('../views/usuarios/TestVelocidad.vue'),
-    meta: {
-      title: `Test de Velocidad | ${SITE}`,
-      description: 'Mide la velocidad de tu conexión a internet con Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'testVelocidad' }
   },
   {
     path: '/usuarios/preguntas-frecuentes',
     name: 'preguntas-frecuentes',
     component: () => import('../views/usuarios/PreguntasFrecuentes.vue'),
-    meta: {
-      title: `Preguntas Frecuentes | ${SITE}`,
-      description: 'Respuestas a las preguntas más frecuentes sobre nuestros servicios de internet, cámaras y energía solar.'
-    }
+    meta: { i18n: 'preguntasFrecuentes' }
   },
   {
     path: '/usuarios/opiniones',
     name: 'opiniones',
     component: () => import('../views/usuarios/OpinionesUsuarios.vue'),
-    meta: {
-      title: `Opiniones de Usuarios | ${SITE}`,
-      description: 'Conoce la experiencia de nuestros usuarios con los servicios de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'opiniones' }
+  },
+  {
+    path: '/pago-en-linea',
+    name: 'pago-en-linea',
+    component: () => import('../views/PagoEnLinea.vue'),
+    meta: { i18n: 'pagoEnLinea' }
+  },
+  {
+    path: '/nuestras-oficinas',
+    name: 'nuestras-oficinas',
+    component: () => import('../views/NuestrasOficinas.vue'),
+    meta: { i18n: 'oficinas' }
   },
   {
     path: '/contacto',
     name: 'contacto',
     component: () => import('../views/Contacto.vue'),
-    meta: {
-      title: `Contacto | ${SITE}`,
-      description: 'Contáctanos y cotiza tu servicio de internet, cámaras de seguridad o energía solar.'
-    }
+    meta: { i18n: 'contacto' }
   },
   {
     path: '/legal/politica-tratamiento-datos',
     name: 'politica-tratamiento-datos',
     component: () => import('../views/legal/PoliticaDatos.vue'),
-    meta: {
-      title: `Política de Tratamiento de Datos Personales | ${SITE}`,
-      description: 'Política de tratamiento de datos personales de Cam Network Soluciones S.A.S., conforme a la Ley 1581 de 2012.'
-    }
+    meta: { i18n: 'politicaDatos' }
   },
   {
     path: '/legal/aviso-privacidad',
     name: 'aviso-privacidad',
     component: () => import('../views/legal/AvisoPrivacidad.vue'),
-    meta: {
-      title: `Aviso de Privacidad | ${SITE}`,
-      description: 'Aviso de privacidad de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'avisoPrivacidad' }
   },
   {
     path: '/legal/terminos-condiciones',
     name: 'terminos-condiciones',
     component: () => import('../views/legal/TerminosCondiciones.vue'),
-    meta: {
-      title: `Términos y Condiciones | ${SITE}`,
-      description: 'Términos y condiciones de uso del sitio web y los servicios de Cam Network Soluciones S.A.S.'
-    }
+    meta: { i18n: 'terminos' }
   }
 ]
 

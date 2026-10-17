@@ -1,7 +1,8 @@
 <template>
   <header class="page-hero">
-    <div class="container">
-      <span v-if="eyebrow" class="eyebrow eyebrow-on-dark reveal">{{ eyebrow }}</span>
+    <div class="grid-bg" aria-hidden="true" />
+    <div class="container inner">
+      <span v-if="eyebrow" class="eyebrow reveal">{{ eyebrow }}</span>
       <h1 class="display reveal reveal-1">{{ title }}</h1>
       <p v-if="subtitle" class="lead subtitle reveal reveal-2">{{ subtitle }}</p>
     </div>
@@ -18,19 +19,27 @@ defineProps({
 
 <style scoped>
 .page-hero {
-  padding: 9rem 0 4rem;
-  background: linear-gradient(135deg, var(--green-deep) 0%, var(--green) 55%, var(--blue) 130%);
-  color: #fff;
+  position: relative; overflow: hidden;
+  padding: calc(var(--nav-h) + 4rem) 0 3.5rem;
   text-align: center;
+  background:
+    radial-gradient(55% 90% at 50% 0%, rgba(74,222,128,.22) 0%, rgba(74,222,128,0) 70%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-1) 100%);
 }
-.page-hero .display { color: #fff; font-size: clamp(2.1rem, 4vw, 3rem) }
-.eyebrow-on-dark {
-  color: #fff;
-  background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.25);
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(22,163,74,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22,163,74,.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(60% 90% at 50% 10%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(60% 90% at 50% 10%, #000 0%, transparent 75%);
 }
-.eyebrow-on-dark::before { background: #fff; box-shadow: none }
-.subtitle { color: rgba(255,255,255,.88); margin: 1rem auto 0 }
+.inner { position: relative }
+.page-hero .display { font-size: clamp(2.1rem, 4vw, 3.1rem); margin-top: 1.1rem }
+.page-hero .eyebrow + .display { margin-top: 1.1rem }
+.page-hero .display:first-child { margin-top: 0 }
+.subtitle { margin: 1rem auto 0 }
 
-@media (max-width: 720px) { .page-hero { padding: 7.5rem 0 3rem } }
+@media (max-width: 720px) { .page-hero { padding: calc(var(--nav-h) + 2.5rem) 0 2.5rem } }
 </style>

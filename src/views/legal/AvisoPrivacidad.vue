@@ -1,23 +1,23 @@
 <template>
   <AppNav />
   <main>
-    <PageHero eyebrow="Legal" title="Aviso de Privacidad" />
+    <PageHero :eyebrow="t('pages.legalEyebrow')" :title="t('legal.aviso.title')" />
     <section class="s">
       <div class="container legal-doc reveal">
-        <!-- TODO: contenido genérico de placeholder — reemplazar por el texto legal definitivo revisado por Cam Network Soluciones S.A.S. -->
-        <p class="updated">Última actualización: pendiente de definir</p>
+        <!-- TODO: contenido genérico de placeholder — reemplazar por el texto legal definitivo revisado por Cam Network Soluciones S.A.S. (en src/locales/es.js y en.js) -->
+        <p class="updated">{{ t('legal.updated') }}</p>
 
-        <h2>1. Identificación del responsable</h2>
-        <p>Cam Network Soluciones S.A.S. informa a los usuarios de este sitio web que los datos personales suministrados serán tratados conforme a la normatividad colombiana vigente sobre protección de datos personales.</p>
+        <template v-for="(section, i) in tm('legal.aviso.sections')" :key="i">
+          <h2>{{ rt(section.title) }}</h2>
+          <p>{{ rt(section.body) }}</p>
+        </template>
 
-        <h2>2. Datos recolectados</h2>
-        <p>A través de los formularios de este sitio (contacto, PQRS, cotización de servicios) se podrán recolectar datos como nombre, correo electrónico, número de teléfono, dirección y tipo de servicio de interés.</p>
-
-        <h2>3. Tratamiento y transferencia</h2>
-        <p>Los datos personales no serán compartidos con terceros, salvo obligación legal o autorización expresa del titular, y serán almacenados con medidas de seguridad razonables para evitar su alteración, pérdida o acceso no autorizado.</p>
-
-        <h2>4. Consulta de la Política de Tratamiento de Datos</h2>
-        <p>Para conocer el detalle de las finalidades, derechos y procedimientos de tratamiento de datos personales, consulte nuestra <router-link to="/legal/politica-tratamiento-datos">Política de Tratamiento de Datos Personales</router-link>.</p>
+        <h2>{{ t('legal.aviso.policyTitle') }}</h2>
+        <i18n-t keypath="legal.aviso.policyBody" tag="p">
+          <template #link>
+            <router-link to="/legal/politica-tratamiento-datos">{{ t('legal.aviso.policyLink') }}</router-link>
+          </template>
+        </i18n-t>
       </div>
     </section>
   </main>
@@ -25,11 +25,13 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n';
 import AppNav from '../../components/landing/AppNav.vue';
 import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import { useReveal } from '../../composables/useReveal.js';
 
+const { t, tm, rt } = useI18n();
 useReveal();
 </script>
 

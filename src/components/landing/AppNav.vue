@@ -1,10 +1,9 @@
 <template>
-  <nav :class="['nav', { scrolled: isScrolled }]">
+  <nav :class="['nav', { scrolled: isScrolled || menuOpen }]">
     <div class="inner container">
       <router-link to="/" class="brand" @click="closeAll">
-        <span class="badge"><img src="/img/ico.png" alt="Cam Network" /></span>
-        <span class="b1">Cam Network</span>
-        <span class="b2"> Soluciones</span>
+        <img src="/img/logotipo-horizontal.png" alt="Cam Network Soluciones S.A.S." class="logo" width="352" height="132" />
+
       </router-link>
 
       <div class="nav-links">
@@ -12,29 +11,32 @@
           <div v-if="item.children" class="dropdown" @mouseenter="openDesktop(item.label)" @mouseleave="closeDesktop">
             <button
               class="nav-link has-children"
-              :class="{ open: desktopOpen === item.label }"
+              :class="{ open: desktopOpen === item.label, active: isGroupActive(item) }"
+              :aria-expanded="desktopOpen === item.label"
               @click="toggleDesktop(item.label)"
             >
               {{ item.label }}
               <ChevronDown :size="15" class="chev" :class="{ rotated: desktopOpen === item.label }" />
             </button>
-            <div v-show="desktopOpen === item.label" class="dropdown-menu">
-              <router-link
-                v-for="child in item.children" :key="child.to"
-                :to="child.to" class="dropdown-item" @click="closeAll"
-              >
-                {{ child.label }}
-              </router-link>
-            </div>
+            <transition name="drop">
+              <div v-show="desktopOpen === item.label" class="dropdown-menu">
+                <router-link
+                  v-for="child in item.children" :key="child.to"
+                  :to="child.to" class="dropdown-item" @click="closeAll"
+                >
+                  {{ child.label }}
+                </router-link>
+              </div>
+            </transition>
           </div>
-          <router-link v-else :to="item.to" class="nav-link">{{ item.label }}</router-link>
+          <router-link v-else :to="item.to" class="nav-link" exact-active-class="active">{{ item.label }}</router-link>
         </template>
       </div>
 
       <div class="nav-right">
         <LanguageSwitcher class="lang-desktop" />
-        <BaseButton :to="{ name: 'contacto' }" variant="primary" class="cta-desktop">{{ t('nav.contactanos') }}</BaseButton>
-        <button class="hamburger" @click="menuOpen = !menuOpen" aria-label="Menú">
+        <BaseButton :to="{ name: 'contacto' }" variant="primary" class="btn-sm cta-desktop">{{ t('nav.contacto') }}</BaseButton>
+        <button class="hamburger" @click="menuOpen = !menuOpen" :aria-label="t('nav.menu')" :aria-expanded="menuOpen">
           <X v-if="menuOpen" :size="24" />
           <Menu v-else :size="24" />
         </button>
@@ -75,6 +77,7 @@ const { t } = useI18n();
 const route = useRoute();
 
 const menu = computed(() => [
+  { label: t('nav.inicio'), to: '/' },
   {
     label: t('nav.empresa'),
     children: [
@@ -93,8 +96,7 @@ const menu = computed(() => [
       { label: t('nav.preguntasFrecuentes'), to: '/usuarios/preguntas-frecuentes' },
       { label: t('nav.opiniones'), to: '/usuarios/opiniones' }
     ]
-  },
-  { label: t('nav.contacto'), to: '/contacto' }
+  }
 ]);
 
 const isScrolled = ref(false);
@@ -104,6 +106,7 @@ const mobileOpen = ref(null);
 
 const onScroll = () => { isScrolled.value = window.scrollY > 12; };
 
+function isGroupActive(item) { return item.children.some((c) => route.path === c.to); }
 function openDesktop(label) { desktopOpen.value = label; }
 function closeDesktop() { desktopOpen.value = null; }
 function toggleDesktop(label) { desktopOpen.value = desktopOpen.value === label ? null : label; }
@@ -126,48 +129,59 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   border-bottom: 1px solid transparent;
   transition: box-shadow .25s ease, border-color .25s ease;
 }
-.nav.scrolled { box-shadow: 0 4px 20px rgba(15,23,42,.08); border-color: var(--border) }
+.nav.scrolled { box-shadow: 0 6px 24px rgba(14,58,32,.07); border-color: var(--border) }
 .inner {
   display: flex; align-items: center; justify-content: space-between;
-  height: 76px; gap: 1.5rem;
+  height: var(--nav-h); gap: 1.5rem;
 }
-.brand { display: flex; align-items: center; gap: .55rem; font-weight: 700; font-size: 1.05rem; white-space: nowrap }
-.brand .badge {
-  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; overflow: hidden;
-}
-.brand .badge img { width: 100%; height: 100%; object-fit: contain }
-.brand .b1 { color: var(--green-deep) }
-.brand .b2 { color: var(--ink) }
+.brand { display: flex; align-items: center; flex: none }
+.brand .logo { height: 58px; width: auto }
 
-.nav-links { display: flex; align-items: center; gap: .4rem; flex: 1; justify-content: center }
+.nav-links { display: flex; align-items: center; gap: .25rem; flex: 1; justify-content: center }
 .nav-link {
-  padding: .6rem .85rem; border-radius: 8px;
-  font-size: .92rem; font-weight: 500; color: var(--ink-dim);
+  position: relative;
+  padding: .6rem .8rem;
+  font-size: .9rem; font-weight: 500; color: var(--ink);
   display: inline-flex; align-items: center; gap: .3rem;
-  transition: color .2s ease, background .2s ease;
+  transition: color .2s ease;
 }
-.nav-link:hover, .nav-link.router-link-active { color: var(--green-deep); background: var(--bg-1) }
+.nav-link::after {
+  content: ""; position: absolute; left: .8rem; right: .8rem; bottom: .1rem; height: 2.5px;
+  border-radius: 2px; background: var(--green);
+  transform: scaleX(0); transition: transform .25s ease;
+}
+.nav-link:hover, .nav-link.open { color: var(--green-deep) }
+.nav-link.active { color: var(--green-deep); font-weight: 600 }
+.nav-link.active::after { transform: scaleX(1) }
+.has-children.active::after { right: 1.9rem }
 .chev { transition: transform .2s ease }
 .chev.rotated { transform: rotate(180deg) }
 
 .dropdown { position: relative }
+/* puente invisible para que el hover no se pierda entre botón y menú */
+.dropdown::before { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px }
 .dropdown-menu {
-  position: absolute; top: calc(100% + 6px); left: 0; min-width: 230px;
+  position: absolute; top: calc(100% + 12px); left: 0; min-width: 220px;
   background: #fff; border: 1px solid var(--border); border-radius: var(--r-md);
-  box-shadow: var(--shadow-lg); padding: .5rem; display: flex; flex-direction: column; gap: .15rem;
+  box-shadow: var(--shadow-lg); padding: .55rem; display: flex; flex-direction: column; gap: .1rem;
 }
 .dropdown-item {
-  padding: .65rem .8rem; border-radius: 8px; font-size: .9rem; color: var(--ink-dim);
+  padding: .6rem .85rem; border-radius: 10px; font-size: .88rem; color: var(--ink);
   transition: background .2s ease, color .2s ease;
 }
-.dropdown-item:hover { background: var(--bg-1); color: var(--green-deep) }
+.dropdown-item:hover, .dropdown-item.router-link-exact-active { background: var(--green-soft); color: var(--green-deep) }
+.drop-enter-active, .drop-leave-active { transition: opacity .18s ease, transform .18s ease }
+.drop-enter-from, .drop-leave-to { opacity: 0; transform: translateY(-6px) }
 
-.nav-right { display: flex; align-items: center; gap: 1.1rem }
+.nav-right { display: flex; align-items: center; gap: 1rem }
 .hamburger { display: none; color: var(--ink) }
 
 .mobile-menu {
   display: none;
-  position: fixed; top: 76px; left: 0; right: 0; bottom: 0;
+  /* justo debajo de la barra, ocupando el resto de la pantalla */
+  position: absolute; top: 100%; left: 0; right: 0;
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
   background: #fff; overflow-y: auto;
   padding: .5rem 0 2rem;
   border-top: 1px solid var(--border);
@@ -177,12 +191,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   width: 100%; padding: 1rem 1.5rem; font-size: 1rem; font-weight: 500; color: var(--ink);
   border-bottom: 1px solid var(--bg-2);
 }
+.mobile-menu > a.router-link-exact-active { color: var(--green-deep); font-weight: 600 }
 .mobile-children { display: flex; flex-direction: column; background: var(--bg-1) }
 .mobile-children a { padding: .85rem 2.2rem; font-size: .92rem; color: var(--ink-dim); border-bottom: 1px solid var(--border) }
 .mobile-lang { padding: 1.2rem 1.5rem }
 .cta-mobile { margin: .5rem 1.5rem; width: calc(100% - 3rem) }
 
-@media (max-width: 860px) {
+@media (max-width: 480px) {
+  .brand .logo { height: 42px }
+}
+@media (max-width: 960px) {
   .nav-links, .cta-desktop, .lang-desktop { display: none }
   .hamburger { display: flex }
   .mobile-menu { display: block }

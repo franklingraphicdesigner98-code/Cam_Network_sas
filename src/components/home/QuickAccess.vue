@@ -26,7 +26,7 @@ const { t } = useI18n();
 
 const items = [
   { key: 'speed', icon: Gauge, to: { name: 'test-velocidad' } },
-  { key: 'pay', icon: CreditCard, to: { name: 'pago-en-linea' }, brand: 'Wompi' },
+  { key: 'pay', icon: CreditCard, to: { name: 'pago-en-linea' }, brand: 'ePayco · Efecty' },
   { key: 'office', icon: Building2, to: { name: 'nuestras-oficinas' } }
 ];
 </script>

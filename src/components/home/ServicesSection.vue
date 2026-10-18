@@ -6,15 +6,17 @@
         <p class="section-sub">{{ t('home.services.sub') }}</p>
 
         <div class="service-list">
-          <div v-for="s in services" :key="s.key" class="service card">
+          <!-- Toda la tarjeta es clickeable: lleva a la página del servicio -->
+          <router-link v-for="s in services" :key="s.key" :to="s.to" class="service card">
             <IconTile :icon="s.icon" :size="58" />
             <div class="service-body">
               <h3>{{ t(`home.services.items.${s.key}`) }}</h3>
-              <router-link :to="{ name: 'contacto', query: { servicio: s.key } }" class="pill-link">
-                {{ t('home.services.info') }} <ChevronRight :size="14" />
-              </router-link>
+              <p>{{ t(`home.services.desc.${s.key}`) }}</p>
+              <span class="pill-link">
+                {{ t(s.to.name === 'contacto' ? 'home.services.info' : 'home.services.more') }} <ChevronRight :size="14" />
+              </span>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
 
@@ -48,10 +50,11 @@ import IconTile from '../ui/IconTile.vue';
 const { t, tm, rt } = useI18n();
 
 const services = [
-  { key: 'internet', icon: Wifi },
-  { key: 'solar', icon: SolarPanel },
-  { key: 'camaras', icon: Cctv },
-  { key: 'instalacion', icon: Wrench }
+  { key: 'internet', icon: Wifi, to: { name: 'servicio-internet' } },
+  { key: 'solar', icon: SolarPanel, to: { name: 'servicio-solar' } },
+  { key: 'camaras', icon: Cctv, to: { name: 'servicio-camaras' } },
+  // sin página propia: lleva al formulario con el servicio preseleccionado
+  { key: 'instalacion', icon: Wrench, to: { name: 'contacto', query: { servicio: 'instalacion' } } }
 ];
 
 const showMore = ref(false);
@@ -78,8 +81,13 @@ const tips = computed(() => [
   padding: 1.15rem; border-radius: var(--r-md);
   background: linear-gradient(180deg, #fff 0%, #f8fbf9 100%);
 }
-.service-body { display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; min-width: 0 }
+.service-body { display: flex; flex-direction: column; align-items: flex-start; gap: .45rem; min-width: 0 }
 .service h3 { margin: 0; font-size: .98rem; font-weight: 700; line-height: 1.25; color: var(--ink) }
+.service p { margin: 0; font-size: .82rem; line-height: 1.45; color: var(--ink-dim) }
+.service .pill-link { margin-top: .25rem }
+.service:hover .pill-link { border-color: rgba(22,163,74,.4); background: var(--green-soft) }
+/* la quinta tarjeta ocupa las dos columnas */
+.service:last-child:nth-child(odd) { grid-column: 1 / -1 }
 
 /* ---------- Seguridad eléctrica ---------- */
 .safety {

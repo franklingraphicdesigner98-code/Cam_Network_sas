@@ -57,8 +57,8 @@ import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { Mail, MessageCircleMore, Phone, User, PenLine, MessageSquare, ChevronDown, Send } from 'lucide-vue-next';
 import IconTile from '../ui/IconTile.vue';
+import { whatsappLink } from '../../data/contacto.js';
 
-const WHATSAPP_NUMBER = '573112280533';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -83,7 +83,7 @@ function send() {
     '',
     form.message
   ].filter((l) => l !== null);
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+  const url = whatsappLink('asesorias', lines.join('\n'));
   window.open(url, '_blank', 'noopener');
 }
 </script>

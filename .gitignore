@@ -26,3 +26,6 @@ dist-ssr
 
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
+
+# Archivos originales pesados (no se publican; el sitio usa versiones comprimidas)
+recursos-originales/

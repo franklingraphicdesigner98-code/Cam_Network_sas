@@ -21,6 +21,24 @@ export const routes = [
     meta: { i18n: 'nuestroEquipo' }
   },
   {
+    path: '/servicios/internet',
+    name: 'servicio-internet',
+    component: () => import('../views/servicios/ServicioInternet.vue'),
+    meta: { i18n: 'servicioInternet' }
+  },
+  {
+    path: '/servicios/energia-solar',
+    name: 'servicio-solar',
+    component: () => import('../views/servicios/ServicioSolar.vue'),
+    meta: { i18n: 'servicioSolar' }
+  },
+  {
+    path: '/servicios/camaras-de-seguridad',
+    name: 'servicio-camaras',
+    component: () => import('../views/servicios/ServicioCamaras.vue'),
+    meta: { i18n: 'servicioCamaras' }
+  },
+  {
     path: '/cobertura',
     name: 'cobertura',
     component: () => import('../views/Cobertura.vue'),

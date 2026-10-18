@@ -2,7 +2,7 @@
   <NetworkBackground />
   <router-view />
   <a
-    :href="`https://api.whatsapp.com/send/?phone=%2B573112280533&text=${encodeURIComponent(t('whatsapp.message'))}`"
+    :href="whatsappLink('asesorias', t('whatsapp.message'))"
     target="_blank"
     rel="noopener noreferrer"
     class="wa-fab"
@@ -19,6 +19,7 @@ import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouteMeta } from './composables/useRouteMeta.js'
 import { applyPreferredLocale } from './i18n'
+import { whatsappLink } from './data/contacto.js'
 import NetworkBackground from './components/ui/NetworkBackground.vue'
 
 const { t } = useI18n()

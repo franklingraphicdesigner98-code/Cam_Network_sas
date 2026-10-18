@@ -37,7 +37,7 @@ export default {
   },
   hero: {
     title: 'Conectamos tu hogar y tu negocio',
-    text: 'Internet por fibra óptica, televisión y soluciones tecnológicas de confianza.',
+    text: 'Internet por fibra óptica, cámaras de seguridad, energía solar y soluciones tecnológicas de confianza.',
     tagline: 'Tu solución amiga',
     cta: 'Consulta cobertura',
     alts: [
@@ -58,7 +58,14 @@ export default {
         solar: 'Paneles Solares',
         camaras: 'Cámaras de Seguridad',
         instalacion: 'Instalación y Mantenimiento'
-      }
+      },
+      desc: {
+        internet: 'Fibra óptica en la ciudad y conexión inalámbrica en el campo.',
+        solar: 'Genera tu propia energía y ahorra en tu factura.',
+        camaras: 'Vigila tu hogar o negocio desde tu celular.',
+        instalacion: 'Instalamos y mantenemos tus equipos.'
+      },
+      more: 'Ver más',
     },
     safety: {
       title: 'Cuida tus equipos, cuida tu seguridad',
@@ -88,7 +95,7 @@ export default {
       hogarAlt: 'Oficina de Cam Network Soluciones'
     },
     coverage: {
-      title: 'Cobertura',
+      title: 'Cobertura en 13 municipios',
       sub: 'Llegamos a más lugares para mantenerte conectado.',
       cta: 'Ver zonas de cobertura'
     },
@@ -110,7 +117,7 @@ export default {
   cobertura: {
     eyebrow: 'Cobertura',
     title: 'Estamos más cerca de ti',
-    subtitle: 'Llevamos conectividad, seguridad, energía y soluciones tecnológicas a estos 10 municipios de la región.',
+    subtitle: 'Llevamos conectividad, seguridad, energía y soluciones tecnológicas a estos 13 municipios de la región.',
     info: 'Conectamos hogares, negocios y comunidades con tecnología de calidad.',
     features: {
       conectividad: { title: 'Conectividad', text: 'Internet rápido y confiable.' },
@@ -185,20 +192,25 @@ export default {
     helpTitle: '¿Tu velocidad no es la contratada?',
     helpText: 'Cuéntanos y nuestro equipo técnico revisará tu servicio.',
     ctaPqrs: 'Radicar PQRS',
-    ctaContact: 'Contactar soporte'
+    ctaContact: 'Contactar soporte',
+    supportMsg: 'Hola, necesito soporte técnico con mi internet.',
+    supportResults: 'Resultado del test de velocidad: descarga {down} Mbps, subida {up} Mbps, ping {ping} ms.'
   },
   pago: {
-    intro: 'Paga tu factura desde tu casa, de forma fácil y segura, a través de Wompi, la pasarela de pagos de Bancolombia.',
+    intro: 'Paga tu factura de forma fácil y segura: en línea con ePayco o en efectivo en cualquier punto Efecty.',
     stepsTitle: '¿Cómo pagar?',
     steps: [
       { title: 'Ten a mano tus datos', text: 'Tu número de cédula o de contrato y el valor de tu factura.' },
-      { title: 'Ingresa al pago', text: 'Presiona el botón de pago y elige tu medio de pago preferido.' },
-      { title: 'Completa el pago', text: 'Sigue las instrucciones de tu banco o billetera digital.' },
+      { title: 'Elige cómo pagar', text: 'En línea con ePayco o en efectivo en un punto Efecty.' },
+      { title: 'Completa el pago', text: 'En ePayco sigue las instrucciones de tu banco; en Efecty indica tu número de cédula o contrato.' },
       { title: 'Guarda tu comprobante', text: 'Al terminar recibirás la confirmación de la transacción.' }
     ],
     methodsTitle: 'Medios de pago',
-    methods: ['Tarjeta de crédito o débito', 'PSE (débito desde tu cuenta)', 'Nequi', 'Botón Bancolombia', 'Efectivo en Corresponsales Bancolombia'],
-    methodsNote: 'Los medios disponibles pueden variar según la configuración del pago.',
+    methods: [
+      { name: 'ePayco', tag: 'Pago en línea', text: 'Paga con tarjeta de crédito o débito, PSE y otros medios en línea, desde tu celular o computador.' },
+      { name: 'Efecty', tag: 'Pago en efectivo', text: 'Acércate a cualquier punto Efecty del país y paga con tu número de cédula o de contrato.' }
+    ],
+    methodsNote: 'Si tienes dudas sobre tu referencia de pago, escríbenos por WhatsApp.',
     payNow: 'Pagar ahora',
     requestLink: 'Solicitar enlace de pago',
     requestNote: 'Te enviaremos por WhatsApp el enlace seguro de pago de tu factura.',
@@ -218,12 +230,134 @@ export default {
     hoursDetail: '8:00 a. m. – 12:00 m. y 1:30 p. m. – 5:30 p. m.',
     hoursSat: 'Sábados',
     hoursSatDetail: '8:00 a. m. – 1:00 p. m.',
-    phonesTitle: 'Teléfonos y WhatsApp',
-    directionsTitle: '¿Cómo llegar?',
-    directionsText: 'Estamos en el centro de San Gil. Abre la ruta desde tu ubicación con tu aplicación de mapas preferida.',
+    phonesTitle: 'Líneas de atención (llamadas y WhatsApp)',
     googleMaps: 'Cómo llegar con Google Maps',
     video: 'Video de indicación',
+    videoTitle: 'Mira cómo llegar a nuestra oficina',
+    videoText: 'En este video te mostramos el recorrido para que llegues fácilmente.',
+    videoLink: 'Ver en Instagram',
+    videoSound: 'Activar sonido',
+    videoFrameTitle: 'Video en Instagram: cómo llegar a la oficina de Cam Network',
     mapTitle: 'Mapa de la oficina de Cam Network en San Gil'
+  },
+  servicios: {
+    eyebrow: 'Servicios',
+    cta: {
+      title: '¿Te interesa este servicio?',
+      text: 'Escríbenos y un asesor te explicará las opciones disponibles para tu hogar o tu negocio, sin compromiso.',
+      contact: 'Solicitar información',
+      whatsapp: 'Escríbenos por WhatsApp'
+    },
+    waMsg: 'Hola, quiero información sobre el servicio de {servicio}.',
+    internet: {
+      title: 'Internet',
+      subtitle: 'Conexión rápida y estable en la ciudad y en el campo.',
+      stat: '+2.000 clientes con fibra óptica',
+      imageAlt: 'Antena de Cam Network en las montañas de la región',
+      typesTitle: '¿Qué tipo de internet necesitas?',
+      typesSub: 'Llevamos internet a la ciudad, al campo y a las empresas con la tecnología adecuada para cada caso.',
+      urban: {
+        title: 'Internet urbano',
+        text: 'Para casas y negocios dentro del casco urbano. Llega por fibra óptica, un cable que lleva la señal directamente hasta tu casa.',
+        points: ['Mayor velocidad y estabilidad', 'Ideal para trabajar, estudiar y ver series o TV', 'Ideal para varios dispositivos conectados a la vez']
+      },
+      rural: {
+        title: 'Internet rural',
+        text: 'Para fincas y veredas donde no llega el cable. La señal viaja por el aire desde nuestras torres hasta una antena instalada en tu casa.',
+        points: ['Conexión donde otros no llegan', 'Instalación de antena incluida', 'Soporte técnico en tu zona']
+      },
+      corporate: {
+        title: 'Internet corporativo',
+        text: 'Para empresas, instituciones y comercios que necesitan una conexión de alto rendimiento, con capacidad y soporte a la medida de su operación.',
+        points: ['Solución diseñada según tu operación', 'Atención y soporte prioritario', 'Cotización personalizada']
+      },
+      corporateCardTitle: 'Plan a la medida de tu empresa',
+      corporateCardText: 'Cuéntanos cuántas personas y equipos se conectan y qué necesita tu negocio. Te enviamos una propuesta personalizada.',
+      corporateCta: 'Solicitar cotización',
+      corporateMsg: 'Hola, quiero una cotización de internet corporativo para mi empresa.',
+      urbanPlans: 'Planes urbanos',
+      ruralPlans: 'Planes rurales',
+      speedPending: '— Mbps',
+      pricePending: 'Consulta el precio',
+      perMonth: '/ mes',
+      plansLabel: 'Planes disponibles',
+      choose: 'Solicitar',
+      planMsg: 'Hola, quiero información sobre el {plan} ({zona}).',
+      townsTitle: 'Municipios con cobertura',
+      townsText: 'Prestamos el servicio en estos municipios y sus zonas rurales.',
+      townsCta: 'Ver mapa de cobertura'
+    },
+    solar: {
+      title: 'Sistemas de energía solar',
+      subtitle: 'Genera tu propia energía limpia y ahorra en tu factura de luz.',
+      imageAlt: 'Técnico de Cam Network instalando paneles solares en una casa',
+      importanceTitle: '¿Por qué la energía solar es importante?',
+      importance: [
+        'El sol es una fuente de energía gratuita e inagotable. Los paneles solares la convierten en electricidad para tu hogar, finca o negocio, sin ruido y sin emisiones.',
+        'En una región con tanto sol como la nuestra, aprovecharlo es una forma inteligente de reducir gastos, cuidar el medio ambiente y tener energía incluso en lugares donde la red eléctrica no llega o falla con frecuencia.'
+      ],
+      benefitsTitle: 'Beneficios de tener paneles solares',
+      benefits: [
+        { title: 'Ahorro en tu factura', text: 'Produces parte o toda la energía que consumes y pagas menos cada mes.' },
+        { title: 'Energía limpia', text: 'Reduces tu huella de carbono con una fuente renovable y silenciosa.' },
+        { title: 'Independencia energética', text: 'Dependes menos de la red y de las alzas en las tarifas.' },
+        { title: 'Energía sin red', text: 'Lleva electricidad a fincas y lugares apartados donde no llega la red.' },
+        { title: 'Bajo mantenimiento', text: 'Los paneles tienen larga vida útil y requieren poco cuidado.' },
+        { title: 'Valorización', text: 'Tu propiedad gana valor con un sistema de energía propio.' }
+      ],
+      achieveTitle: '¿Qué puedes lograr con tu sistema instalado?',
+      achieve: [
+        'Iluminar tu casa, finca o negocio con energía propia',
+        'Mantener encendidos electrodomésticos, neveras y equipos esenciales',
+        'Alimentar bombas de agua y sistemas de riego',
+        'Mantener funcionando tu internet y tus cámaras de seguridad durante los cortes de luz',
+        'Tener respaldo de energía ante cortes del servicio'
+      ],
+      achieveImageAlt: 'Paneles solares y torre de telecomunicaciones de Cam Network frente a las montañas'
+    },
+    camaras: {
+      title: 'Cámaras de seguridad',
+      subtitle: 'Monitorea tu negocio o tu hogar desde cualquier lugar.',
+      stat: '+1.000 clientes protegidos',
+      imageAlt: 'Cámara de seguridad giratoria con visión nocturna',
+      headline: 'Monitorea tu negocio o tu hogar',
+      headlineText: 'Mira lo que pasa en tiempo real desde tu celular, estés donde estés. Te instalamos un sistema de cámaras para que estés tranquilo las 24 horas.',
+      placesTitle: 'Mantén la seguridad en tu domicilio, tu empresa o tu taller',
+      places: {
+        hogar: { title: 'Tu hogar', text: 'Cuida a tu familia y tus bienes. Revisa quién llega a tu puerta y vigila tu casa cuando viajas.' },
+        empresa: { title: 'Tu empresa', text: 'Controla accesos, protege tu inventario y supervisa la operación aunque no estés en el lugar.' },
+        taller: { title: 'Tu taller', text: 'Protege tus herramientas, vehículos y equipos de trabajo, de día y de noche.' }
+      },
+      featuresTitle: 'Todo lo que necesitas para estar tranquilo',
+      features: [
+        { title: 'Ves todo desde tu celular', text: 'Video en vivo desde cualquier lugar.' },
+        { title: 'Visión nocturna', text: 'Imagen clara también de noche.' },
+        { title: 'Alertas de movimiento', text: 'Recibe avisos al instante en tu teléfono.' },
+        { title: 'Grabación continua', text: 'Revisa lo que pasó cuando lo necesites.' }
+      ],
+      productsTitle: 'Algunas de nuestras cámaras',
+      productsSub: 'Te asesoramos para elegir la cámara ideal según el lugar que quieras proteger.',
+      products: {
+        ptz: { name: 'Cámara giratoria Wi-Fi', text: 'Gira para cubrir todo el espacio, con visión nocturna y alarma de luz y sonido.' },
+        bullet: { name: 'Cámara para exteriores', text: 'Resistente a lluvia y polvo, ideal para fachadas, parqueaderos y patios.' },
+        dome: { name: 'Cámara domo para interiores', text: 'Discreta y de amplio ángulo, perfecta para locales, oficinas y salas.' }
+      },
+      productCta: 'Cotizar esta cámara',
+      productMsg: 'Hola, quiero cotizar la {producto}.',
+      closing: 'No esperes a que pase algo. Protege hoy lo que más te importa.'
+    },
+  },
+  stats: {
+    title: 'Familias y negocios que confían en nosotros',
+    items: {
+      internet: { title: 'Internet', sub: 'Fibra óptica', value: 2000, label: 'clientes' },
+      camaras: { title: 'Cámaras de seguridad', sub: 'Hogares y negocios protegidos', value: 1000, label: 'clientes' }
+    }
+  },
+  lineas: {
+    asesorias: 'Asesorías y ventas',
+    facturacion: 'Facturación y pagos',
+    soporte: 'Soporte técnico'
   },
   legal: {
     updated: 'Última actualización: pendiente de definir',
@@ -261,7 +395,10 @@ export default {
     }
   },
   meta: {
-    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. en línea de forma fácil y segura con Wompi.' },
+    servicioInternet: { title: 'Internet urbano y rural', description: 'Internet por fibra óptica en zona urbana e internet inalámbrico en zona rural. Conoce los planes de Cam Network Soluciones S.A.S.' },
+    servicioSolar: { title: 'Energía solar', description: 'Sistemas de paneles solares para hogares, fincas y negocios: ahorro, energía limpia e independencia energética.' },
+    servicioCamaras: { title: 'Cámaras de seguridad', description: 'Monitorea tu hogar, empresa o taller desde tu celular con las cámaras de seguridad de Cam Network Soluciones S.A.S.' },
+    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. en línea con ePayco o en efectivo en Efecty.' },
     oficinas: { title: 'Nuestras Oficinas', description: 'Dirección, horario de atención y cómo llegar a la oficina de Cam Network Soluciones S.A.S. en San Gil.' },
     home: { title: 'Internet, Cámaras de Seguridad y Energía Solar', description: 'Servicio de internet, cámaras de seguridad y sistemas de energía solar para hogares y empresas en Colombia.' },
     quienesSomos: { title: 'Quiénes Somos', description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.' },

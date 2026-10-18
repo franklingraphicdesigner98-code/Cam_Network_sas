@@ -9,7 +9,7 @@
         <div class="pay-card reveal">
           <IconTile :icon="CreditCard" :size="64" />
           <p class="pay-intro">{{ t('pago.intro') }}</p>
-          <a v-if="WOMPI_URL" :href="WOMPI_URL" target="_blank" rel="noopener noreferrer" class="btn btn-primary pay-btn">
+          <a v-if="EPAYCO_URL" :href="EPAYCO_URL" target="_blank" rel="noopener noreferrer" class="btn btn-primary pay-btn">
             {{ t('pago.payNow') }} <ArrowRight :size="18" />
           </a>
           <template v-else>
@@ -18,7 +18,7 @@
             </a>
             <p class="pay-note">{{ t('pago.requestNote') }}</p>
           </template>
-          <span class="powered">Wompi · Bancolombia</span>
+          <span class="powered">ePayco · Efecty</span>
         </div>
 
         <!-- Pasos -->
@@ -42,11 +42,15 @@
         <!-- Medios de pago -->
         <div class="panel methods reveal">
           <h2>{{ t('pago.methodsTitle') }}</h2>
-          <ul>
-            <li v-for="(m, i) in tm('pago.methods')" :key="i">
-              <span class="method-icon"><component :is="methodIcons[i]" :size="18" /></span>{{ rt(m) }}
-            </li>
-          </ul>
+          <div class="channels">
+            <article v-for="(m, i) in tm('pago.methods')" :key="i" class="channel">
+              <span class="method-icon"><component :is="methodIcons[i]" :size="20" /></span>
+              <div>
+                <strong>{{ rt(m.name) }}</strong> <span class="channel-tag">{{ rt(m.tag) }}</span>
+                <p>{{ rt(m.text) }}</p>
+              </div>
+            </article>
+          </div>
           <p class="methods-note">{{ t('pago.methodsNote') }}</p>
         </div>
 
@@ -81,24 +85,24 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2, Landmark, Smartphone, Wallet, Banknote } from 'lucide-vue-next';
+import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2, Banknote } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
 import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import { useReveal } from '../composables/useReveal.js';
+import { whatsappLink } from '../data/contacto.js';
 
-// TODO: pegar aquí el enlace de pago de Wompi cuando esté disponible.
+// TODO: pegar aquí el enlace de pago de ePayco cuando esté disponible.
 // Mientras esté vacío, el botón abre WhatsApp para solicitar el enlace.
-const WOMPI_URL = '';
-const WHATSAPP_NUMBER = '573112280533';
+const EPAYCO_URL = '';
 
 const { t, tm, rt } = useI18n();
 
-const waLink = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('pago.waMessage'))}`);
+const waLink = computed(() => whatsappLink('facturacion', t('pago.waMessage')));
 // Mismo orden que pago.methods en src/locales/*.js
-const methodIcons = [CreditCard, Landmark, Smartphone, Wallet, Banknote];
+const methodIcons = [CreditCard, Banknote];
 
 useReveal();
 </script>
@@ -139,14 +143,19 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 /* ---------- Medios / seguridad ---------- */
 .info-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 1.25rem }
 .methods { padding: clamp(1.4rem, 3vw, 2rem) }
-.methods ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem }
-.methods li {
-  display: flex; align-items: center; gap: .6rem;
-  padding: .7rem .8rem; border-radius: 12px;
+.channels { display: flex; flex-direction: column; gap: .8rem }
+.channel {
+  display: flex; gap: .9rem; align-items: flex-start;
+  padding: 1rem 1.1rem; border-radius: 14px;
   background: var(--bg-1); border: 1px solid var(--border);
-  font-size: .9rem; font-weight: 600; color: var(--ink);
 }
-.method-icon { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 9px; color: var(--green-deep); background: var(--green-soft) }
+.channel strong { font-size: 1.05rem; color: var(--ink) }
+.channel-tag {
+  margin-left: .35rem; padding: .12rem .5rem; border-radius: 999px;
+  font-size: .72rem; font-weight: 700; color: var(--green-deep); background: var(--green-soft);
+}
+.channel p { margin: .35rem 0 0; font-size: .9rem; line-height: 1.5; color: var(--ink-dim) }
+.method-icon { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 9px; color: var(--green-deep); background: var(--green-soft) }
 .methods-note { margin: .9rem 0 0; font-size: .78rem; color: var(--ink-mute) }
 
 .safety {
@@ -166,7 +175,6 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
   .pay-grid, .info-grid { grid-template-columns: 1fr }
 }
 @media (max-width: 560px) {
-  .methods ul { grid-template-columns: 1fr }
   .office { flex-direction: column; align-items: flex-start }
 }
 </style>

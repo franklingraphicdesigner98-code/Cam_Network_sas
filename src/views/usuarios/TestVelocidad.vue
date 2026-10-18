@@ -76,7 +76,7 @@
           <p>{{ t('speed.helpText') }}</p>
           <div class="help-actions">
             <BaseButton :to="{ name: 'pqrs' }" variant="glass" class="btn-sm">{{ t('speed.ctaPqrs') }}</BaseButton>
-            <BaseButton :to="{ name: 'contacto' }" variant="primary" class="btn-sm">{{ t('speed.ctaContact') }}</BaseButton>
+            <a :href="supportLink" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">{{ t('speed.ctaContact') }}</a>
           </div>
         </div>
       </div>
@@ -94,8 +94,17 @@ import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import BaseButton from '../../components/ui/BaseButton.vue';
 import { useReveal } from '../../composables/useReveal.js';
+import { whatsappLink } from '../../data/contacto.js';
 
 const { t, tm, rt } = useI18n();
+
+// Soporte técnico por WhatsApp, con los resultados de la prueba si ya se hizo
+const supportLink = computed(() => {
+  const r = download.value != null
+    ? ` ${t('speed.supportResults', { down: formatMbps(download.value), up: upload.value != null ? formatMbps(upload.value) : '—', ping: ping.value != null ? Math.round(ping.value) : '—' })}`
+    : '';
+  return whatsappLink('soporte', t('speed.supportMsg') + r);
+});
 
 // ---------- Geometría del velocímetro (arco de 270°, escala logarítmica 0–1000 Mbps) ----------
 const CX = 120, CY = 118, R = 96;

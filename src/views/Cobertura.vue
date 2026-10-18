@@ -66,16 +66,19 @@ const { t } = useI18n();
 
 // x = oeste → este, y = norte → sur (en % del área del mapa)
 const towns = [
-  { name: 'Villanueva', x: 31, y: 33 },
-  { name: 'Barichara', x: 17, y: 40 },
-  { name: 'Cabrera', x: 8, y: 52 },
-  { name: 'Curití', x: 66, y: 46 },
-  { name: 'San Gil', x: 47, y: 55 },
-  { name: 'Pinchote', x: 30, y: 62 },
-  { name: 'Mogotes', x: 90, y: 69 },
-  { name: 'Valle de San José', x: 52, y: 74 },
-  { name: 'Páramo', x: 27, y: 83 },
-  { name: 'Ocamonte', x: 52, y: 93 }
+  { name: 'Villanueva', x: 26, y: 30 },
+  { name: 'Barichara', x: 13, y: 39 },
+  { name: 'Cabrera', x: 5, y: 50 },
+  { name: 'Curití', x: 46, y: 43 },
+  { name: 'San Gil', x: 34, y: 56 },
+  { name: 'Pinchote', x: 19, y: 63 },
+  { name: 'Pitiguao', x: 70, y: 55 },
+  { name: 'San Miguel', x: 91, y: 45 },
+  { name: 'Mogotes', x: 60, y: 68 },
+  { name: 'Valle de San José', x: 36, y: 75 },
+  { name: 'Páramo', x: 17, y: 83 },
+  { name: 'San Joaquín', x: 80, y: 82 },
+  { name: 'Ocamonte', x: 36, y: 95 }
 ];
 
 const features = [

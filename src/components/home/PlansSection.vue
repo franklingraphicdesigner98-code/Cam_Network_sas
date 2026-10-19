@@ -4,7 +4,7 @@
       <div class="panel intro reveal">
         <h2 class="section-title">{{ t('home.plans.title') }}</h2>
         <p class="section-sub">{{ t('home.plans.sub') }}</p>
-        <router-link :to="{ name: 'planes' }" class="pill-link req">
+        <router-link :to="{ name: 'servicio-internet' }" class="pill-link req">
           {{ t('home.plans.requisitos') }} <ChevronRight :size="14" />
         </router-link>
       </div>
@@ -17,7 +17,7 @@
         <div class="plan-copy">
           <h3>{{ t(`home.plans.${p.key}.title`) }}</h3>
           <p>{{ t(`home.plans.${p.key}.text`) }}</p>
-          <BaseButton :to="{ name: 'planes' }" variant="primary" class="btn-sm">{{ t('home.plans.cta') }}</BaseButton>
+          <BaseButton :to="{ name: 'servicio-internet' }" variant="primary" class="btn-sm">{{ t('home.plans.cta') }}</BaseButton>
         </div>
       </div>
     </div>

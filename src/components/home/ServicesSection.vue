@@ -21,7 +21,12 @@
       </div>
 
       <div class="safety reveal reveal-2">
+        <!-- Fondo: fotos reales del equipo y las instalaciones (public/img/equipo/), se alternan -->
+        <div class="safety-bg" aria-hidden="true">
+          <img v-for="(src, i) in teamPhotos" :key="src" :src="src" alt="" :class="{ active: i === photo }" loading="lazy" />
+        </div>
         <div class="safety-copy">
+          <span class="no-contract"><BadgeCheck :size="16" /> {{ t('home.safety.badge') }}</span>
           <h2>{{ t('home.safety.title') }}</h2>
           <p class="safety-sub">{{ t('home.safety.sub') }}</p>
           <ul>
@@ -42,9 +47,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Wifi, SolarPanel, Cctv, Wrench, Check, ChevronRight, Shield, Zap } from 'lucide-vue-next';
+import { Wifi, SolarPanel, Cctv, Wrench, Check, ChevronRight, Shield, Zap, BadgeCheck } from 'lucide-vue-next';
 import IconTile from '../ui/IconTile.vue';
 
 const { t, tm, rt } = useI18n();
@@ -56,6 +61,22 @@ const services = [
   // sin página propia: lleva al formulario con el servicio preseleccionado
   { key: 'instalacion', icon: Wrench, to: { name: 'contacto', query: { servicio: 'instalacion' } } }
 ];
+
+const teamPhotos = [
+  '/img/equipo/tecnico-torre.webp',
+  '/img/equipo/equipo-oficina.webp',
+  '/img/equipo/tecnico-terreno.webp',
+  '/img/equipo/instalacion-rural.webp',
+  '/img/equipo/torre-antenas.webp',
+  '/img/equipo/torre-enlaces.webp'
+];
+const photo = ref(0);
+let timer = null;
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  timer = setInterval(() => { photo.value = (photo.value + 1) % teamPhotos.length; }, 4500);
+});
+onBeforeUnmount(() => clearInterval(timer));
 
 const showMore = ref(false);
 const tips = computed(() => [
@@ -101,7 +122,27 @@ const tips = computed(() => [
     linear-gradient(140deg, var(--forest-2) 0%, var(--forest) 100%);
   box-shadow: var(--shadow-lg);
 }
+.safety-bg { position: absolute; inset: 0; z-index: 0 }
+.safety-bg img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transform: scale(1.06); transition: opacity 1.2s ease, transform 6s ease-out;
+}
+.safety-bg img.active { opacity: 1; transform: scale(1) }
+/* velo verde oscuro: las fotos se ven de fondo y el texto sigue legible */
+.safety-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6,32,17,.94) 0%, rgba(8,45,24,.86) 50%, rgba(10,60,30,.6) 100%),
+    radial-gradient(70% 90% at 90% 60%, rgba(34,197,94,.3) 0%, rgba(34,197,94,0) 65%);
+}
 .safety-copy { position: relative; z-index: 1; flex: 1 }
+.no-contract {
+  display: inline-flex; align-items: center; gap: .4rem; margin-bottom: 1rem;
+  padding: .4rem .85rem; border-radius: 999px;
+  font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: var(--forest);
+  background: var(--green-3); box-shadow: 0 6px 18px rgba(74,222,128,.35);
+}
+.shield { z-index: 1 }
 .safety h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2.05rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em }
 .safety-sub { margin: .9rem 0 1.1rem; font-size: 1.05rem; font-weight: 700; color: var(--green-3); max-width: 24ch; line-height: 1.3 }
 .safety ul { list-style: none; padding: 0; margin: 0 0 1.6rem; display: flex; flex-direction: column; gap: .65rem }

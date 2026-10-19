@@ -5,7 +5,6 @@ export default {
     quienesSomos: 'Quiénes Somos',
     nuestroEquipo: 'Nuestro Equipo',
     cobertura: 'Cobertura',
-    planes: 'Planes',
     normatividad: 'Normatividad',
     usuarios: 'Usuarios',
     pqrs: 'PQRS',
@@ -21,11 +20,11 @@ export default {
     linksTitle: 'Enlaces',
     legalTitle: 'Legal',
     contactTitle: 'Contacto',
-    webmail: 'Webmail',
     politicaDatos: 'Política de Tratamiento de Datos',
     avisoPrivacidad: 'Aviso de Privacidad',
     terminos: 'Términos y Condiciones',
     rights: 'Todos los derechos reservados.',
+    childReport: 'Denuncia contenido de pornografía infantil',
     follow: 'Síguenos en nuestras redes'
   },
   comingSoon: {
@@ -68,6 +67,7 @@ export default {
       more: 'Ver más',
     },
     safety: {
+      badge: 'Sin cláusula de permanencia',
       title: 'Cuida tus equipos, cuida tu seguridad',
       sub: 'Recomendaciones de seguridad eléctrica',
       tips: ['Usa reguladores de voltaje', 'Evita sobrecargas', 'Revisa tus instalaciones', 'Desconecta en tormentas'],
@@ -98,6 +98,14 @@ export default {
       title: 'Cobertura en 13 municipios',
       sub: 'Llegamos a más lugares para mantenerte conectado.',
       cta: 'Ver zonas de cobertura'
+    },
+    pqrsForm: {
+      title: 'Radica tu PQRS',
+      sub: 'Peticiones, quejas, reclamos y sugerencias. Te respondemos lo antes posible.',
+      type: 'Tipo de solicitud',
+      types: { peticion: 'Petición', queja: 'Queja', reclamo: 'Reclamo', sugerencia: 'Sugerencia' },
+      send: 'Enviar PQRS',
+      waIntro: 'Hola, quiero radicar una PQRS desde la página web.'
     },
     contact: {
       title: 'Contáctanos',
@@ -137,7 +145,6 @@ export default {
     oficinas: { title: 'Nuestras Oficinas', subtitle: 'Visítanos y recibe atención personalizada.' },
     contacto: { title: 'Contacto', subtitle: 'Cotiza tu servicio de internet, cámaras de seguridad o energía solar.' },
     normatividad: { title: 'Normatividad', subtitle: 'Normatividad vigente aplicable a nuestros servicios de telecomunicaciones.' },
-    planes: { title: 'Planes', subtitle: 'Planes de internet hogar y empresarial.' },
     nuestroEquipo: { title: 'Nuestro Equipo', subtitle: 'Las personas detrás de Cam Network Soluciones S.A.S.' },
     quienesSomos: { title: '¿Quiénes Somos?', subtitle: 'La historia, la misión y los valores de Cam Network Soluciones S.A.S.' },
     opiniones: { title: 'Opiniones de Usuarios', subtitle: 'Lo que dicen nuestros clientes sobre nuestros servicios.' },
@@ -169,13 +176,21 @@ export default {
     pages: '{n} páginas',
     view: 'Ver documento',
     download: 'Descargar PDF',
-    reportTitle: 'Denuncia contenidos de abuso sexual infantil',
-    reportText: 'Si encuentras en internet contenidos de explotación o abuso sexual de menores de edad, denúncialos ante las autoridades competentes:',
-    reportLinks: {
-      teprotejo: 'Te Protejo — canal de denuncia en línea',
-      icbf: 'Línea 141 del ICBF (gratuita)',
-      cai: 'CAI Virtual de la Policía Nacional'
-    }
+    reportTitle: 'Denuncia contenidos de pornografía infantil',
+    reportText: 'Si encuentras en internet contenidos de pornografía o explotación sexual de menores de edad, denúncialos en estos canales:',
+    reportButton: 'Denuncia',
+    close: 'Cerrar',
+    channels: {
+      teprotejo: { name: 'Te Protejo', desc: 'Canal virtual y anónimo de denuncia promovido por el MinTIC.' },
+      adenunciar: { name: 'A Denunciar', desc: 'Denuncia virtual de la Policía Nacional y la Fiscalía.' },
+      icbf: { name: 'Línea 141 del ICBF', desc: 'Línea nacional gratuita.' },
+      cai: { name: 'CAI Virtual de la Policía Nacional', desc: 'Asesoría en delitos informáticos.' }
+    },
+    lawTitle: 'Ley 679 de 2001',
+    lawText: 'La Ley 679 de 2001 establece medidas para prevenir y contrarrestar la explotación, la pornografía y el turismo sexual con menores de edad. El Decreto 1524 de 2002, que reglamenta su artículo 5, establece las medidas técnicas y administrativas para prevenir el acceso de menores de edad a información pornográfica en Internet y para evitar que estos medios se aprovechen con fines de explotación sexual infantil. Estas disposiciones están compiladas en el Decreto 1078 de 2015.',
+    filterTitle: 'Mecanismos de filtrado',
+    filterText: 'Existen mecanismos de filtrado que pueden instalarse en los equipos de los usuarios para prevenir y contrarrestar el acceso de menores de edad a la pornografía.',
+    openNewTab: '(se abre en una pestaña nueva)'
   },
   speed: {
     start: 'Iniciar',
@@ -187,14 +202,6 @@ export default {
     jitter: 'Variación (jitter)',
     errorText: 'Revisa tu conexión a internet e inténtalo de nuevo.',
     note: 'La medición se hace contra el servidor de Cloudflare más cercano a ti. Tus resultados no se guardan.',
-    tipsTitle: 'Para un resultado más preciso',
-    tips: ['Conecta tu equipo al router con cable de red, si puedes.', 'Cierra descargas, videos y otras aplicaciones que usen internet.', 'Desconecta temporalmente otros dispositivos de tu red Wi-Fi.', 'Si usas Wi-Fi, acércate al router.'],
-    helpTitle: '¿Tu velocidad no es la contratada?',
-    helpText: 'Cuéntanos y nuestro equipo técnico revisará tu servicio.',
-    ctaPqrs: 'Radicar PQRS',
-    ctaContact: 'Contactar soporte',
-    supportMsg: 'Hola, necesito soporte técnico con mi internet.',
-    supportResults: 'Resultado del test de velocidad: descarga {down} Mbps, subida {up} Mbps, ping {ping} ms.'
   },
   pago: {
     intro: 'Paga tu factura de forma fácil y segura: en línea con ePayco o en efectivo en cualquier punto Efecty.',
@@ -258,22 +265,29 @@ export default {
       typesSub: 'Llevamos internet a la ciudad, al campo y a las empresas con la tecnología adecuada para cada caso.',
       urban: {
         title: 'Internet urbano',
+        imageAlt: 'Vista del pueblo en el valle, zona urbana con fibra óptica',
         text: 'Para casas y negocios dentro del casco urbano. Llega por fibra óptica, un cable que lleva la señal directamente hasta tu casa.',
         points: ['Mayor velocidad y estabilidad', 'Ideal para trabajar, estudiar y ver series o TV', 'Ideal para varios dispositivos conectados a la vez']
       },
       rural: {
         title: 'Internet rural',
+        imageAlt: 'Técnico de Cam Network instalando una antena en una casa del campo',
         text: 'Para fincas y veredas donde no llega el cable. La señal viaja por el aire desde nuestras torres hasta una antena instalada en tu casa.',
         points: ['Conexión donde otros no llegan', 'Instalación de antena incluida', 'Soporte técnico en tu zona']
       },
       corporate: {
         title: 'Internet corporativo',
+        imageAlt: 'Vehículo de Cam Network frente a un edificio institucional',
         text: 'Para empresas, instituciones y comercios que necesitan una conexión de alto rendimiento, con capacidad y soporte a la medida de su operación.',
         points: ['Solución diseñada según tu operación', 'Atención y soporte prioritario', 'Cotización personalizada']
       },
-      corporateCardTitle: 'Plan a la medida de tu empresa',
-      corporateCardText: 'Cuéntanos cuántas personas y equipos se conectan y qué necesita tu negocio. Te enviamos una propuesta personalizada.',
-      corporateCta: 'Solicitar cotización',
+      corporateForLabel: 'Ideal para',
+      corporateFor: [
+        { title: 'Empresas y oficinas', text: 'Equipos de trabajo, sistemas y videollamadas' },
+        { title: 'Instituciones y colegios', text: 'Muchos usuarios conectados al mismo tiempo' },
+        { title: 'Comercios y hoteles', text: 'Pagos, cámaras y Wi-Fi para clientes' }
+      ],
+      corporateCta: 'Solicitar información',
       corporateMsg: 'Hola, quiero una cotización de internet corporativo para mi empresa.',
       urbanPlans: 'Planes urbanos',
       ruralPlans: 'Planes rurales',
@@ -317,17 +331,9 @@ export default {
     },
     camaras: {
       title: 'Cámaras de seguridad',
-      subtitle: 'Monitorea tu negocio o tu hogar desde cualquier lugar.',
+      subtitle: 'Monitorea tu {hogar}, {empresa} o {fabrica} desde tu celular, estés donde estés.',
+      subWords: { hogar: 'hogar', empresa: 'empresa', fabrica: 'fábrica' },
       stat: '+1.000 clientes protegidos',
-      imageAlt: 'Cámara de seguridad giratoria con visión nocturna',
-      headline: 'Monitorea tu negocio o tu hogar',
-      headlineText: 'Mira lo que pasa en tiempo real desde tu celular, estés donde estés. Te instalamos un sistema de cámaras para que estés tranquilo las 24 horas.',
-      placesTitle: 'Mantén la seguridad en tu domicilio, tu empresa o tu taller',
-      places: {
-        hogar: { title: 'Tu hogar', text: 'Cuida a tu familia y tus bienes. Revisa quién llega a tu puerta y vigila tu casa cuando viajas.' },
-        empresa: { title: 'Tu empresa', text: 'Controla accesos, protege tu inventario y supervisa la operación aunque no estés en el lugar.' },
-        taller: { title: 'Tu taller', text: 'Protege tus herramientas, vehículos y equipos de trabajo, de día y de noche.' }
-      },
       featuresTitle: 'Todo lo que necesitas para estar tranquilo',
       features: [
         { title: 'Ves todo desde tu celular', text: 'Video en vivo desde cualquier lugar.' },
@@ -338,9 +344,12 @@ export default {
       productsTitle: 'Algunas de nuestras cámaras',
       productsSub: 'Te asesoramos para elegir la cámara ideal según el lugar que quieras proteger.',
       products: {
-        ptz: { name: 'Cámara giratoria Wi-Fi', text: 'Gira para cubrir todo el espacio, con visión nocturna y alarma de luz y sonido.' },
-        bullet: { name: 'Cámara para exteriores', text: 'Resistente a lluvia y polvo, ideal para fachadas, parqueaderos y patios.' },
-        dome: { name: 'Cámara domo para interiores', text: 'Discreta y de amplio ángulo, perfecta para locales, oficinas y salas.' }
+        cruiserSc: { name: 'IMOU Cruiser SC', text: 'Para exteriores. 6 MP, Wi-Fi, detección de movimiento y luces de alerta.' },
+        titanPro: { name: 'IMOU Titan Pro Aurora', text: 'Para exteriores. 6 MP, cobertura de 360°, visión a color e inteligencia artificial.' },
+        ranger2Pro: { name: 'IMOU IP Ranger 2 Pro', text: 'Para interiores. 5 MP, seguimiento inteligente, audio bidireccional y sirena.' },
+        ranger: { name: 'IMOU Ranger', text: 'Para interiores. Hasta 5 MP, micrófono y altavoz incorporados.' },
+        rex: { name: 'IMOU Rex 4MP', text: 'Para interiores. 4 MP, visión nocturna y detección de personas.' },
+        cruiserDual: { name: 'IMOU Cruiser Dual 2', text: 'Para exteriores. Doble lente (4 MP + 4 MP), visión nocturna a color y luces de advertencia.' }
       },
       productCta: 'Cotizar esta cámara',
       productMsg: 'Hola, quiero cotizar la {producto}.',
@@ -358,6 +367,22 @@ export default {
     asesorias: 'Asesorías y ventas',
     facturacion: 'Facturación y pagos',
     soporte: 'Soporte técnico'
+  },
+  equipo: {
+    photoAlt: 'Equipo de Cam Network Soluciones con uniforme verde frente a la oficina, junto al vehículo de la empresa',
+    introTitle: 'Somos Cam Network',
+    intro: [
+      'Somos un equipo de técnicos, instaladores, asesores y personal administrativo de la región, unidos por un mismo propósito: ser la solución amiga de quienes más lo necesitan.',
+      'Llevamos internet, cámaras de seguridad y energía solar a hogares, fincas y empresas de 13 municipios. Subimos a las torres, recorremos caminos destapados y llegamos hasta las veredas más apartadas para que nadie se quede sin conexión.',
+      'Conocemos la región porque somos de aquí. Por eso atendemos de forma cercana, cumplimos lo que prometemos y acompañamos a cada cliente antes, durante y después de la instalación.'
+    ],
+    valuesTitle: 'Lo que nos caracteriza',
+    values: [
+      { title: 'Cercanía', text: 'Atención personal, en tu idioma y en tu territorio.' },
+      { title: 'Compromiso', text: 'Llegamos a donde otros no llegan, en la ciudad y en el campo.' },
+      { title: 'Respaldo técnico', text: 'Instalación y soporte con personal capacitado.' },
+      { title: 'Confianza', text: 'Más de 3.000 clientes nos eligen para conectarse y protegerse.' }
+    ]
   },
   legal: {
     updated: 'Última actualización: pendiente de definir',
@@ -404,7 +429,6 @@ export default {
     quienesSomos: { title: 'Quiénes Somos', description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.' },
     nuestroEquipo: { title: 'Nuestro Equipo', description: 'Conoce al equipo de profesionales detrás de Cam Network Soluciones S.A.S.' },
     cobertura: { title: 'Cobertura', description: 'Consulta las zonas de cobertura de nuestro servicio de internet, cámaras de seguridad y energía solar.' },
-    planes: { title: 'Planes', description: 'Planes de internet hogar y empresarial con la mejor velocidad y cobertura.' },
     normatividad: { title: 'Normatividad', description: 'Normatividad vigente aplicable a los servicios de telecomunicaciones de Cam Network Soluciones S.A.S.' },
     pqrs: { title: 'PQRS', description: 'Radica tus peticiones, quejas, reclamos y sugerencias con Cam Network Soluciones S.A.S.' },
     testVelocidad: { title: 'Test de Velocidad', description: 'Mide la velocidad de tu conexión a internet con Cam Network Soluciones S.A.S.' },

@@ -45,12 +45,6 @@ export const routes = [
     meta: { i18n: 'cobertura' }
   },
   {
-    path: '/planes',
-    name: 'planes',
-    component: () => import('../views/Planes.vue'),
-    meta: { i18n: 'planes' }
-  },
-  {
     path: '/normatividad',
     name: 'normatividad',
     component: () => import('../views/Normatividad.vue'),
@@ -119,5 +113,8 @@ export const routes = [
 ]
 
 export function scrollBehavior(to, from, savedPosition) {
-  return savedPosition || { top: 0, behavior: 'smooth' }
+  if (savedPosition) return savedPosition
+  // enlaces a una sección, ej. /normatividad#proteccion-infantil (desde el footer)
+  if (to.hash) return { el: to.hash, top: 100, behavior: 'smooth' }
+  return { top: 0, behavior: 'smooth' }
 }

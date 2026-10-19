@@ -4,17 +4,25 @@
     <!-- Encabezado corto del servicio -->
     <header class="svc-hero">
       <div class="grid-bg" aria-hidden="true" />
-      <div class="container svc-hero-inner" :class="{ 'has-image': image }">
+      <div class="container svc-hero-inner" :class="{ 'has-image': image || images.length }">
         <div class="svc-hero-copy">
           <router-link :to="{ name: 'home' }" class="eyebrow reveal">{{ t('servicios.eyebrow') }}</router-link>
           <div class="svc-title reveal reveal-1">
             <IconTile :icon="icon" :size="64" />
             <h1 class="display">{{ title }}</h1>
           </div>
-          <p class="lead reveal reveal-2">{{ subtitle }}</p>
+          <!-- slot "subtitle" para subtítulos con palabras resaltadas -->
+          <p class="lead reveal reveal-2"><slot name="subtitle">{{ subtitle }}</slot></p>
           <p v-if="stat" class="svc-stat reveal reveal-3"><Users :size="18" /> {{ stat }}</p>
         </div>
-        <figure v-if="image" class="svc-hero-photo reveal reveal-3" :class="{ contain: imageFit === 'contain' }">
+        <!-- varias fotos: se alternan solas -->
+        <figure v-if="images.length" class="svc-hero-photo rotating reveal reveal-3" :style="{ aspectRatio: imageRatio }">
+          <img
+            v-for="(img, i) in images" :key="img.src" :src="img.src" :alt="i === active ? img.alt : ''"
+            :class="{ active: i === active }" :loading="i === 0 ? 'eager' : 'lazy'"
+          />
+        </figure>
+        <figure v-else-if="image" class="svc-hero-photo reveal reveal-3">
           <img :src="image" :alt="imageAlt" fetchpriority="high" />
         </figure>
       </div>
@@ -50,7 +58,7 @@
 // Layout base de las páginas de servicio (Internet, Energía solar, Cámaras):
 // encabezado corto + contenido (slot) + cierre con "Solicitar información" / WhatsApp.
 // Las secciones internas usan las clases globales .svc-block, .svc-heading y .svc-sub (src/style.css).
-import { computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ArrowRight, Users } from 'lucide-vue-next';
 import AppNav from '../landing/AppNav.vue';
@@ -68,7 +76,8 @@ const props = defineProps({
   stat: { type: String, default: '' },          // cifra destacada, ej. '+2.000 clientes'
   image: { type: String, default: '' },
   imageAlt: { type: String, default: '' },
-  imageFit: { type: String, default: 'cover' },   // 'contain' para fotos verticales (se ve completa sobre fondo oscuro)
+  images: { type: Array, default: () => [] },     // [{ src, alt }] → se alternan cada pocos segundos
+  imageRatio: { type: String, default: '16 / 10' },
   ctaTitle: { type: String, default: '' },
   ctaText: { type: String, default: '' }
 });
@@ -77,6 +86,15 @@ const { t } = useI18n();
 const waLink = computed(() =>
   whatsappLink('asesorias', t('servicios.waMsg', { servicio: props.title }))
 );
+
+// Rotación de las fotos del encabezado
+const active = ref(0);
+let timer = null;
+onMounted(() => {
+  if (props.images.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  timer = setInterval(() => { active.value = (active.value + 1) % props.images.length; }, 3500);
+});
+onBeforeUnmount(() => clearInterval(timer));
 
 useReveal();
 </script>
@@ -114,8 +132,12 @@ useReveal();
   border: 6px solid #fff; box-shadow: var(--shadow-lg); background: var(--bg-2);
 }
 .svc-hero-photo img { width: 100%; height: 100%; object-fit: cover }
-.svc-hero-photo.contain { background: linear-gradient(160deg, #0f3d22 0%, #0a2a17 100%) }
-.svc-hero-photo.contain img { object-fit: contain }
+.svc-hero-photo.rotating { position: relative; max-width: 440px; justify-self: center; width: 100% }
+.svc-hero-photo.rotating img {
+  position: absolute; inset: 0; opacity: 0; transform: scale(1.03);
+  transition: opacity .8s ease, transform 3.5s ease-out;
+}
+.svc-hero-photo.rotating img.active { opacity: 1; transform: scale(1) }
 
 .svc-last { padding-bottom: 4rem }
 

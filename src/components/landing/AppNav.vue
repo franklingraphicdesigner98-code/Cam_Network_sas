@@ -86,7 +86,6 @@ const menu = computed(() => [
     ]
   },
   { label: t('nav.cobertura'), to: '/cobertura' },
-  { label: t('nav.planes'), to: '/planes' },
   { label: t('nav.normatividad'), to: '/normatividad' },
   {
     label: t('nav.usuarios'),

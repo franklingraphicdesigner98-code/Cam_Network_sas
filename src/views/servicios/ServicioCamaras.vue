@@ -1,36 +1,18 @@
 <template>
   <ServiceLayout
     service-key="camaras" :icon="Cctv"
-    :title="t('servicios.camaras.title')" :subtitle="t('servicios.camaras.subtitle')" :stat="t('servicios.camaras.stat')"
-    image="/img/servicios/camara-ptz.webp" image-fit="contain" :image-alt="t('servicios.camaras.imageAlt')"
+    :title="t('servicios.camaras.title')" :stat="t('servicios.camaras.stat')"
+    :images="heroImages" image-ratio="9 / 11"
     :cta-title="t('servicios.camaras.closing')"
   >
-    <!-- Mensaje principal -->
-    <section class="svc-block">
-      <div class="container">
-        <div class="headline reveal">
-          <Eye :size="40" class="headline-icon" />
-          <div>
-            <h2>{{ t('servicios.camaras.headline') }}</h2>
-            <p>{{ t('servicios.camaras.headlineText') }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hogar / empresa / taller -->
-    <section class="svc-block">
-      <div class="container">
-        <h2 class="svc-heading reveal">{{ t('servicios.camaras.placesTitle') }}</h2>
-        <div class="places">
-          <article v-for="(place, i) in places" :key="place.key" class="place card reveal" :class="`reveal-${i + 1}`">
-            <IconTile :icon="place.icon" :size="56" />
-            <h3>{{ t(`servicios.camaras.places.${place.key}.title`) }}</h3>
-            <p>{{ t(`servicios.camaras.places.${place.key}.text`) }}</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <!-- Subtítulo con hogar / empresa / fábrica resaltados -->
+    <template #subtitle>
+      <i18n-t keypath="servicios.camaras.subtitle" tag="span">
+        <template v-for="w in ['hogar', 'empresa', 'fabrica']" :key="w" #[w]>
+          <strong class="hl">{{ t(`servicios.camaras.subWords.${w}`) }}</strong>
+        </template>
+      </i18n-t>
+    </template>
 
     <!-- Características -->
     <section class="svc-block">
@@ -56,8 +38,7 @@
         <div class="products">
           <article v-for="(cam, i) in camaras" :key="cam.key" class="product card reveal" :class="`reveal-${(i % 3) + 1}`">
             <div class="product-media">
-              <img v-if="cam.image" :src="cam.image" :alt="t(`servicios.camaras.products.${cam.key}.name`)" loading="lazy" />
-              <IconTile v-else :icon="Cctv" :size="76" tone="soft" />
+              <img :src="cam.image" :alt="t(`servicios.camaras.products.${cam.key}.name`)" loading="lazy" width="720" height="880" />
             </div>
             <div class="product-body">
               <h3>{{ t(`servicios.camaras.products.${cam.key}.name`) }}</h3>
@@ -74,20 +55,17 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Cctv, Eye, House, Building2, Wrench, Smartphone, Moon, BellRing, Video } from 'lucide-vue-next';
+import { Cctv, Smartphone, Moon, BellRing, Video } from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
-import IconTile from '../../components/ui/IconTile.vue';
 import { camaras } from '../../data/camaras.js';
 import { whatsappLink } from '../../data/contacto.js';
 
 const { t, tm, rt } = useI18n();
 
-const places = [
-  { key: 'hogar', icon: House },
-  { key: 'empresa', icon: Building2 },
-  { key: 'taller', icon: Wrench }
-];
+// Fichas de las cámaras que se alternan en el encabezado
+const heroImages = computed(() => camaras.map((c) => ({ src: c.image, alt: t(`servicios.camaras.products.${c.key}.name`) })));
 // Mismo orden que servicios.camaras.features en src/locales/*.js
 const featureIcons = [Smartphone, Moon, BellRing, Video];
 
@@ -98,19 +76,12 @@ const productLink = (cam) => {
 </script>
 
 <style scoped>
-.headline {
-  display: flex; gap: 1.2rem; align-items: flex-start;
-  padding: clamp(1.6rem, 4vw, 2.4rem); border-radius: var(--r-lg);
-  background: var(--green-soft); border: 1px solid rgba(22,163,74,.25);
+/* palabras resaltadas del subtítulo (efecto marcador) */
+.hl {
+  color: var(--green-deep); font-weight: 800; font-size: 1.12em;
+  background: linear-gradient(transparent 58%, rgba(74,222,128,.45) 58%);
+  padding: 0 .12em; border-radius: 3px;
 }
-.headline-icon { flex: none; color: var(--green) }
-.headline h2 { margin: 0 0 .5rem; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; color: var(--ink) }
-.headline p { margin: 0; font-size: 1.05rem; line-height: 1.7; color: var(--ink-dim); max-width: 64ch }
-
-.places { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.2rem }
-.place { padding: 1.6rem }
-.place h3 { margin: 1rem 0 .4rem; font-size: 1.2rem; font-weight: 800; color: var(--ink) }
-.place p { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-dim) }
 
 .features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem }
 .feature { display: flex; gap: .8rem; align-items: flex-start; padding: 1.2rem; border-radius: var(--r-md); background: #fff; border: 1px solid var(--border) }
@@ -123,11 +94,8 @@ const productLink = (cam) => {
 
 .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem }
 .product { display: flex; flex-direction: column; overflow: hidden }
-.product-media {
-  position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center;
-  background: linear-gradient(160deg, #0f3d22 0%, #0a2a17 100%);
-}
-.product-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 50% }
+.product-media { aspect-ratio: 9 / 11; background: var(--bg-2) }
+.product-media img { width: 100%; height: 100%; object-fit: cover }
 .product-body { display: flex; flex-direction: column; align-items: flex-start; flex: 1; padding: 1.4rem }
 .product h3 { margin: 0 0 .4rem; font-size: 1.15rem; font-weight: 800; color: var(--ink) }
 .product p { margin: 0 0 1.2rem; font-size: .92rem; line-height: 1.55; color: var(--ink-dim) }
@@ -137,14 +105,10 @@ const productLink = (cam) => {
   .features { grid-template-columns: 1fr 1fr }
 }
 @media (max-width: 860px) {
-  .places, .products { grid-template-columns: 1fr }
-  .product { flex-direction: row }
-  .product-media { width: 40%; flex: none; aspect-ratio: auto }
+  .products { grid-template-columns: 1fr 1fr }
 }
 @media (max-width: 520px) {
   .features { grid-template-columns: 1fr }
-  .product { flex-direction: column }
-  .product-media { width: 100%; aspect-ratio: 16 / 10 }
-  .headline { flex-direction: column }
+  .products { grid-template-columns: 1fr }
 }
 </style>

@@ -27,7 +27,6 @@
           <router-link to="/">{{ t('nav.inicio') }}</router-link>
           <router-link to="/empresa/quienes-somos">{{ t('nav.quienesSomos') }}</router-link>
           <router-link to="/cobertura">{{ t('nav.cobertura') }}</router-link>
-          <router-link to="/planes">{{ t('nav.planes') }}</router-link>
           <router-link to="/contacto">{{ t('nav.contacto') }}</router-link>
         </div>
 
@@ -37,6 +36,8 @@
           <router-link to="/legal/aviso-privacidad">{{ t('footer.avisoPrivacidad') }}</router-link>
           <router-link to="/legal/terminos-condiciones">{{ t('footer.terminos') }}</router-link>
           <router-link to="/normatividad">{{ t('nav.normatividad') }}</router-link>
+          <!-- Decreto 1524 de 2002, art. 6 num. 7: enlace de denuncia visible en todo el sitio -->
+          <router-link to="/normatividad#proteccion-infantil" class="report-link">{{ t('footer.childReport') }}</router-link>
         </div>
 
         <div class="col">
@@ -45,8 +46,6 @@
             <span>{{ t('lineas.' + key) }}</span>{{ line.display }}
           </a>
           <a href="mailto:comercial@camnetworksoluciones.com">comercial@camnetworksoluciones.com</a>
-          <!-- TODO: reemplazar por la URL real del webmail de Cam Network Soluciones -->
-          <a href="https://webmail.camnetworksoluciones.com" class="webmail" target="_blank" rel="noopener noreferrer"><Mail :size="18" />{{ t('footer.webmail') }}</a>
         </div>
       </div>
 
@@ -59,7 +58,6 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n';
-import { Mail } from 'lucide-vue-next';
 import { LINEAS, whatsappLink } from '../../data/contacto.js';
 
 const { t } = useI18n();
@@ -86,6 +84,7 @@ const year = new Date().getFullYear();
 .col h3 { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #fff; margin: 0 0 .3rem }
 .col a { font-size: .9rem; color: rgba(255,255,255,.75); transition: color .2s ease; overflow-wrap: anywhere }
 .col a:hover { color: var(--green-3) }
+.col a:focus-visible { outline: 2px solid var(--green-3); outline-offset: 2px; border-radius: 3px }
 .col a.phone { display: flex; flex-direction: column; line-height: 1.3; color: #fff; font-weight: 600 }
 .col a.phone span { font-size: .74rem; font-weight: 500; color: rgba(255,255,255,.6) }
 
@@ -107,7 +106,6 @@ const year = new Date().getFullYear();
 .socials .ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%) }
 .socials .wa { background: #25d366 }
 
-.col a.webmail { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: #fff }
 
 .bottom-bar {
   border-top: 1px solid rgba(255,255,255,.12);

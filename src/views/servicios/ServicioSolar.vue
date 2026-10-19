@@ -7,13 +7,13 @@
     <!-- Importancia: texto + imagen -->
     <section class="svc-block">
       <div class="container split">
-        <div class="reveal">
+        <figure class="photo reveal">
+          <img src="/img/hero/paneles-torre-960.webp" :alt="t('servicios.solar.achieveImageAlt')" loading="lazy" />
+        </figure>
+        <div class="reveal reveal-2">
           <h2 class="svc-heading">{{ t('servicios.solar.importanceTitle') }}</h2>
           <p v-for="(p, i) in tm('servicios.solar.importance')" :key="i" class="paragraph">{{ rt(p) }}</p>
         </div>
-        <figure class="photo reveal reveal-2">
-          <img src="/img/hero/paneles-torre-960.webp" :alt="t('servicios.solar.achieveImageAlt')" loading="lazy" />
-        </figure>
       </div>
     </section>
 
@@ -57,7 +57,8 @@ const benefitIcons = [PiggyBank, Leaf, Plug, Mountain, Wrench, House];
 </script>
 
 <style scoped>
-.split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center }
+/* imagen a la izquierda y texto a la derecha (alterna con el encabezado) */
+.split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center }
 .paragraph { margin: 0 0 1rem; font-size: 1.02rem; line-height: 1.75; color: var(--ink-dim) }
 .photo { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--r-xl); overflow: hidden; border: 6px solid #fff; box-shadow: var(--shadow-lg) }
 .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50% }

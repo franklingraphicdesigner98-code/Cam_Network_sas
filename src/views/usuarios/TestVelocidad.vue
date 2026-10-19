@@ -3,7 +3,7 @@
   <main>
     <PageHero :eyebrow="t('pages.usuariosEyebrow')" :title="t('pages.testVelocidad.title')" :subtitle="t('pages.testVelocidad.subtitle')" />
 
-    <section class="block">
+    <section class="block last">
       <div class="container">
         <div class="panel tester reveal">
           <!-- Velocímetro -->
@@ -62,25 +62,6 @@
         </div>
       </div>
     </section>
-
-    <section class="block last">
-      <div class="container side-grid">
-        <div class="panel tips reveal">
-          <h2>{{ t('speed.tipsTitle') }}</h2>
-          <ul>
-            <li v-for="(tip, i) in tm('speed.tips')" :key="i"><Check :size="18" />{{ rt(tip) }}</li>
-          </ul>
-        </div>
-        <div class="help reveal reveal-2">
-          <h2>{{ t('speed.helpTitle') }}</h2>
-          <p>{{ t('speed.helpText') }}</p>
-          <div class="help-actions">
-            <BaseButton :to="{ name: 'pqrs' }" variant="glass" class="btn-sm">{{ t('speed.ctaPqrs') }}</BaseButton>
-            <a :href="supportLink" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">{{ t('speed.ctaContact') }}</a>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
   <AppFooter />
 </template>
@@ -88,23 +69,13 @@
 <script setup>
 import { ref, computed, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ArrowDown, ArrowUp, Activity, Waves, Check, Info, RotateCcw } from 'lucide-vue-next';
+import { ArrowDown, ArrowUp, Activity, Waves, Info, RotateCcw } from 'lucide-vue-next';
 import AppNav from '../../components/landing/AppNav.vue';
 import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
-import BaseButton from '../../components/ui/BaseButton.vue';
 import { useReveal } from '../../composables/useReveal.js';
-import { whatsappLink } from '../../data/contacto.js';
 
-const { t, tm, rt } = useI18n();
-
-// Soporte técnico por WhatsApp, con los resultados de la prueba si ya se hizo
-const supportLink = computed(() => {
-  const r = download.value != null
-    ? ` ${t('speed.supportResults', { down: formatMbps(download.value), up: upload.value != null ? formatMbps(upload.value) : '—', ping: ping.value != null ? Math.round(ping.value) : '—' })}`
-    : '';
-  return whatsappLink('soporte', t('speed.supportMsg') + r);
-});
+const { t } = useI18n();
 
 // ---------- Geometría del velocímetro (arco de 270°, escala logarítmica 0–1000 Mbps) ----------
 const CX = 120, CY = 118, R = 96;
@@ -297,26 +268,7 @@ useReveal();
   margin: 1.6rem 0 0; font-size: .78rem; color: var(--ink-mute);
 }
 
-/* ---------- Consejos / ayuda ---------- */
-.side-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.25rem; max-width: 820px }
-.tips { padding: 1.6rem 1.8rem }
-.tips h2, .help h2 { margin: 0 0 .9rem; font-size: 1.15rem; font-weight: 800 }
-.tips h2 { color: var(--green-deep) }
-.tips ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .6rem }
-.tips li { display: flex; gap: .55rem; font-size: .9rem; line-height: 1.45; color: var(--ink-dim) }
-.tips li :deep(svg) { flex: none; color: var(--green); margin-top: 1px }
-.help {
-  padding: 1.6rem 1.8rem; border-radius: var(--r-lg); color: #fff;
-  background:
-    radial-gradient(70% 90% at 100% 0%, rgba(34,197,94,.28) 0%, rgba(34,197,94,0) 65%),
-    linear-gradient(140deg, var(--forest-2) 0%, var(--forest) 100%);
-  box-shadow: var(--shadow-lg);
-}
-.help p { margin: 0 0 1.2rem; color: rgba(255,255,255,.85); line-height: 1.55 }
-.help-actions { display: flex; flex-wrap: wrap; gap: .6rem }
-
 @media (max-width: 720px) {
   .results { grid-template-columns: repeat(2, minmax(0, 1fr)) }
-  .side-grid { grid-template-columns: 1fr }
 }
 </style>

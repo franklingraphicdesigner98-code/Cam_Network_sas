@@ -3,10 +3,13 @@
   <main>
     <HeroSection />
     <div class="home-sections">
-      <ServicesSection />
-      <StatsBand />
-      <QuickAccess />
       <PlansSection />
+      <!-- Seguridad eléctrica y cifras de clientes, lado a lado en PC -->
+      <div class="container duo">
+        <ServicesSection />
+        <StatsBand />
+      </div>
+      <QuickAccess />
       <CoverageBand />
       <ContactSection />
     </div>
@@ -31,4 +34,14 @@ useReveal();
 
 <style scoped>
 .home-sections { padding: .5rem 0 3rem }
+
+.duo { display: grid; grid-template-columns: 1fr; gap: 1.25rem; padding-block: 1.25rem }
+/* los dos bloques traen su propio contenedor: aquí se neutraliza para que quepan en la cuadrícula */
+.duo :deep(> .block) { padding: 0 }
+.duo :deep(> .block > .container) { max-width: none; padding: 0; height: 100% }
+.duo :deep(.safety), .duo :deep(.stats) { height: 100% }
+.duo :deep(.stats-grid) { grid-template-columns: 1fr }
+@media (min-width: 1001px) {
+  .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) }
+}
 </style>

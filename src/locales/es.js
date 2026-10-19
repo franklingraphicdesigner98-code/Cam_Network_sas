@@ -24,7 +24,7 @@ export default {
     avisoPrivacidad: 'Aviso de Privacidad',
     terminos: 'Términos y Condiciones',
     rights: 'Todos los derechos reservados.',
-    childReport: 'Denuncia contenido de pornografía infantil',
+    childReport: 'Protección de la niñez en Internet',
     follow: 'Síguenos en nuestras redes'
   },
   comingSoon: {
@@ -49,22 +49,12 @@ export default {
   },
   home: {
     services: {
-      title: 'Servicios',
-      sub: 'Soluciones integrales para tu día a día.',
-      info: 'Información',
       items: {
         internet: 'Internet',
         solar: 'Paneles Solares',
         camaras: 'Cámaras de Seguridad',
         instalacion: 'Instalación y Mantenimiento'
-      },
-      desc: {
-        internet: 'Fibra óptica en la ciudad y conexión inalámbrica en el campo.',
-        solar: 'Genera tu propia energía y ahorra en tu factura.',
-        camaras: 'Vigila tu hogar o negocio desde tu celular.',
-        instalacion: 'Instalamos y mantenemos tus equipos.'
-      },
-      more: 'Ver más',
+      }
     },
     safety: {
       badge: 'Sin cláusula de permanencia',
@@ -85,14 +75,13 @@ export default {
       office: { title: 'Nuestras Oficinas', text: 'Visítanos en el centro de San Gil.' }
     },
     plans: {
-      title: 'Nuestros Planes',
-      sub: 'Elige el plan que mejor se adapta a tus necesidades.',
-      requisitos: 'Requisitos para instalación del servicio',
-      fibra: { title: 'Planes de Fibra Óptica', text: 'Más velocidad, más estabilidad, mejor experiencia.' },
-      hogar: { title: 'Internet para Hogar y Empresa', text: 'Conexión confiable para lo que más importa.' },
+      internet: { title: 'Internet', text: 'Fibra óptica en la ciudad y conexión inalámbrica en el campo.', alt: 'Equipo técnico instalando fibra óptica en zona rural' },
+      solar: { title: 'Paneles Solares', text: 'Genera tu propia energía y ahorra en tu factura.', alt: 'Técnico instalando paneles solares en una casa' },
+      camaras: { title: 'Cámaras de Seguridad', text: 'Vigila tu hogar o negocio desde tu celular.', alt: 'Cámara de seguridad IMOU para exteriores' },
+      tv: { title: 'TV', text: 'Tus canales favoritos en casa. Pregunta por los planes.', alt: 'Familia viendo televisión con el servicio de TV de Cam Network' },
       cta: 'Ver planes',
-      fibraAlt: 'Equipo técnico instalando fibra óptica en zona rural',
-      hogarAlt: 'Oficina de Cam Network Soluciones'
+      ctaInfo: 'Más información',
+      tvMsg: 'Hola, quiero información sobre el servicio de TV.'
     },
     coverage: {
       title: 'Cobertura en 13 municipios',
@@ -176,15 +165,15 @@ export default {
     pages: '{n} páginas',
     view: 'Ver documento',
     download: 'Descargar PDF',
-    reportTitle: 'Denuncia contenidos de pornografía infantil',
-    reportText: 'Si encuentras en internet contenidos de pornografía o explotación sexual de menores de edad, denúncialos en estos canales:',
+    reportTitle: 'Protección de niñas, niños y adolescentes en Internet',
+    reportText: '¿Viste contenido donde se vulnere o explote a un menor? Denúncialo aquí.',
     reportButton: 'Denuncia',
     close: 'Cerrar',
     channels: {
-      teprotejo: { name: 'Te Protejo', desc: 'Canal virtual y anónimo de denuncia promovido por el MinTIC.' },
-      adenunciar: { name: 'A Denunciar', desc: 'Denuncia virtual de la Policía Nacional y la Fiscalía.' },
-      icbf: { name: 'Línea 141 del ICBF', desc: 'Línea nacional gratuita.' },
-      cai: { name: 'CAI Virtual de la Policía Nacional', desc: 'Asesoría en delitos informáticos.' }
+      teprotejo: { name: 'Te Protejo', desc: 'Canal virtual y anónimo, promovido por el MinTIC, para reportar situaciones de abuso, explotación y riesgo para niños, niñas y adolescentes.' },
+      adenunciar: { name: 'A Denunciar', desc: 'Denuncia virtual de la Policía Nacional y la Fiscalía para reportar delitos, incluida la explotación sexual infantil.' },
+      icbf: { name: 'Línea 141 del ICBF', desc: 'Línea gratuita del ICBF para reportar casos de abuso, maltrato o explotación de niños, niñas y adolescentes.' },
+      cai: { name: 'CAI Virtual de la Policía Nacional', desc: 'Asesoría de la Policía Nacional sobre delitos informáticos y riesgos en línea.' }
     },
     lawTitle: 'Ley 679 de 2001',
     lawText: 'La Ley 679 de 2001 establece medidas para prevenir y contrarrestar la explotación, la pornografía y el turismo sexual con menores de edad. El Decreto 1524 de 2002, que reglamenta su artículo 5, establece las medidas técnicas y administrativas para prevenir el acceso de menores de edad a información pornográfica en Internet y para evitar que estos medios se aprovechen con fines de explotación sexual infantil. Estas disposiciones están compiladas en el Decreto 1078 de 2015.',

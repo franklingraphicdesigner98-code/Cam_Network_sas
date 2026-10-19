@@ -24,7 +24,7 @@ export default {
     avisoPrivacidad: 'Privacy Notice',
     terminos: 'Terms & Conditions',
     rights: 'All rights reserved.',
-    childReport: 'Report child pornography content',
+    childReport: 'Child protection online',
     follow: 'Follow us'
   },
   comingSoon: {
@@ -49,22 +49,12 @@ export default {
   },
   home: {
     services: {
-      title: 'Services',
-      sub: 'Complete solutions for your everyday life.',
-      info: 'Learn more',
       items: {
         internet: 'Internet',
         solar: 'Solar Panels',
         camaras: 'Security Cameras',
         instalacion: 'Installation & Maintenance'
-      },
-      desc: {
-        internet: 'Fiber optics in town and wireless connection in the countryside.',
-        solar: 'Generate your own energy and save on your bill.',
-        camaras: 'Watch over your home or business from your phone.',
-        instalacion: 'We install and maintain your equipment.'
-      },
-      more: 'Learn more',
+      }
     },
     safety: {
       badge: 'No minimum contract term',
@@ -85,14 +75,13 @@ export default {
       office: { title: 'Our Office', text: 'Visit us in downtown San Gil.' }
     },
     plans: {
-      title: 'Our Plans',
-      sub: 'Choose the plan that best fits your needs.',
-      requisitos: 'Service installation requirements',
-      fibra: { title: 'Fiber Optic Plans', text: 'More speed, more stability, a better experience.' },
-      hogar: { title: 'Internet for Home & Business', text: 'Reliable connection for what matters most.' },
+      internet: { title: 'Internet', text: 'Fiber optics in town and wireless connection in the countryside.', alt: 'Technical team installing fiber optics in a rural area' },
+      solar: { title: 'Solar Panels', text: 'Generate your own energy and save on your bill.', alt: 'Technician installing solar panels on a house' },
+      camaras: { title: 'Security Cameras', text: 'Watch over your home or business from your phone.', alt: 'IMOU outdoor security camera' },
+      tv: { title: 'TV', text: 'Your favorite channels at home. Ask about our plans.', alt: 'Family watching TV with the Cam Network TV service' },
       cta: 'See plans',
-      fibraAlt: 'Technical team installing fiber optics in a rural area',
-      hogarAlt: 'Cam Network Soluciones office'
+      ctaInfo: 'Learn more',
+      tvMsg: "Hi, I'd like information about the TV service."
     },
     coverage: {
       title: 'Coverage in 13 towns',
@@ -176,15 +165,15 @@ export default {
     pages: '{n} pages',
     view: 'View document',
     download: 'Download PDF',
-    reportTitle: 'Report child pornography content',
-    reportText: 'If you find content involving the pornography or sexual exploitation of minors on the internet, report it through these channels:',
+    reportTitle: 'Protection of children and adolescents online',
+    reportText: 'Did you see content where a minor is harmed or exploited? Report it here.',
     reportButton: 'Report',
     close: 'Close',
     channels: {
-      teprotejo: { name: 'Te Protejo', desc: 'Virtual and anonymous reporting channel promoted by MinTIC.' },
-      adenunciar: { name: 'A Denunciar', desc: 'Online reporting system of the National Police and the Attorney General’s Office.' },
-      icbf: { name: 'ICBF Line 141', desc: 'Toll-free national hotline.' },
-      cai: { name: 'National Police CAI Virtual', desc: 'Advice on cybercrime.' }
+      teprotejo: { name: 'Te Protejo', desc: 'Virtual and anonymous channel, promoted by MinTIC, to report situations of abuse, exploitation and risk for children and adolescents.' },
+      adenunciar: { name: 'A Denunciar', desc: 'Online reporting system of the National Police and the Attorney General’s Office to report crimes, including child sexual exploitation.' },
+      icbf: { name: 'ICBF Line 141', desc: 'Toll-free ICBF hotline to report cases of abuse, mistreatment or exploitation of children and adolescents.' },
+      cai: { name: 'National Police CAI Virtual', desc: 'National Police advice on cybercrime and online risks.' }
     },
     lawTitle: 'Law 679 of 2001',
     lawText: 'Law 679 of 2001 establishes measures to prevent and counter the exploitation, pornography and sex tourism involving minors. Decree 1524 of 2002, which regulates its article 5, establishes the technical and administrative measures to prevent minors from accessing pornographic information on the Internet and to prevent these media from being used for child sexual exploitation. These provisions are compiled in Decree 1078 of 2015.',

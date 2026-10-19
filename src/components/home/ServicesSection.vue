@@ -1,26 +1,7 @@
 <template>
   <section class="block">
-    <div class="container services-grid">
-      <div class="panel services reveal">
-        <h2 class="section-title">{{ t('home.services.title') }}</h2>
-        <p class="section-sub">{{ t('home.services.sub') }}</p>
-
-        <div class="service-list">
-          <!-- Toda la tarjeta es clickeable: lleva a la página del servicio -->
-          <router-link v-for="s in services" :key="s.key" :to="s.to" class="service card">
-            <IconTile :icon="s.icon" :size="58" />
-            <div class="service-body">
-              <h3>{{ t(`home.services.items.${s.key}`) }}</h3>
-              <p>{{ t(`home.services.desc.${s.key}`) }}</p>
-              <span class="pill-link">
-                {{ t(s.to.name === 'contacto' ? 'home.services.info' : 'home.services.more') }} <ChevronRight :size="14" />
-              </span>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div class="safety reveal reveal-2">
+    <div class="container">
+      <div class="safety reveal">
         <!-- Fondo: fotos reales del equipo y las instalaciones (public/img/equipo/), se alternan -->
         <div class="safety-bg" aria-hidden="true">
           <img v-for="(src, i) in teamPhotos" :key="src" :src="src" alt="" :class="{ active: i === photo }" loading="lazy" />
@@ -49,18 +30,9 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Wifi, SolarPanel, Cctv, Wrench, Check, ChevronRight, Shield, Zap, BadgeCheck } from 'lucide-vue-next';
-import IconTile from '../ui/IconTile.vue';
+import { Check, ChevronRight, Shield, Zap, BadgeCheck } from 'lucide-vue-next';
 
 const { t, tm, rt } = useI18n();
-
-const services = [
-  { key: 'internet', icon: Wifi, to: { name: 'servicio-internet' } },
-  { key: 'solar', icon: SolarPanel, to: { name: 'servicio-solar' } },
-  { key: 'camaras', icon: Cctv, to: { name: 'servicio-camaras' } },
-  // sin página propia: lleva al formulario con el servicio preseleccionado
-  { key: 'instalacion', icon: Wrench, to: { name: 'contacto', query: { servicio: 'instalacion' } } }
-];
 
 const teamPhotos = [
   '/img/equipo/tecnico-torre.webp',
@@ -87,29 +59,6 @@ const tips = computed(() => [
 
 <style scoped>
 .block { padding: 1.25rem 0 }
-.services-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem;
-}
-
-/* ---------- Servicios ---------- */
-.services { padding: 1.8rem }
-.service-list {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
-  margin-top: 1.4rem;
-}
-.service {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 1.15rem; border-radius: var(--r-md);
-  background: linear-gradient(180deg, #fff 0%, #f8fbf9 100%);
-}
-.service-body { display: flex; flex-direction: column; align-items: flex-start; gap: .45rem; min-width: 0 }
-.service h3 { margin: 0; font-size: .98rem; font-weight: 700; line-height: 1.25; color: var(--ink) }
-.service p { margin: 0; font-size: .82rem; line-height: 1.45; color: var(--ink-dim) }
-.service .pill-link { margin-top: .25rem }
-.service:hover .pill-link { border-color: rgba(22,163,74,.4); background: var(--green-soft) }
-/* la quinta tarjeta ocupa las dos columnas */
-.service:last-child:nth-child(odd) { grid-column: 1 / -1 }
-
 /* ---------- Seguridad eléctrica ---------- */
 .safety {
   position: relative; overflow: hidden;
@@ -136,11 +85,12 @@ const tips = computed(() => [
     radial-gradient(70% 90% at 90% 60%, rgba(34,197,94,.3) 0%, rgba(34,197,94,0) 65%);
 }
 .safety-copy { position: relative; z-index: 1; flex: 1 }
+.no-contract :deep(svg) { color: var(--green-3) }
 .no-contract {
   display: inline-flex; align-items: center; gap: .4rem; margin-bottom: 1rem;
   padding: .4rem .85rem; border-radius: 999px;
-  font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: var(--forest);
-  background: var(--green-3); box-shadow: 0 6px 18px rgba(74,222,128,.35);
+  font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: #fff;
+  background: #354d9b; box-shadow: 0 6px 18px rgba(10,25,70,.35);   /* azul del logo */
 }
 .shield { z-index: 1 }
 .safety h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2.05rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em }
@@ -163,12 +113,8 @@ const tips = computed(() => [
   transform: translateY(-4px);
 }
 
-@media (max-width: 1000px) {
-  .services-grid { grid-template-columns: 1fr }
-}
 @media (max-width: 560px) {
-  .service-list { grid-template-columns: 1fr }
-  .services, .safety { padding: 1.4rem }
+  .safety { padding: 1.4rem }
   .shield { display: none }
 }
 </style>

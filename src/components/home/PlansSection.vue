@@ -1,23 +1,18 @@
 <template>
   <section class="block">
     <div class="container plans-grid">
-      <div class="panel intro reveal">
-        <h2 class="section-title">{{ t('home.plans.title') }}</h2>
-        <p class="section-sub">{{ t('home.plans.sub') }}</p>
-        <router-link :to="{ name: 'servicio-internet' }" class="pill-link req">
-          {{ t('home.plans.requisitos') }} <ChevronRight :size="14" />
-        </router-link>
-      </div>
-
-      <div
-        v-for="(p, i) in plans" :key="p.key"
-        class="plan card reveal" :class="`reveal-${i + 1}`"
-      >
-        <img :src="p.img" :alt="t(`home.plans.${p.key}Alt`)" class="plan-img" loading="lazy" />
-        <div class="plan-copy">
-          <h3>{{ t(`home.plans.${p.key}.title`) }}</h3>
-          <p>{{ t(`home.plans.${p.key}.text`) }}</p>
-          <BaseButton :to="{ name: 'servicio-internet' }" variant="primary" class="btn-sm">{{ t('home.plans.cta') }}</BaseButton>
+      <div class="plans-cards">
+        <div
+          v-for="(p, i) in plans" :key="p.key"
+          class="plan card reveal" :class="[`reveal-${(i % 4) + 1}`, { contain: p.fit === 'contain' }]"
+        >
+          <img v-if="p.img" :src="p.img" :alt="t(`home.plans.${p.key}.alt`)" class="plan-img" loading="lazy" />
+          <div class="plan-copy">
+            <h3>{{ t(`home.plans.${p.key}.title`) }}</h3>
+            <p>{{ t(`home.plans.${p.key}.text`) }}</p>
+            <a v-if="p.href" :href="p.href" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">{{ t('home.plans.ctaInfo') }}</a>
+            <BaseButton v-else :to="p.to" variant="primary" class="btn-sm">{{ t(p.key === 'internet' ? 'home.plans.cta' : 'home.plans.ctaInfo') }}</BaseButton>
+          </div>
         </div>
       </div>
     </div>
@@ -25,32 +20,31 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ChevronRight } from 'lucide-vue-next';
 import BaseButton from '../ui/BaseButton.vue';
+import { whatsappLink } from '../../data/contacto.js';
 
 const { t } = useI18n();
 
-const plans = [
-  { key: 'fibra', img: '/img/instalacion-fibra-optica.jpeg' },
-  { key: 'hogar', img: '/img/oficina-cam-network.jpeg' }
-];
+// TV no tiene página propia: el botón abre WhatsApp de Asesorías
+const plans = computed(() => [
+  { key: 'internet', img: '/img/instalacion-fibra-optica.jpeg', to: { name: 'servicio-internet' } },
+  { key: 'solar', img: '/img/hero/instalacion-solar-960.webp', to: { name: 'servicio-solar' } },
+  // foto PNG sin fondo: se muestra completa (no recortada)
+  { key: 'camaras', img: '/img/servicios/plan-camaras.webp', to: { name: 'servicio-camaras' }, fit: 'contain' },
+  { key: 'tv', img: '/img/servicios/plan-tv.webp', href: whatsappLink('asesorias', t('home.plans.tvMsg')) }
+]);
 </script>
 
 <style scoped>
 .block { padding: 1.25rem 0 }
-.plans-grid {
-  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.1fr) minmax(0, 1.1fr); gap: 1.25rem;
-}
-.intro { padding: 2rem 1.8rem; display: flex; flex-direction: column; align-items: flex-start }
-.intro .section-title { font-size: clamp(1.6rem, 2.6vw, 2rem) }
-.intro .section-sub { margin-top: .8rem }
-.req { margin-top: auto; padding: .6rem 1rem; font-size: .8rem; line-height: 1.3 }
-.intro .section-sub + .req { margin-top: 1.6rem }
+/* las 4 tarjetas en cuadrícula 2×2 */
+.plans-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem }
 
 .plan {
   position: relative; overflow: hidden;
-  min-height: 250px;
+  min-height: 210px;
   display: flex; align-items: stretch;
 }
 .plan-img {
@@ -59,6 +53,8 @@ const plans = [
   transition: transform .6s ease;
 }
 .plan:hover .plan-img { transform: scale(1.05) }
+.plan.contain .plan-img { z-index: 2; inset: 8% 4% 8% auto; width: 46%; height: 84%; object-fit: contain; filter: drop-shadow(0 12px 18px rgba(14,58,32,.18)) }
+.plan.contain::before { background: linear-gradient(90deg, #fff 0%, #fff 50%, var(--green-soft) 100%) }
 /* degradado blanco → foto para que el texto siempre sea legible */
 .plan::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
@@ -67,22 +63,17 @@ const plans = [
 .plan-copy {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: flex-start;
-  padding: 2rem 1.6rem; max-width: 62%;
+  padding: 1.6rem 1.4rem; max-width: 62%;
 }
 .plan h3 {
   margin: 0; font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 800; line-height: 1.18;
   letter-spacing: -.015em; color: var(--green-deep);
 }
-.plan p { margin: .8rem 0 1.4rem; font-size: .9rem; color: var(--ink-dim); line-height: 1.55 }
+.plan p { margin: .6rem 0 1.1rem; font-size: .9rem; color: var(--ink-dim); line-height: 1.55 }
 .plan-copy .btn { margin-top: auto }
 
-@media (max-width: 1000px) {
-  .plans-grid { grid-template-columns: 1fr 1fr }
-  .intro { grid-column: 1 / -1 }
-  .req { margin-top: 1.4rem }
-}
 @media (max-width: 640px) {
-  .plans-grid { grid-template-columns: 1fr }
+  .plans-cards { grid-template-columns: 1fr }
   .plan-copy { max-width: 70% }
 }
 </style>

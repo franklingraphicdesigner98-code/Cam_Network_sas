@@ -1,11 +1,7 @@
 <template>
   <component
     :is="tag"
-    :to="to"
-    :href="href"
-    :target="href ? '_blank' : undefined"
-    :rel="href ? 'noopener noreferrer' : undefined"
-    :type="!to && !href ? (type || 'button') : undefined"
+    v-bind="linkAttrs"
     class="btn"
     :class="`btn-${variant}`"
   >
@@ -27,4 +23,12 @@ const props = defineProps({
 });
 
 const tag = computed(() => (props.to ? RouterLink : props.href ? 'a' : 'button'));
+
+// Solo los atributos que aplican a cada caso: si a RouterLink se le pasa href=null,
+// el <a> se genera sin href (no se puede enfocar con teclado ni lo sigue Google).
+const linkAttrs = computed(() => {
+  if (props.to) return { to: props.to };
+  if (props.href) return { href: props.href, target: '_blank', rel: 'noopener noreferrer' };
+  return { type: props.type || 'button' };
+});
 </script>

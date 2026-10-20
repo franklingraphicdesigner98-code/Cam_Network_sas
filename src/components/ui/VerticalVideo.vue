@@ -1,6 +1,6 @@
 <template>
   <div class="vv">
-    <div class="vv-frame">
+    <div class="vv-frame" :style="{ aspectRatio: ratio }">
       <video
         ref="video"
         :src="src" :poster="poster || undefined"
@@ -32,6 +32,7 @@ const props = defineProps({
   poster: { type: String, default: '' },     // imagen de portada antes de reproducir
   title: { type: String, default: '' },
   autoplay: { type: Boolean, default: false },
+  ratio: { type: String, default: '9 / 16' },   // '16 / 9' para videos horizontales
   soundLabel: { type: String, default: 'Activar sonido' },
   link: { type: String, default: '' },       // enlace opcional al post original
   linkLabel: { type: String, default: 'Ver en Instagram' }

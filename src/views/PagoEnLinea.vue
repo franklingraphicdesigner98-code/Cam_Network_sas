@@ -18,7 +18,7 @@
             </a>
             <p class="pay-note">{{ t('pago.requestNote') }}</p>
           </template>
-          <span class="powered">ePayco · Efecty</span>
+          <span class="powered">Daviplata · Bancolombia · Davivienda · ePayco · Efecty</span>
         </div>
 
         <!-- Pasos -->
@@ -37,28 +37,48 @@
       </div>
     </section>
 
+    <!-- Medios de pago con su video explicativo (datos en src/data/pagos.js) -->
     <section class="block">
-      <div class="container info-grid">
-        <!-- Medios de pago -->
-        <div class="panel methods reveal">
-          <h2>{{ t('pago.methodsTitle') }}</h2>
-          <div class="channels">
-            <article v-for="(m, i) in tm('pago.methods')" :key="i" class="channel">
-              <span class="method-icon"><component :is="methodIcons[i]" :size="20" /></span>
-              <div>
-                <strong>{{ rt(m.name) }}</strong> <span class="channel-tag">{{ rt(m.tag) }}</span>
-                <p>{{ rt(m.text) }}</p>
-              </div>
-            </article>
-          </div>
-          <p class="methods-note">{{ t('pago.methodsNote') }}</p>
+      <div class="container">
+        <h2 class="methods-title reveal">{{ t('pago.methodsTitle') }}</h2>
+        <p class="methods-sub reveal">{{ t('pago.methodsSub') }}</p>
+        <div class="methods-grid">
+          <article
+            v-for="(m, i) in mediosDePago" :key="m.key"
+            class="method card reveal" :class="[`reveal-${(i % 4) + 1}`, { 'no-video': !m.video }]"
+          >
+            <div class="method-head">
+              <!-- logo del medio; el nombre queda para lectores de pantalla -->
+              <h3 class="method-logo">
+                <img :src="m.logo" :alt="t(`pago.methods.${m.key}.name`)" loading="lazy" />
+              </h3>
+              <span class="channel-tag">{{ t(`pago.methods.${m.key}.tag`) }}</span>
+            </div>
+            <p class="method-text">{{ t(`pago.methods.${m.key}.text`) }}</p>
+            <p v-if="m.number" class="method-number">
+              {{ t('pago.accountLabel') }}: <strong>{{ m.number }}</strong>
+              <span v-if="m.ref" class="method-ref">{{ t('pago.refLabel') }}</span>
+            </p>
+            <VerticalVideo
+              v-if="m.video" :src="m.video" :poster="m.poster" :ratio="m.ratio"
+              :title="t('pago.videoLabel', { medio: t(`pago.methods.${m.key}.name`) })"
+              class="method-video"
+            />
+          </article>
         </div>
+        <p class="methods-note reveal">{{ t('pago.methodsNote') }}</p>
+      </div>
+    </section>
 
-        <!-- Seguridad -->
-        <div class="safety reveal reveal-2">
+    <!-- Seguridad -->
+    <section class="block">
+      <div class="container">
+        <div class="safety reveal">
           <ShieldCheck :size="36" class="safety-icon" />
-          <h2>{{ t('pago.safetyTitle') }}</h2>
-          <p>{{ t('pago.safetyText') }}</p>
+          <div>
+            <h2>{{ t('pago.safetyTitle') }}</h2>
+            <p>{{ t('pago.safetyText') }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -85,12 +105,14 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2, Banknote } from 'lucide-vue-next';
+import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2 } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
 import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
+import VerticalVideo from '../components/ui/VerticalVideo.vue';
+import { mediosDePago } from '../data/pagos.js';
 import { useReveal } from '../composables/useReveal.js';
 import { whatsappLink } from '../data/contacto.js';
 
@@ -101,8 +123,6 @@ const EPAYCO_URL = '';
 const { t, tm, rt } = useI18n();
 
 const waLink = computed(() => whatsappLink('facturacion', t('pago.waMessage')));
-// Mismo orden que pago.methods en src/locales/*.js
-const methodIcons = [CreditCard, Banknote];
 
 useReveal();
 </script>
@@ -140,29 +160,38 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 .steps strong { display: block; color: var(--ink); font-size: .98rem }
 .steps p { margin: .2rem 0 0; color: var(--ink-dim); font-size: .9rem; line-height: 1.5 }
 
-/* ---------- Medios / seguridad ---------- */
-.info-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 1.25rem }
-.methods { padding: clamp(1.4rem, 3vw, 2rem) }
-.channels { display: flex; flex-direction: column; gap: .8rem }
-.channel {
-  display: flex; gap: .9rem; align-items: flex-start;
-  padding: 1rem 1.1rem; border-radius: 14px;
-  background: var(--bg-1); border: 1px solid var(--border);
-}
-.channel strong { font-size: 1.05rem; color: var(--ink) }
+/* ---------- Medios de pago ---------- */
+.methods-title { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; letter-spacing: -.02em; color: var(--green-deep) }
+.methods-sub { margin: .4rem 0 1.4rem; color: var(--ink-dim) }
+.methods-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; align-items: start }
+.method { display: flex; flex-direction: column; padding: 1.2rem }
+.method-head { display: flex; flex-direction: column; align-items: center; gap: .6rem; text-align: center }
+/* todos los logos con la misma altura (cuadrados y horizontales) para que pesen igual */
+.method-logo { margin: 0; height: 48px; width: 100%; display: flex; align-items: center; justify-content: center }
+.method-logo img { height: 48px; width: auto; max-width: 100% }
 .channel-tag {
-  margin-left: .35rem; padding: .12rem .5rem; border-radius: 999px;
+  display: inline-block; padding: .12rem .5rem; border-radius: 999px;
   font-size: .72rem; font-weight: 700; color: var(--green-deep); background: var(--green-soft);
 }
-.channel p { margin: .35rem 0 0; font-size: .9rem; line-height: 1.5; color: var(--ink-dim) }
-.method-icon { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 9px; color: var(--green-deep); background: var(--green-soft) }
-.methods-note { margin: .9rem 0 0; font-size: .78rem; color: var(--ink-mute) }
+.method-text { margin: .8rem 0 0; font-size: .88rem; line-height: 1.5; color: var(--ink-dim) }
+.method-number { margin: .6rem 0 0; font-size: .88rem; color: var(--ink-dim) }
+.method-number strong { color: var(--ink); font-size: 1.05rem }
+.method-ref { display: block; font-size: .8rem; color: var(--ink-mute) }
+.method-video { margin-top: 1rem; max-width: none }
+/* Efecty (sin video): fila completa y compacta */
+.method.no-video { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; gap: .6rem 1.5rem }
+.method.no-video .method-head { flex-direction: row; align-items: center }
+.method.no-video .method-number { margin: 0 }
+.method.no-video .method-text { margin: 0; flex: 1 1 20rem }
+.methods-note { margin: 1rem 0 0; font-size: .82rem; color: var(--ink-mute) }
 
 .safety {
+  display: flex; gap: 1rem; align-items: flex-start;
   padding: clamp(1.4rem, 3vw, 2rem); border-radius: var(--r-lg);
   background: var(--green-soft); border: 1px solid rgba(22,163,74,.25);
 }
-.safety-icon { color: var(--green); margin-bottom: .8rem }
+.safety-icon { flex: none; color: var(--green) }
+.safety h2 { margin-bottom: .4rem }
 .safety p { margin: 0; color: var(--ink-dim); line-height: 1.65 }
 
 /* ---------- Oficina ---------- */
@@ -172,9 +201,12 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 .office p { margin: 0; color: var(--ink-dim); font-size: .92rem }
 
 @media (max-width: 860px) {
-  .pay-grid, .info-grid { grid-template-columns: 1fr }
+  .pay-grid { grid-template-columns: 1fr }
+  .methods-grid { grid-template-columns: 1fr 1fr }
 }
 @media (max-width: 560px) {
+  .methods-grid { grid-template-columns: 1fr }
+  .method-video { max-width: 340px; margin-inline: auto }
   .office { flex-direction: column; align-items: flex-start }
 }
 </style>

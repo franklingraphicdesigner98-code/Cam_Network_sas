@@ -9,7 +9,10 @@
         <div class="quick-body">
           <h3>{{ t(`home.quick.${item.key}.title`) }}</h3>
           <p>{{ t(`home.quick.${item.key}.text`) }}</p>
-          <span v-if="item.brand" class="brand-tag">{{ item.brand }}</span>
+          <!-- Pago en Línea: logos de todos los medios (src/data/pagos.js) -->
+          <span v-if="item.logos" class="pay-logos">
+            <img v-for="m in mediosDePago" :key="m.key" :src="m.logo" :alt="t(`pago.methods.${m.key}.name`)" loading="lazy" />
+          </span>
           <span class="round-arrow"><ChevronRight :size="18" /></span>
         </div>
       </router-link>
@@ -21,12 +24,13 @@
 import { useI18n } from 'vue-i18n';
 import { Gauge, CreditCard, Building2, ChevronRight } from 'lucide-vue-next';
 import IconTile from '../ui/IconTile.vue';
+import { mediosDePago } from '../../data/pagos.js';
 
 const { t } = useI18n();
 
 const items = [
   { key: 'speed', icon: Gauge, to: { name: 'test-velocidad' } },
-  { key: 'pay', icon: CreditCard, to: { name: 'pago-en-linea' }, brand: 'ePayco · Efecty' },
+  { key: 'pay', icon: CreditCard, to: { name: 'pago-en-linea' }, logos: true },
   { key: 'office', icon: Building2, to: { name: 'nuestras-oficinas' } }
 ];
 </script>
@@ -46,10 +50,9 @@ const items = [
 .quick-body { display: flex; flex-direction: column; align-items: flex-start; min-width: 0 }
 .quick h3 { margin: 0; font-size: 1.2rem; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; color: var(--ink) }
 .quick p { margin: .45rem 0 0; font-size: .86rem; color: var(--ink-dim); line-height: 1.5 }
-.brand-tag {
-  margin-top: .55rem; font-size: 1rem; font-weight: 800; letter-spacing: -.02em;
-  color: #1d2a6b;
-}
+/* logos con la misma altura para que pesen igual */
+.pay-logos { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .7rem; margin-top: .7rem }
+.pay-logos img { height: 20px; width: auto }
 .round-arrow { margin-top: .9rem; width: 34px; height: 34px }
 .quick:hover .round-arrow { background: var(--green); color: #fff; border-color: var(--green) }
 

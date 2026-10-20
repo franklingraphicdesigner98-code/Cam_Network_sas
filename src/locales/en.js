@@ -194,19 +194,26 @@ export default {
     note: 'The test runs against the Cloudflare server closest to you. Your results are not stored.',
   },
   pago: {
-    intro: 'Pay your bill easily and securely: online with ePayco or in cash at any Efecty location.',
+    intro: 'Pay your bill easily and securely with Daviplata, Bancolombia, Davivienda, ePayco or in cash at Efecty.',
     stepsTitle: 'How to pay',
     steps: [
       { title: 'Have your details ready', text: 'Your ID or contract number and the amount of your bill.' },
-      { title: 'Choose how to pay', text: 'Online with ePayco or in cash at an Efecty location.' },
-      { title: 'Complete the payment', text: 'On ePayco follow your bank’s instructions; at Efecty give your ID or contract number.' },
+      { title: 'Choose how to pay', text: 'Pick your preferred method and watch the step-by-step video.' },
+      { title: 'Complete the payment', text: 'Follow your bank or wallet instructions; at Efecty give your ID or contract number.' },
       { title: 'Keep your receipt', text: 'When you finish you will receive the transaction confirmation.' }
     ],
     methodsTitle: 'Payment methods',
-    methods: [
-      { name: 'ePayco', tag: 'Online payment', text: 'Pay by credit or debit card, PSE and other online methods from your phone or computer.' },
-      { name: 'Efecty', tag: 'Cash payment', text: 'Visit any Efecty location in Colombia and pay with your ID or contract number.' }
-    ],
+    methodsSub: 'Choose your payment method and watch the step-by-step video.',
+    methods: {
+      daviplata: { name: 'Daviplata', tag: 'Digital wallet', text: 'Pay from the Daviplata app on your phone.' },
+      bancolombia: { name: 'Bancolombia', tag: 'App and online banking', text: 'Pay your bill from the Bancolombia app or online banking.' },
+      davivienda: { name: 'Davivienda', tag: 'App and online portal', text: 'Pay from the Davivienda app or online banking portal.' },
+      epayco: { name: 'ePayco', tag: 'Online payment', text: 'Pay by credit or debit card, PSE and other online methods.' },
+      efecty: { name: 'Efecty', tag: 'Cash payment', text: 'Visit any Efecty location in Colombia and pay with your ID or contract number.' }
+    },
+    accountLabel: 'Agreement number',
+    refLabel: 'Reference: your ID number',
+    videoLabel: 'Video: how to pay with {medio}',
     methodsNote: 'If you have questions about your payment reference, message us on WhatsApp.',
     payNow: 'Pay now',
     requestLink: 'Request payment link',
@@ -413,7 +420,7 @@ export default {
     servicioInternet: { title: 'Urban and rural internet', description: 'Fiber optic internet in town and wireless internet in rural areas. See Cam Network Soluciones S.A.S. plans.' },
     servicioSolar: { title: 'Solar energy', description: 'Solar panel systems for homes, farms and businesses: savings, clean energy and energy independence.' },
     servicioCamaras: { title: 'Security cameras', description: 'Monitor your home, business or workshop from your phone with Cam Network Soluciones S.A.S. security cameras.' },
-    pagoEnLinea: { title: 'Online Payment', description: 'Pay your Cam Network Soluciones S.A.S. bill online with ePayco or in cash at Efecty.' },
+    pagoEnLinea: { title: 'Online Payment', description: 'Pay your Cam Network Soluciones S.A.S. bill with Daviplata, Bancolombia, Davivienda, ePayco or in cash at Efecty.' },
     oficinas: { title: 'Our Office', description: 'Address, opening hours and directions to the Cam Network Soluciones S.A.S. office in San Gil.' },
     home: { title: 'Internet, Security Cameras and Solar Energy', description: 'Internet, security cameras and solar energy systems for homes and businesses in Colombia.' },
     quienesSomos: { title: 'Who We Are', description: 'Learn about the history, mission and values of Cam Network Soluciones S.A.S.' },

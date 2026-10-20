@@ -193,19 +193,26 @@ export default {
     note: 'La medición se hace contra el servidor de Cloudflare más cercano a ti. Tus resultados no se guardan.',
   },
   pago: {
-    intro: 'Paga tu factura de forma fácil y segura: en línea con ePayco o en efectivo en cualquier punto Efecty.',
+    intro: 'Paga tu factura de forma fácil y segura con Daviplata, Bancolombia, Davivienda, ePayco o en efectivo en Efecty.',
     stepsTitle: '¿Cómo pagar?',
     steps: [
       { title: 'Ten a mano tus datos', text: 'Tu número de cédula o de contrato y el valor de tu factura.' },
-      { title: 'Elige cómo pagar', text: 'En línea con ePayco o en efectivo en un punto Efecty.' },
-      { title: 'Completa el pago', text: 'En ePayco sigue las instrucciones de tu banco; en Efecty indica tu número de cédula o contrato.' },
+      { title: 'Elige cómo pagar', text: 'Escoge el medio que prefieras y mira el video con el paso a paso.' },
+      { title: 'Completa el pago', text: 'Sigue las instrucciones de tu banco o billetera; en Efecty indica tu número de cédula o contrato.' },
       { title: 'Guarda tu comprobante', text: 'Al terminar recibirás la confirmación de la transacción.' }
     ],
     methodsTitle: 'Medios de pago',
-    methods: [
-      { name: 'ePayco', tag: 'Pago en línea', text: 'Paga con tarjeta de crédito o débito, PSE y otros medios en línea, desde tu celular o computador.' },
-      { name: 'Efecty', tag: 'Pago en efectivo', text: 'Acércate a cualquier punto Efecty del país y paga con tu número de cédula o de contrato.' }
-    ],
+    methodsSub: 'Elige tu medio de pago y mira el video con el paso a paso.',
+    methods: {
+      daviplata: { name: 'Daviplata', tag: 'Billetera digital', text: 'Paga desde la app Daviplata en tu celular.' },
+      bancolombia: { name: 'Bancolombia', tag: 'App y sucursal virtual', text: 'Paga tu factura desde la app o la sucursal virtual de Bancolombia.' },
+      davivienda: { name: 'Davivienda', tag: 'App y portal', text: 'Paga desde la app o el portal transaccional de Davivienda.' },
+      epayco: { name: 'ePayco', tag: 'Pago en línea', text: 'Paga con tarjeta de crédito o débito, PSE y otros medios en línea.' },
+      efecty: { name: 'Efecty', tag: 'Pago en efectivo', text: 'Acércate a cualquier punto Efecty del país y paga con tu número de cédula o de contrato.' }
+    },
+    accountLabel: 'Número de convenio',
+    refLabel: 'Referencia: tu número de cédula',
+    videoLabel: 'Video: cómo pagar con {medio}',
     methodsNote: 'Si tienes dudas sobre tu referencia de pago, escríbenos por WhatsApp.',
     payNow: 'Pagar ahora',
     requestLink: 'Solicitar enlace de pago',
@@ -412,7 +419,7 @@ export default {
     servicioInternet: { title: 'Internet urbano y rural', description: 'Internet por fibra óptica en zona urbana e internet inalámbrico en zona rural. Conoce los planes de Cam Network Soluciones S.A.S.' },
     servicioSolar: { title: 'Energía solar', description: 'Sistemas de paneles solares para hogares, fincas y negocios: ahorro, energía limpia e independencia energética.' },
     servicioCamaras: { title: 'Cámaras de seguridad', description: 'Monitorea tu hogar, empresa o taller desde tu celular con las cámaras de seguridad de Cam Network Soluciones S.A.S.' },
-    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. en línea con ePayco o en efectivo en Efecty.' },
+    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. con Daviplata, Bancolombia, Davivienda, ePayco o en efectivo en Efecty.' },
     oficinas: { title: 'Nuestras Oficinas', description: 'Dirección, horario de atención y cómo llegar a la oficina de Cam Network Soluciones S.A.S. en San Gil.' },
     home: { title: 'Internet, Cámaras de Seguridad y Energía Solar', description: 'Servicio de internet, cámaras de seguridad y sistemas de energía solar para hogares y empresas en Colombia.' },
     quienesSomos: { title: 'Quiénes Somos', description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.' },

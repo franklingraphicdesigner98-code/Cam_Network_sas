@@ -4,7 +4,7 @@
       <div class="plans-cards">
         <div
           v-for="(p, i) in plans" :key="p.key"
-          class="plan card reveal" :class="[`reveal-${(i % 4) + 1}`, { contain: p.fit === 'contain' }]"
+          class="plan card reveal" :class="[`reveal-${(i % 4) + 1}`, i % 2 ? 'from-right' : 'from-left', { contain: p.fit === 'contain' }]"
         >
           <img v-if="p.img" :src="p.img" :alt="t(`home.plans.${p.key}.alt`)" class="plan-img" loading="lazy" />
           <div class="plan-copy">
@@ -76,4 +76,8 @@ const plans = computed(() => [
   .plans-cards { grid-template-columns: 1fr }
   .plan-copy { max-width: 70% }
 }
+
+/* neumorfismo luminoso (tokens --neu-lite-* en src/assets/tokens.css) */
+.plan { background: var(--neu-lite-bg); border: 0; box-shadow: var(--neu-lite-raised) }
+.plan:hover { box-shadow: var(--neu-lite-hover) }
 </style>

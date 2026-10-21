@@ -209,4 +209,11 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
   .method-video { max-width: 340px; margin-inline: auto }
   .office { flex-direction: column; align-items: flex-start }
 }
+
+/* ---------- Neumorfismo: solo tarjetas con video ---------- */
+.method:not(.no-video) { background: var(--neu-bg); border: 0; box-shadow: var(--neu-raised) }
+.method:not(.no-video):hover { box-shadow: var(--neu-raised-hover) }
+.method:not(.no-video) .channel-tag { background: var(--neu-bg); box-shadow: var(--neu-small) }
+.method:not(.no-video) .method-video :deep(.vv-frame) { border: 0; box-shadow: var(--neu-inset); padding: 6px; background: var(--neu-bg) }
+.method:not(.no-video) .method-video :deep(video) { border-radius: calc(var(--r-lg) - 6px) }
 </style>

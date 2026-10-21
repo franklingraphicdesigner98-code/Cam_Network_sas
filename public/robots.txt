@@ -1,0 +1,8 @@
+# Cam Network Soluciones S.A.S.
+# Se permiten todos los rastreadores, incluidos los de búsqueda con IA
+# (Googlebot, Bingbot, OAI-SearchBot de ChatGPT, PerplexityBot).
+User-agent: *
+Allow: /
+
+# TODO: cuando esté el dominio definitivo, generar el sitemap y añadir aquí:
+# Sitemap: https://<dominio>/sitemap.xml

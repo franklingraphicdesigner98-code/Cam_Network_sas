@@ -101,7 +101,11 @@ const tips = computed(() => [
 .more-chev { transition: transform .2s ease }
 .more-chev.open { transform: rotate(90deg) }
 
-.shield { position: relative; flex: none; display: grid; place-items: center; width: 200px; height: 220px }
+.shield { position: relative; flex: none; display: grid; place-items: center; width: 200px; height: 220px; animation: shield-float 5s ease-in-out infinite }
+.shield-bolt { animation: bolt-pulse 2.4s ease-in-out infinite }
+@keyframes shield-float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+@keyframes bolt-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .65 } }
+@media (prefers-reduced-motion: reduce) { .shield, .shield-bolt { animation: none } }
 .shield-outline {
   color: var(--green-3);
   filter: drop-shadow(0 0 18px rgba(74,222,128,.7));
@@ -117,4 +121,7 @@ const tips = computed(() => [
   .safety { padding: 1.4rem }
   .shield { display: none }
 }
+
+/* neumorfismo sobre el verde oscuro (tokens --neu-dark-* en src/assets/tokens.css) */
+.safety { box-shadow: var(--neu-dark-raised) }
 </style>

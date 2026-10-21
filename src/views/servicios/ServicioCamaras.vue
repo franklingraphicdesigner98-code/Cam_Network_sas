@@ -2,9 +2,14 @@
   <ServiceLayout
     service-key="camaras" :icon="Cctv"
     :title="t('servicios.camaras.title')" :stat="t('servicios.camaras.stat')"
-    :images="heroImages" image-ratio="9 / 11"
     :cta-title="t('servicios.camaras.closing')"
   >
+    <!-- A la derecha del texto: cámara que barre de lado a lado (fotos en public/img/Rotacion/;
+         hay una versión 3D con Camara.glb en CameraSweep3D.vue, sin usar por ahora) -->
+    <template #visual>
+      <CameraSweep :label="t('servicios.camaras.sweepAlt')" />
+    </template>
+
     <!-- Subtítulo con hogar / empresa / fábrica resaltados -->
     <template #subtitle>
       <i18n-t keypath="servicios.camaras.subtitle" tag="span">
@@ -55,17 +60,15 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Cctv, Smartphone, Moon, BellRing, Video } from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
+import CameraSweep from '../../components/ui/CameraSweep.vue';
 import { camaras } from '../../data/camaras.js';
 import { whatsappLink } from '../../data/contacto.js';
 
 const { t, tm, rt } = useI18n();
 
-// Fichas de las cámaras que se alternan en el encabezado
-const heroImages = computed(() => camaras.map((c) => ({ src: c.image, alt: t(`servicios.camaras.products.${c.key}.name`) })));
 // Mismo orden que servicios.camaras.features en src/locales/*.js
 const featureIcons = [Smartphone, Moon, BellRing, Video];
 
@@ -111,4 +114,8 @@ const productLink = (cam) => {
   .features { grid-template-columns: 1fr }
   .products { grid-template-columns: 1fr }
 }
+
+/* neumorfismo luminoso (tokens --neu-lite-* en src/assets/tokens.css) */
+.product { background: var(--neu-lite-bg); border: 0; box-shadow: var(--neu-lite-raised) }
+.product:hover { box-shadow: var(--neu-lite-hover) }
 </style>

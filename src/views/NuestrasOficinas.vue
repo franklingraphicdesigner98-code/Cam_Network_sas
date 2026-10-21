@@ -91,7 +91,7 @@ import { LINEAS, whatsappLink } from '../data/contacto.js';
 const { t } = useI18n();
 
 // Dirección usada por el mapa y el botón de Google Maps
-const ADDRESS = encodeURIComponent('Calle 11 #9-19, San Gil, Santander, Colombia');
+const ADDRESS = encodeURIComponent('Calle 11 #9-19, Local 103, San Gil, Santander, Colombia');
 const mapEmbed = `https://www.google.com/maps?q=${ADDRESS}&output=embed`;
 const googleDirections = `https://www.google.com/maps/dir/?api=1&destination=${ADDRESS}`;
 // Video de Instagram con las indicaciones para llegar (se puede cambiar por otro post o reel)

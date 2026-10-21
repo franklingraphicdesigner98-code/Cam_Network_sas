@@ -36,6 +36,22 @@
 
   --f-body: "Inter", system-ui, sans-serif;
 
+  /* Neumorfismo luminoso: superficie blanca y sombras con tinte verde (no gris), para tarjetas */
+  --neu-lite-bg: linear-gradient(145deg, #ffffff 0%, #f8fcf6 100%);
+  --neu-lite-raised: 12px 12px 28px rgba(31, 92, 50, .12), -12px -12px 26px #ffffff, inset 1px 1px 0 #ffffff;
+  --neu-lite-hover: 16px 16px 34px rgba(31, 92, 50, .17), -14px -14px 30px #ffffff, inset 1px 1px 0 #ffffff;
+  --neu-lite-inset: inset 4px 4px 9px rgba(31, 92, 50, .10), inset -4px -4px 9px #ffffff;
+  /* la misma textura sobre las tarjetas verde oscuro */
+  --neu-dark-raised: 14px 14px 32px rgba(10, 46, 25, .28), -12px -12px 28px #ffffff, inset 1px 1px 0 rgba(255, 255, 255, .14), inset -3px -3px 12px rgba(0, 0, 0, .22);
+  --neu-dark-chip: 6px 6px 14px rgba(0, 0, 0, .28), -4px -4px 12px rgba(120, 230, 160, .08), inset 1px 1px 0 rgba(255, 255, 255, .08);
+
+  /* Neumorfismo (Contáctanos y tarjetas de video de Pago en Línea) */
+  --neu-bg: #eaf1ec;
+  --neu-raised: 10px 10px 22px rgba(150, 175, 158, .55), -10px -10px 22px #ffffff;
+  --neu-raised-hover: 14px 14px 28px rgba(150, 175, 158, .6), -14px -14px 28px #ffffff;
+  --neu-inset: inset 5px 5px 10px rgba(150, 175, 158, .55), inset -5px -5px 10px #ffffff;
+  --neu-small: 6px 6px 12px rgba(150, 175, 158, .55), -6px -6px 12px #ffffff;
+
   --container: 1240px;
   --nav-h: 84px;
 }

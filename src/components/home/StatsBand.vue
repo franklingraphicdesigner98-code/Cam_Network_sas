@@ -71,4 +71,9 @@ const stats = [
 @media (max-width: 760px) {
   .stats-grid { grid-template-columns: 1fr }
 }
+
+/* neumorfismo sobre el verde oscuro (tokens --neu-dark-* en src/assets/tokens.css) */
+.stats { box-shadow: var(--neu-dark-raised) }
+.stat { border: 0; background: rgba(255,255,255,.05); box-shadow: var(--neu-dark-chip) }
+.stat:hover { background: rgba(74,222,128,.10); box-shadow: var(--neu-dark-chip), 0 0 0 1px rgba(74,222,128,.35) }
 </style>

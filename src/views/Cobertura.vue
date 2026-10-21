@@ -2,8 +2,8 @@
   <AppNav />
   <main>
     <header class="coverage-hero">
-      <!-- Malla de terreno 3D: se genera con scripts/generar-terreno-3d.cjs -->
-      <img src="/img/terreno-3d-ancho.webp" alt="" class="terrain" fetchpriority="high" />
+      <!-- Malla de terreno 3D (scripts/generar-terreno-3d.cjs): nace de partículas, gira y se asienta -->
+      <ParticleTerrain src="/img/terreno-3d-ancho.webp" class="terrain" @settle="mapReady = true" />
       <div class="container coverage-inner">
         <div class="coverage-copy">
           <span class="eyebrow reveal">{{ t('cobertura.eyebrow') }}</span>
@@ -19,9 +19,12 @@
 
         <div class="coverage-media reveal reveal-4">
           <!-- Pines sobre la malla de terreno del fondo; posición geográfica aproximada (norte arriba) -->
-          <div class="pins-area" aria-hidden="true">
-            <span class="zone" />
-            <MapPins :pins="towns" :size="34" />
+          <!-- los pines aparecen cuando el terreno empieza a asentarse -->
+          <div class="pins-area" :class="{ ready: mapReady }" aria-hidden="true">
+            <template v-if="mapReady">
+              <span class="zone" />
+              <MapPins :pins="towns" :size="34" intro :intro-delay="0.5" />
+            </template>
           </div>
           <ul class="sr-only">
             <li v-for="town in towns" :key="town.name">{{ town.name }}</li>
@@ -53,6 +56,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Users, Wifi, ShieldCheck, Sun, Headphones, Cpu } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
@@ -60,11 +64,14 @@ import AppFooter from '../components/landing/AppFooter.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import MapPins from '../components/ui/MapPins.vue';
+import ParticleTerrain from '../components/ui/ParticleTerrain.vue';
 import { useReveal } from '../composables/useReveal.js';
 
 const { t } = useI18n();
 
 // x = oeste → este, y = norte → sur (en % del área del mapa)
+const mapReady = ref(false);
+
 const towns = [
   { name: 'Villanueva', x: 26, y: 30 },
   { name: 'Barichara', x: 13, y: 39 },
@@ -104,7 +111,7 @@ useReveal();
 .terrain {
   position: absolute; left: 0; right: 0; bottom: 0;
   width: 100%; height: 78%;
-  object-fit: cover; object-position: 50% 30%;
+  --obj-pos: 50% 30%;
   opacity: .85;
   /* se desvanece hacia arriba, hacia el borde inferior y hacia el texto (izquierda) */
   --fade-v: linear-gradient(0deg, transparent 0%, #000 14%, #000 40%, transparent 100%);
@@ -117,6 +124,18 @@ useReveal();
 }
 .pins-area {
   position: relative; width: 100%; max-width: 560px; aspect-ratio: 1.15 / 1; margin: 0 auto;
+  opacity: 0;
+}
+.pins-area.ready { animation: map-spin 1.1s cubic-bezier(.2, .8, .2, 1) both }
+/* ---------- Entrada: el mapa gira y se asienta, luego caen los pines ---------- */
+@keyframes map-spin {
+  0% { opacity: 0; transform: rotate(-35deg) scale(.7) }
+  100% { opacity: 1; transform: none }
+}
+.zone { animation: zone-pulse 3.5s ease-in-out 1.2s infinite }
+@keyframes zone-pulse { 0%, 100% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.06); opacity: .75 } }
+@media (prefers-reduced-motion: reduce) {
+  .pins-area, .pins-area.ready, .zone { animation: none; opacity: 1 }
 }
 .zone {
   position: absolute; inset: 12% 0 0 0; border-radius: 50%;
@@ -168,7 +187,7 @@ useReveal();
   /* en celular/tablet el diagrama va arriba: el terreno queda detrás de él */
   .terrain {
     top: calc(var(--nav-h) + 1rem); bottom: auto; height: min(70vw, 460px);
-    object-position: 50% 40%;
+    --obj-pos: 50% 40%;
     --fade-h: linear-gradient(#000, #000);
   }
 }

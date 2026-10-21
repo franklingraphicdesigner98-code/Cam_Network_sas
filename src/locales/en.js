@@ -35,6 +35,10 @@ export default {
     message: "Hi, I'd like information about your services"
   },
   hero: {
+    towerAlts: { original: 'Cam Network telecommunications tower on a mountaintop, with a technician at its base', signal: 'The same tower emitting signal: a glowing green network over the mountains of the region' },
+    skip: 'Skip',
+    stepsLabel: 'Hero stages',
+    scroll: 'Scroll down to see more',
     title: 'We connect your home and your business',
     text: 'Fiber optic internet, security cameras, solar energy and technology solutions you can trust.',
     tagline: 'Your friendly solution',
@@ -328,6 +332,7 @@ export default {
     },
     camaras: {
       title: 'Security cameras',
+      sweepAlt: 'Security camera monitoring',
       subtitle: 'Monitor your {hogar}, {empresa} or {fabrica} from your phone, wherever you are.',
       subWords: { hogar: 'home', empresa: 'business', fabrica: 'factory' },
       stat: '+1,000 protected customers',
@@ -381,6 +386,7 @@ export default {
       { title: 'Trust', text: 'Over 3,000 customers choose us to stay connected and protected.' }
     ]
   },
+  anuncio: { region: 'Announcement', close: 'Close announcement' },
   legal: {
     updated: 'Last updated: to be defined',
     aviso: {
@@ -417,21 +423,21 @@ export default {
     }
   },
   meta: {
-    servicioInternet: { title: 'Urban and rural internet', description: 'Fiber optic internet in town and wireless internet in rural areas. See Cam Network Soluciones S.A.S. plans.' },
-    servicioSolar: { title: 'Solar energy', description: 'Solar panel systems for homes, farms and businesses: savings, clean energy and energy independence.' },
-    servicioCamaras: { title: 'Security cameras', description: 'Monitor your home, business or workshop from your phone with Cam Network Soluciones S.A.S. security cameras.' },
+    servicioInternet: { title: 'Urban and rural internet in San Gil', description: 'Fiber optic internet in town and wireless internet for farms and rural areas in San Gil, Barichara, Curití, Mogotes and other towns in Santander.' },
+    servicioSolar: { title: 'Solar energy in San Gil', description: 'Solar panels for homes, farms and businesses in San Gil and other towns in Santander: lower bills and your own energy.' },
+    servicioCamaras: { title: 'Security cameras in San Gil', description: 'IMOU security cameras for homes, businesses and farms in San Gil and Santander. See what is happening from your phone, wherever you are.' },
     pagoEnLinea: { title: 'Online Payment', description: 'Pay your Cam Network Soluciones S.A.S. bill with Daviplata, Bancolombia, Davivienda, ePayco or in cash at Efecty.' },
-    oficinas: { title: 'Our Office', description: 'Address, opening hours and directions to the Cam Network Soluciones S.A.S. office in San Gil.' },
-    home: { title: 'Internet, Security Cameras and Solar Energy', description: 'Internet, security cameras and solar energy systems for homes and businesses in Colombia.' },
+    oficinas: { title: 'Our office in San Gil', description: 'Cam Network Soluciones S.A.S. office at Calle 11 #9-19, Local 103, downtown San Gil, Santander: opening hours and directions.' },
+    home: { title: 'Internet, Security Cameras and Solar Energy in San Gil', description: 'Fiber optic and wireless internet, security cameras and solar energy for homes, farms and businesses in San Gil and other towns in Santander, Colombia.' },
     quienesSomos: { title: 'Who We Are', description: 'Learn about the history, mission and values of Cam Network Soluciones S.A.S.' },
     nuestroEquipo: { title: 'Our Team', description: 'Meet the team of professionals behind Cam Network Soluciones S.A.S.' },
-    cobertura: { title: 'Coverage', description: 'Check the coverage areas for our internet, security camera and solar energy services.' },
+    cobertura: { title: 'Coverage in San Gil and Santander', description: 'We serve San Gil, Barichara, Villanueva, Cabrera, Curití, Pinchote, Mogotes, Valle de San José, Páramo, Ocamonte, San Joaquín, San Miguel and Pitiguao (Mogotes), in Santander.' },
     normatividad: { title: 'Regulations', description: 'Current regulations applicable to the telecommunications services of Cam Network Soluciones S.A.S.' },
     pqrs: { title: 'PQRS', description: 'Submit your requests, complaints, claims and suggestions to Cam Network Soluciones S.A.S.' },
     testVelocidad: { title: 'Speed Test', description: 'Measure your internet connection speed with Cam Network Soluciones S.A.S.' },
     preguntasFrecuentes: { title: 'FAQ', description: 'Answers to the most frequently asked questions about our internet, camera and solar energy services.' },
     opiniones: { title: 'User Reviews', description: 'Learn about our users’ experience with the services of Cam Network Soluciones S.A.S.' },
-    contacto: { title: 'Contact', description: 'Contact us and get a quote for internet, security cameras or solar energy.' },
+    contacto: { title: 'Contact', description: 'Get a quote for internet, security cameras or solar energy in San Gil and Santander by WhatsApp, phone or form.' },
     politicaDatos: { title: 'Personal Data Processing Policy', description: 'Personal data processing policy of Cam Network Soluciones S.A.S., in accordance with Law 1581 of 2012.' },
     avisoPrivacidad: { title: 'Privacy Notice', description: 'Privacy notice of Cam Network Soluciones S.A.S.' },
     terminos: { title: 'Terms & Conditions', description: 'Terms and conditions of use of the website and services of Cam Network Soluciones S.A.S.' }

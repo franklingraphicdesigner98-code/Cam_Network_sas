@@ -157,4 +157,14 @@ function send() {
   .form { grid-template-columns: 1fr; padding: .9rem }
   .form-foot .btn { width: 100%; margin-left: 0 }
 }
+
+/* ---------- Neumorfismo ---------- */
+/* degradado de blanco a un verde manzana muy tenue */
+.contact { background: linear-gradient(135deg, #ffffff 0%, #f9fcf2 45%, #ecf6d6 100%); border: 0; box-shadow: var(--neu-raised) }
+.form { background: transparent; padding: .4rem }
+.field { background: rgba(236, 246, 214, .45); border: 0; box-shadow: var(--neu-inset) }
+.field:focus-within { box-shadow: var(--neu-inset), 0 0 0 3px rgba(22,163,74,.25) }
+.art-glow { display: none }
+.art :deep(.icon-tile.is-soft) { background: var(--neu-bg); border: 0; box-shadow: var(--neu-small) }
+.form-foot .btn-primary { box-shadow: 6px 6px 14px rgba(21,128,61,.35), -6px -6px 14px #ffffff }
 </style>

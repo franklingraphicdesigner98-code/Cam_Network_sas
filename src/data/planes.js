@@ -19,9 +19,10 @@ export const planes = {
   ]
 };
 
-// Municipios con cobertura que se listan en la página de Internet
+// Localidades con cobertura que se listan en la página de Internet
+// (todas municipios de Santander, salvo Pitiguao, que es corregimiento de Mogotes)
 export const municipios = [
   'San Gil', 'Barichara', 'Villanueva', 'Cabrera', 'Curití',
   'Pinchote', 'Mogotes', 'Valle de San José', 'Páramo', 'Ocamonte',
-  'San Joaquín', 'Pitiguao', 'San Miguel'
+  'San Joaquín', 'Pitiguao (Mogotes)', 'San Miguel'
 ];

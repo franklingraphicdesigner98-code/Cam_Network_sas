@@ -3,7 +3,7 @@
     <div class="container quick-grid">
       <router-link
         v-for="(item, i) in items" :key="item.key"
-        :to="item.to" class="quick card reveal" :class="`reveal-${i + 1}`"
+        :to="item.to" class="quick card reveal zoom" :class="`reveal-${i + 1}`"
       >
         <span class="halo"><IconTile :icon="item.icon" :size="84" shape="circle" /></span>
         <div class="quick-body">

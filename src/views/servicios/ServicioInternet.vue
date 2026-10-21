@@ -174,4 +174,11 @@ const planLink = (plan, type) => {
   .types { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto }
   .towns { grid-template-columns: 1fr }
 }
+
+/* neumorfismo luminoso (tokens --neu-lite-* en src/assets/tokens.css) */
+.type { background: var(--neu-lite-bg); border: 0; box-shadow: var(--neu-lite-raised) }
+.type:hover { box-shadow: var(--neu-lite-hover) }
+/* filas de planes: "hundidas" en la tarjeta */
+.plan { background: #fbfdfa; border: 0; box-shadow: var(--neu-lite-inset) }
+.plan.featured { background: var(--green-soft); box-shadow: var(--neu-lite-inset), 0 0 0 1px rgba(22,163,74,.35) }
 </style>

@@ -35,6 +35,10 @@ export default {
     message: 'Hola, quiero información sobre sus servicios'
   },
   hero: {
+    towerAlts: { original: 'Torre de telecomunicaciones de Cam Network en lo alto de una montaña, con un técnico al pie', signal: 'La misma torre emitiendo señal: red verde luminosa sobre las montañas de la región' },
+    skip: 'Saltar',
+    stepsLabel: 'Etapas de la portada',
+    scroll: 'Bajar para ver más',
     title: 'Conectamos tu hogar y tu negocio',
     text: 'Internet por fibra óptica, cámaras de seguridad, energía solar y soluciones tecnológicas de confianza.',
     tagline: 'Tu solución amiga',
@@ -327,6 +331,7 @@ export default {
     },
     camaras: {
       title: 'Cámaras de seguridad',
+      sweepAlt: 'Cámara de seguridad monitoreando',
       subtitle: 'Monitorea tu {hogar}, {empresa} o {fabrica} desde tu celular, estés donde estés.',
       subWords: { hogar: 'hogar', empresa: 'empresa', fabrica: 'fábrica' },
       stat: '+1.000 clientes protegidos',
@@ -380,6 +385,7 @@ export default {
       { title: 'Confianza', text: 'Más de 3.000 clientes nos eligen para conectarse y protegerse.' }
     ]
   },
+  anuncio: { region: 'Anuncio', close: 'Cerrar anuncio' },
   legal: {
     updated: 'Última actualización: pendiente de definir',
     aviso: {
@@ -416,21 +422,21 @@ export default {
     }
   },
   meta: {
-    servicioInternet: { title: 'Internet urbano y rural', description: 'Internet por fibra óptica en zona urbana e internet inalámbrico en zona rural. Conoce los planes de Cam Network Soluciones S.A.S.' },
-    servicioSolar: { title: 'Energía solar', description: 'Sistemas de paneles solares para hogares, fincas y negocios: ahorro, energía limpia e independencia energética.' },
-    servicioCamaras: { title: 'Cámaras de seguridad', description: 'Monitorea tu hogar, empresa o taller desde tu celular con las cámaras de seguridad de Cam Network Soluciones S.A.S.' },
+    servicioInternet: { title: 'Internet urbano y rural en San Gil', description: 'Internet por fibra óptica en el casco urbano e inalámbrico para fincas y veredas en San Gil, Barichara, Curití, Mogotes y otros municipios de Santander.' },
+    servicioSolar: { title: 'Energía solar en San Gil', description: 'Paneles solares para hogares, fincas y negocios en San Gil y otros municipios de Santander: ahorro en tu factura y energía propia.' },
+    servicioCamaras: { title: 'Cámaras de seguridad en San Gil', description: 'Cámaras de seguridad IMOU para hogares, negocios y fincas en San Gil y Santander. Mira lo que pasa desde tu celular, estés donde estés.' },
     pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. con Daviplata, Bancolombia, Davivienda, ePayco o en efectivo en Efecty.' },
-    oficinas: { title: 'Nuestras Oficinas', description: 'Dirección, horario de atención y cómo llegar a la oficina de Cam Network Soluciones S.A.S. en San Gil.' },
-    home: { title: 'Internet, Cámaras de Seguridad y Energía Solar', description: 'Servicio de internet, cámaras de seguridad y sistemas de energía solar para hogares y empresas en Colombia.' },
+    oficinas: { title: 'Nuestra oficina en San Gil', description: 'Oficina de Cam Network Soluciones S.A.S. en Calle 11 #9-19, Local 103, centro de San Gil, Santander: horario de atención y cómo llegar.' },
+    home: { title: 'Internet, cámaras de seguridad y energía solar en San Gil', description: 'Internet por fibra óptica e inalámbrico, cámaras de seguridad y energía solar para hogares, fincas y empresas en San Gil y otros municipios de Santander.' },
     quienesSomos: { title: 'Quiénes Somos', description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.' },
     nuestroEquipo: { title: 'Nuestro Equipo', description: 'Conoce al equipo de profesionales detrás de Cam Network Soluciones S.A.S.' },
-    cobertura: { title: 'Cobertura', description: 'Consulta las zonas de cobertura de nuestro servicio de internet, cámaras de seguridad y energía solar.' },
+    cobertura: { title: 'Cobertura en San Gil y Santander', description: 'Llegamos a San Gil, Barichara, Villanueva, Cabrera, Curití, Pinchote, Mogotes, Valle de San José, Páramo, Ocamonte, San Joaquín, San Miguel y Pitiguao (Mogotes), en Santander.' },
     normatividad: { title: 'Normatividad', description: 'Normatividad vigente aplicable a los servicios de telecomunicaciones de Cam Network Soluciones S.A.S.' },
     pqrs: { title: 'PQRS', description: 'Radica tus peticiones, quejas, reclamos y sugerencias con Cam Network Soluciones S.A.S.' },
     testVelocidad: { title: 'Test de Velocidad', description: 'Mide la velocidad de tu conexión a internet con Cam Network Soluciones S.A.S.' },
     preguntasFrecuentes: { title: 'Preguntas Frecuentes', description: 'Respuestas a las preguntas más frecuentes sobre nuestros servicios de internet, cámaras y energía solar.' },
     opiniones: { title: 'Opiniones de Usuarios', description: 'Conoce la experiencia de nuestros usuarios con los servicios de Cam Network Soluciones S.A.S.' },
-    contacto: { title: 'Contacto', description: 'Contáctanos y cotiza tu servicio de internet, cámaras de seguridad o energía solar.' },
+    contacto: { title: 'Contacto', description: 'Cotiza internet, cámaras de seguridad o energía solar en San Gil y Santander por WhatsApp, teléfono o formulario.' },
     politicaDatos: { title: 'Política de Tratamiento de Datos Personales', description: 'Política de tratamiento de datos personales de Cam Network Soluciones S.A.S., conforme a la Ley 1581 de 2012.' },
     avisoPrivacidad: { title: 'Aviso de Privacidad', description: 'Aviso de privacidad de Cam Network Soluciones S.A.S.' },
     terminos: { title: 'Términos y Condiciones', description: 'Términos y condiciones de uso del sitio web y los servicios de Cam Network Soluciones S.A.S.' }

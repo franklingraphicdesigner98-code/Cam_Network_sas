@@ -1,9 +1,9 @@
 <template>
-  <nav :class="['nav', { scrolled: isScrolled || menuOpen }]">
+  <!-- Al bajar, la barra se vuelve flotante (píldora centrada); con el menú móvil abierto vuelve a ancho completo -->
+  <nav :class="['nav', { floating: isScrolled && !menuOpen, 'menu-open': menuOpen }]" @keydown.esc="closeAll">
     <div class="inner container">
       <router-link to="/" class="brand" @click="closeAll">
         <img src="/img/logotipo-horizontal.png" alt="Cam Network Soluciones S.A.S." class="logo" width="352" height="132" />
-
       </router-link>
 
       <div class="nav-links">
@@ -36,7 +36,7 @@
       <div class="nav-right">
         <LanguageSwitcher class="lang-desktop" />
         <BaseButton :to="{ name: 'contacto' }" variant="primary" class="btn-sm cta-desktop">{{ t('nav.contacto') }}</BaseButton>
-        <button class="hamburger" @click="menuOpen = !menuOpen" :aria-label="t('nav.menu')" :aria-expanded="menuOpen">
+        <button class="hamburger" @click="menuOpen = !menuOpen" :aria-label="t('nav.menu')" :aria-expanded="menuOpen" aria-controls="menu-movil">
           <X v-if="menuOpen" :size="24" />
           <Menu v-else :size="24" />
         </button>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <div v-if="menuOpen" class="mobile-menu">
+    <div v-if="menuOpen" id="menu-movil" class="mobile-menu">
       <template v-for="item in menu" :key="'m-'+item.label">
         <div v-if="item.children" class="mobile-group">
           <button class="mobile-parent" @click="toggleMobileGroup(item.label)">
@@ -103,7 +103,8 @@ const menuOpen = ref(false);
 const desktopOpen = ref(null);
 const mobileOpen = ref(null);
 
-const onScroll = () => { isScrolled.value = window.scrollY > 12; };
+// umbral del estado flotante (listener pasivo: solo compara un número)
+const onScroll = () => { isScrolled.value = window.scrollY >= 24; };
 
 function isGroupActive(item) { return item.children.some((c) => route.path === c.to); }
 function openDesktop(label) { desktopOpen.value = label; }
@@ -122,19 +123,39 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 </script>
 
 <style scoped>
+/* Estado inicial: barra blanca de ancho completo pegada arriba.
+   Estado flotante: píldora centrada, semitransparente con desenfoque.
+   La barra es fixed y las páginas ya reservan su altura (--nav-h), así que el contenido no salta. */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
-  background: #fff;
-  border-bottom: 1px solid transparent;
-  transition: box-shadow .25s ease, border-color .25s ease;
+  position: fixed; top: var(--announce-h, 0px); left: 0; right: 0; z-index: 80;
+  max-width: 100%; margin: 0 auto;
+  background: #fff; border-radius: 0; box-shadow: none;
+  transition: max-width .25s ease, margin-top .25s ease, border-radius .25s ease,
+    background-color .25s ease, box-shadow .25s ease, padding .25s ease;
 }
-.nav.scrolled { box-shadow: 0 6px 24px rgba(14,58,32,.07); border-color: var(--border) }
+.nav.floating {
+  max-width: min(1180px, calc(100% - 24px)); margin-top: 12px; border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  box-shadow: 0 10px 30px rgba(14, 58, 32, .12), 0 0 0 1px rgba(14, 58, 32, .05);
+}
+.nav.menu-open { box-shadow: 0 6px 24px rgba(14, 58, 32, .07) }
 .inner {
   display: flex; align-items: center; justify-content: space-between;
   height: var(--nav-h); gap: 1.5rem;
+  transition: height .25s ease, padding .25s ease;
 }
-.brand { display: flex; align-items: center; flex: none }
-.brand .logo { height: 58px; width: auto }
+.nav.floating .inner { height: 64px; padding-inline: 1.6rem }
+.brand { display: flex; align-items: center; flex: none; border-radius: 10px }
+.brand .logo { height: 58px; width: auto; transition: height .25s ease }
+.nav.floating .brand .logo { height: 44px }
+
+/* foco visible para navegar con teclado */
+.brand:focus-visible, .nav-link:focus-visible, .dropdown-item:focus-visible, .hamburger:focus-visible,
+.mobile-menu a:focus-visible, .mobile-parent:focus-visible {
+  outline: 2px solid var(--green); outline-offset: 3px; border-radius: 8px;
+}
 
 .nav-links { display: flex; align-items: center; gap: .25rem; flex: 1; justify-content: center }
 .nav-link {
@@ -179,8 +200,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   display: none;
   /* justo debajo de la barra, ocupando el resto de la pantalla */
   position: absolute; top: 100%; left: 0; right: 0;
-  height: calc(100vh - var(--nav-h));
-  height: calc(100dvh - var(--nav-h));
+  height: calc(100vh - var(--nav-h) - var(--announce-h, 0px));
+  height: calc(100dvh - var(--nav-h) - var(--announce-h, 0px));
   background: #fff; overflow-y: auto;
   padding: .5rem 0 2rem;
   border-top: 1px solid var(--border);
@@ -199,7 +220,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 @media (max-width: 480px) {
   .brand .logo { height: 42px }
 }
+@media (prefers-reduced-motion: reduce) {
+  .nav, .inner, .brand .logo { transition: none }
+}
 @media (max-width: 960px) {
+  .nav.floating .inner { padding-inline: 1.1rem }
   .nav-links, .cta-desktop, .lang-desktop { display: none }
   .hamburger { display: flex }
   .mobile-menu { display: block }

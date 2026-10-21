@@ -1,6 +1,7 @@
 import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { negocioJsonLd } from '../data/negocio.js'
 
 const DEFAULT_TITLE = 'Cam Network Soluciones S.A.S.'
 const DEFAULT_DESCRIPTION = 'Cam Network Soluciones S.A.S. — Internet, cámaras de seguridad y energía solar para hogares y empresas en Colombia.'
@@ -39,6 +40,10 @@ export function useRouteMeta() {
     ],
     link: [
       { rel: 'canonical', href: () => `${SITE_URL}${route.path}` }
+    ],
+    // datos del negocio para Google y las IA (src/data/negocio.js)
+    script: [
+      { key: 'negocio', type: 'application/ld+json', innerHTML: JSON.stringify(negocioJsonLd(SITE_URL)) }
     ]
   })
 }

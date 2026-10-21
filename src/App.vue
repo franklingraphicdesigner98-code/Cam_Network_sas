@@ -1,6 +1,14 @@
 <template>
   <NetworkBackground />
-  <router-view />
+  <AnnouncementBar />
+  <!-- fundido al cambiar de página; el div es necesario porque cada página tiene varios elementos raíz -->
+  <router-view v-slot="{ Component, route }">
+    <transition name="page" mode="out-in">
+      <div :key="route.path">
+        <component :is="Component" />
+      </div>
+    </transition>
+  </router-view>
   <a
     :href="whatsappLink('asesorias', t('whatsapp.message'))"
     target="_blank"
@@ -21,6 +29,7 @@ import { useRouteMeta } from './composables/useRouteMeta.js'
 import { applyPreferredLocale } from './i18n'
 import { whatsappLink } from './data/contacto.js'
 import NetworkBackground from './components/ui/NetworkBackground.vue'
+import AnnouncementBar from './components/landing/AnnouncementBar.vue'
 
 const { t } = useI18n()
 

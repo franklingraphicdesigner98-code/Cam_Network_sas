@@ -4,7 +4,7 @@
     <!-- Encabezado corto del servicio -->
     <header class="svc-hero">
       <div class="grid-bg" aria-hidden="true" />
-      <div class="container svc-hero-inner" :class="{ 'has-image': image || images.length }">
+      <div class="container svc-hero-inner" :class="{ 'has-image': image || images.length || $slots.visual }">
         <div class="svc-hero-copy">
           <router-link :to="{ name: 'home' }" class="eyebrow reveal">{{ t('servicios.eyebrow') }}</router-link>
           <div class="svc-title reveal reveal-1">
@@ -15,8 +15,10 @@
           <p class="lead reveal reveal-2"><slot name="subtitle">{{ subtitle }}</slot></p>
           <p v-if="stat" class="svc-stat reveal reveal-3"><Users :size="18" /> {{ stat }}</p>
         </div>
+        <!-- slot "visual": reemplaza la foto de la derecha (ej. la cámara animada de Cámaras) -->
+        <div v-if="$slots.visual" class="svc-hero-visual reveal reveal-3"><slot name="visual" /></div>
         <!-- varias fotos: se alternan solas -->
-        <figure v-if="images.length" class="svc-hero-photo rotating reveal reveal-3" :style="{ aspectRatio: imageRatio }">
+        <figure v-else-if="images.length" class="svc-hero-photo rotating reveal reveal-3" :style="{ aspectRatio: imageRatio }">
           <img
             v-for="(img, i) in images" :key="img.src" :src="img.src" :alt="i === active ? img.alt : ''"
             :class="{ active: i === active }" :loading="i === 0 ? 'eager' : 'lazy'"
@@ -138,6 +140,8 @@ useReveal();
   transition: opacity .8s ease, transform 3.5s ease-out;
 }
 .svc-hero-photo.rotating img.active { opacity: 1; transform: scale(1) }
+
+.svc-hero-visual { display: grid; place-items: center }
 
 .svc-last { padding-bottom: 4rem }
 

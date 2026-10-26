@@ -16,7 +16,8 @@
 
 <script setup>
 // ================= Ajustes =================
-// Copias livianas en WebP (700 px) de las fotos de public/img/Rotacion/
+// Copias livianas en WebP (700 px) de las fotos de public/img/Rotacion/Camaras arregladas/,
+// generadas y alineadas con: node scripts/optimizar-camara.cjs
 const CARPETA = '/img/Rotacion/webp/';
 // Orden del barrido (de un extremo al otro). 'cam_front' es opcional.
 const SECUENCIA = [
@@ -158,7 +159,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .cam-sweep {
   position: relative;
-  width: min(100%, 340px); aspect-ratio: 880 / 1254;   /* proporción de las fotos */
+  width: min(100%, 340px); aspect-ratio: 848 / 1254;   /* proporción de los fotogramas (scripts/optimizar-camara.cjs) */
   margin: 0 auto; justify-self: center;
   --glow: var(--glow-base, 1);
 }

@@ -16,15 +16,15 @@
         <form class="form" @submit.prevent="send">
           <label class="field">
             <User :size="17" class="field-icon" />
-            <input v-model.trim="form.name" type="text" required autocomplete="name" :placeholder="t('home.contact.name')" :aria-label="t('home.contact.name')" />
+            <input v-model.trim="form.name" type="text" required :maxlength="MAX.name" autocomplete="name" :placeholder="t('home.contact.name')" :aria-label="t('home.contact.name')" />
           </label>
           <label class="field">
             <Mail :size="17" class="field-icon" />
-            <input v-model.trim="form.email" type="email" required autocomplete="email" :placeholder="t('home.contact.email')" :aria-label="t('home.contact.email')" />
+            <input v-model.trim="form.email" type="email" required :maxlength="MAX.email" autocomplete="email" :placeholder="t('home.contact.email')" :aria-label="t('home.contact.email')" />
           </label>
           <label class="field">
             <PenLine :size="17" class="field-icon" />
-            <input v-model.trim="form.subject" type="text" :placeholder="t('home.contact.subject')" :aria-label="t('home.contact.subject')" />
+            <input v-model.trim="form.subject" type="text" :maxlength="MAX.subject" :placeholder="t('home.contact.subject')" :aria-label="t('home.contact.subject')" />
           </label>
           <label class="field field-select">
             <span class="select-label">{{ pqrs ? t('home.pqrsForm.type') : t('home.contact.service') }}</span>
@@ -42,7 +42,9 @@
           </label>
           <label class="field field-area">
             <MessageSquare :size="17" class="field-icon" />
-            <textarea v-model.trim="form.message" rows="4" required :placeholder="t('home.contact.message')" :aria-label="t('home.contact.message')" />
+            <textarea v-model.trim="form.message" rows="4" required :maxlength="MAX.message" :placeholder="t('home.contact.message')" :aria-label="t('home.contact.message')" />
+            <!-- contador: aparece al acercarse al límite -->
+            <span v-if="form.message.length >= MAX.message * 0.8" class="counter" aria-live="polite">{{ form.message.length }} / {{ MAX.message }}</span>
           </label>
           <div class="form-foot">
             <p class="note">{{ t('home.contact.note') }}</p>
@@ -63,6 +65,9 @@ import { useRoute } from 'vue-router';
 import { Mail, MessageCircleMore, Phone, User, PenLine, MessageSquare, ChevronDown, Send } from 'lucide-vue-next';
 import IconTile from '../ui/IconTile.vue';
 import { whatsappLink } from '../../data/contacto.js';
+
+// Límite de caracteres por campo (evita textos tan largos que WhatsApp los corte o no abra el chat)
+const MAX = { name: 80, email: 120, subject: 120, message: 1000 };
 
 // pqrs = true → mismo formulario como "Radica tu PQRS" (página /usuarios/pqrs)
 const props = defineProps({
@@ -135,7 +140,7 @@ function send() {
   font: inherit; font-size: .9rem; color: var(--ink);
 }
 .field input, .field textarea { padding: .85rem 1rem .85rem 2.75rem }
-.field textarea { resize: vertical; min-height: 120px }
+.field textarea { resize: vertical; min-height: 120px; padding-bottom: 1.7rem }   /* espacio para el contador */
 .field input::placeholder, .field textarea::placeholder { color: var(--ink-mute) }
 
 .field-select { flex-direction: column; align-items: stretch; padding: .45rem 1rem .4rem }
@@ -144,6 +149,7 @@ function send() {
 .select-chev { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--ink); pointer-events: none }
 
 .field-area { grid-column: 1 / -1; align-items: flex-start }
+.counter { position: absolute; right: 1.6rem; bottom: .5rem; font-size: .75rem; font-weight: 600; color: var(--ink-mute); pointer-events: none }
 .form-foot { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap }
 .note { margin: 0; font-size: .78rem; color: var(--ink-mute) }
 .form-foot .btn { margin-left: auto }

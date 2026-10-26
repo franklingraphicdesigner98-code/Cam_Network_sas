@@ -8,7 +8,12 @@
         :muted="muted" :autoplay="autoplay" :preload="autoplay ? 'auto' : 'none'"
         :aria-label="title"
         @volumechange="muted = $event.target.muted"
+        @play="paused = false" @pause="paused = true" @ended="paused = true"
       />
+      <!-- botón de reproducir en el centro, mientras el video está detenido -->
+      <button v-if="paused" type="button" class="vv-play" :aria-label="t('video.play')" @click="play">
+        <Play :size="30" fill="currentColor" />
+      </button>
       <!-- Los navegadores solo reproducen solos los videos sin sonido; este botón lo activa -->
       <button v-if="autoplay && muted" type="button" class="vv-sound" @click="unmute">
         <VolumeX :size="18" /> {{ soundLabel }}
@@ -25,7 +30,8 @@
 // Con `autoplay` arranca solo y sin sonido (requisito de los navegadores); si no, solo se
 // descarga cuando la persona presiona reproducir.
 import { ref, onMounted } from 'vue';
-import { Instagram, ExternalLink, VolumeX } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
+import { Instagram, ExternalLink, VolumeX, Play } from 'lucide-vue-next';
 
 const props = defineProps({
   src: { type: String, required: true },
@@ -38,8 +44,14 @@ const props = defineProps({
   linkLabel: { type: String, default: 'Ver en Instagram' }
 });
 
+const { t } = useI18n();
 const video = ref(null);
 const muted = ref(props.autoplay);
+const paused = ref(true);
+
+function play() {
+  video.value.play().catch(() => {});
+}
 
 function unmute() {
   video.value.muted = false;
@@ -63,6 +75,16 @@ onMounted(() => {
   background: var(--forest); border: 6px solid #fff; box-shadow: var(--shadow-lg);
 }
 .vv-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000 }
+.vv-play {
+  position: absolute; top: 50%; left: 50%; z-index: 2; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: 72px; height: 72px; padding-left: 5px; border-radius: 50%;
+  color: #fff; background: rgba(22, 163, 74, .88); border: 2px solid rgba(255, 255, 255, .85);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .35), 0 0 0 8px rgba(255, 255, 255, .18);
+  backdrop-filter: blur(4px); cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.vv-play:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--green-deep) }
+.vv-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px }
 .vv-sound {
   position: absolute; top: .8rem; left: 50%; transform: translateX(-50%);
   display: inline-flex; align-items: center; gap: .45rem;

@@ -34,6 +34,7 @@ export default {
   whatsapp: {
     message: "Hi, I'd like information about your services"
   },
+  video: { play: 'Play video' },
   hero: {
     towerAlts: { original: 'Cam Network telecommunications tower on a mountaintop, with a technician at its base', signal: 'The same tower emitting signal: a glowing green network over the mountains of the region' },
     skip: 'Skip',
@@ -198,7 +199,7 @@ export default {
     note: 'The test runs against the Cloudflare server closest to you. Your results are not stored.',
   },
   pago: {
-    intro: 'Pay your bill easily and securely with Daviplata, Bancolombia, Davivienda, ePayco or in cash at Efecty.',
+    intro: 'Pay your bill easily and securely with ePayco, in cash at Efecty, or with Davivienda, Daviplata or Bancolombia.',
     stepsTitle: 'How to pay',
     steps: [
       { title: 'Have your details ready', text: 'Your ID or contract number and the amount of your bill.' },
@@ -216,6 +217,7 @@ export default {
       efecty: { name: 'Efecty', tag: 'Cash payment', text: 'Visit any Efecty location in Colombia and pay with your ID or contract number.' }
     },
     accountLabel: 'Agreement number',
+    payWith: 'Pay with {medio}',
     refLabel: 'Reference: your ID number',
     videoLabel: 'Video: how to pay with {medio}',
     methodsNote: 'If you have questions about your payment reference, message us on WhatsApp.',
@@ -306,20 +308,14 @@ export default {
       title: 'Solar energy systems',
       subtitle: 'Generate your own clean energy and save on your electricity bill.',
       imageAlt: 'Cam Network technician installing solar panels on a house',
-      importanceTitle: 'Why solar energy matters',
-      importance: [
-        'The sun is a free and inexhaustible energy source. Solar panels turn it into electricity for your home, farm or business, with no noise and no emissions.',
-        "In a region as sunny as ours, using it is a smart way to cut costs, care for the environment and have power even where the grid doesn't reach or often fails."
-      ],
-      benefitsTitle: 'Benefits of having solar panels',
-      benefits: [
-        { title: 'Lower bills', text: 'You produce part or all of the energy you use and pay less every month.' },
-        { title: 'Clean energy', text: 'Reduce your carbon footprint with a renewable, silent source.' },
-        { title: 'Energy independence', text: 'Depend less on the grid and on rate increases.' },
-        { title: 'Power off the grid', text: "Bring electricity to farms and remote places the grid doesn't reach." },
-        { title: 'Low maintenance', text: 'Panels last for many years and need little care.' },
-        { title: 'Added value', text: 'Your property gains value with its own energy system.' }
-      ],
+      plansTitle: 'Solar energy plans',
+      plansSub: 'Choose a plan based on what you want to keep running on solar power.',
+      idealFor: 'Ideal for',
+      includes: 'Includes',
+      recommended: 'Most popular',
+      requestPlan: 'Request this plan',
+      requestPlanAria: 'Request the {plan} on WhatsApp',
+      planMsg: 'Hi, I am interested in the {plan} for solar energy ({capacidad}). Could you give me more information?',
       achieveTitle: 'What can you achieve with your system?',
       achieve: [
         'Light your home, farm or business with your own energy',
@@ -327,8 +323,7 @@ export default {
         'Power water pumps and irrigation systems',
         'Keep your internet and security cameras running during power cuts',
         'Have backup power during outages'
-      ],
-      achieveImageAlt: 'Cam Network solar panels and telecom tower facing the mountains'
+      ]
     },
     camaras: {
       title: 'Security cameras',
@@ -426,7 +421,7 @@ export default {
     servicioInternet: { title: 'Urban and rural internet in San Gil', description: 'Fiber optic internet in town and wireless internet for farms and rural areas in San Gil, Barichara, Curití, Mogotes and other towns in Santander.' },
     servicioSolar: { title: 'Solar energy in San Gil', description: 'Solar panels for homes, farms and businesses in San Gil and other towns in Santander: lower bills and your own energy.' },
     servicioCamaras: { title: 'Security cameras in San Gil', description: 'IMOU security cameras for homes, businesses and farms in San Gil and Santander. See what is happening from your phone, wherever you are.' },
-    pagoEnLinea: { title: 'Online Payment', description: 'Pay your Cam Network Soluciones S.A.S. bill with Daviplata, Bancolombia, Davivienda, ePayco or in cash at Efecty.' },
+    pagoEnLinea: { title: 'Online Payment', description: 'Pay your Cam Network Soluciones S.A.S. bill with ePayco, in cash at Efecty, or with Davivienda, Daviplata or Bancolombia.' },
     oficinas: { title: 'Our office in San Gil', description: 'Cam Network Soluciones S.A.S. office at Calle 11 #9-19, Local 103, downtown San Gil, Santander: opening hours and directions.' },
     home: { title: 'Internet, Security Cameras and Solar Energy in San Gil', description: 'Fiber optic and wireless internet, security cameras and solar energy for homes, farms and businesses in San Gil and other towns in Santander, Colombia.' },
     quienesSomos: { title: 'Who We Are', description: 'Learn about the history, mission and values of Cam Network Soluciones S.A.S.' },

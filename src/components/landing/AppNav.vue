@@ -1,6 +1,6 @@
 <template>
   <!-- Al bajar, la barra se vuelve flotante (píldora centrada); con el menú móvil abierto vuelve a ancho completo -->
-  <nav :class="['nav', { floating: isScrolled && !menuOpen, 'menu-open': menuOpen }]" @keydown.esc="closeAll">
+  <nav ref="navEl" :class="['nav', { floating: isScrolled && !menuOpen, 'menu-open': menuOpen }]" @keydown.esc="closeAll">
     <div class="inner container">
       <router-link to="/" class="brand" @click="closeAll">
         <img src="/img/logotipo-horizontal.png" alt="Cam Network Soluciones S.A.S." class="logo" width="352" height="132" />
@@ -8,7 +8,8 @@
 
       <div class="nav-links">
         <template v-for="item in menu" :key="item.label">
-          <div v-if="item.children" class="dropdown" @mouseenter="openDesktop(item.label)" @mouseleave="closeDesktop">
+          <!-- el submenú se abre y se cierra solo con clic (no con el mouse encima) -->
+          <div v-if="item.children" class="dropdown">
             <button
               class="nav-link has-children"
               :class="{ open: desktopOpen === item.label, active: isGroupActive(item) }"
@@ -101,14 +102,15 @@ const menu = computed(() => [
 const isScrolled = ref(false);
 const menuOpen = ref(false);
 const desktopOpen = ref(null);
+const navEl = ref(null);
+// clic fuera del menú: cierra el submenú abierto
+const onOutside = (e) => { if (desktopOpen.value && navEl.value && !navEl.value.contains(e.target)) desktopOpen.value = null; };
 const mobileOpen = ref(null);
 
 // umbral del estado flotante (listener pasivo: solo compara un número)
 const onScroll = () => { isScrolled.value = window.scrollY >= 24; };
 
 function isGroupActive(item) { return item.children.some((c) => route.path === c.to); }
-function openDesktop(label) { desktopOpen.value = label; }
-function closeDesktop() { desktopOpen.value = null; }
 function toggleDesktop(label) { desktopOpen.value = desktopOpen.value === label ? null : label; }
 function toggleMobileGroup(label) { mobileOpen.value = mobileOpen.value === label ? null : label; }
 function closeAll() { menuOpen.value = false; desktopOpen.value = null; mobileOpen.value = null; }
@@ -117,9 +119,13 @@ watch(() => route.fullPath, closeAll);
 
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('pointerdown', onOutside);
   onScroll();
 });
-onUnmounted(() => window.removeEventListener('scroll', onScroll));
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll);
+  document.removeEventListener('pointerdown', onOutside);
+});
 </script>
 
 <style scoped>
@@ -178,8 +184,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 .chev.rotated { transform: rotate(180deg) }
 
 .dropdown { position: relative }
-/* puente invisible para que el hover no se pierda entre botón y menú */
-.dropdown::before { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px }
 .dropdown-menu {
   position: absolute; top: calc(100% + 12px); left: 0; min-width: 220px;
   background: #fff; border: 1px solid var(--border); border-radius: var(--r-md);

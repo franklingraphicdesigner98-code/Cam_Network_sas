@@ -34,6 +34,7 @@ export default {
   whatsapp: {
     message: 'Hola, quiero información sobre sus servicios'
   },
+  video: { play: 'Reproducir video' },
   hero: {
     towerAlts: { original: 'Torre de telecomunicaciones de Cam Network en lo alto de una montaña, con un técnico al pie', signal: 'La misma torre emitiendo señal: red verde luminosa sobre las montañas de la región' },
     skip: 'Saltar',
@@ -197,7 +198,7 @@ export default {
     note: 'La medición se hace contra el servidor de Cloudflare más cercano a ti. Tus resultados no se guardan.',
   },
   pago: {
-    intro: 'Paga tu factura de forma fácil y segura con Daviplata, Bancolombia, Davivienda, ePayco o en efectivo en Efecty.',
+    intro: 'Paga tu factura de forma fácil y segura con ePayco, en efectivo en Efecty, o con Davivienda, Daviplata o Bancolombia.',
     stepsTitle: '¿Cómo pagar?',
     steps: [
       { title: 'Ten a mano tus datos', text: 'Tu número de cédula o de contrato y el valor de tu factura.' },
@@ -215,6 +216,7 @@ export default {
       efecty: { name: 'Efecty', tag: 'Pago en efectivo', text: 'Acércate a cualquier punto Efecty del país y paga con tu número de cédula o de contrato.' }
     },
     accountLabel: 'Número de convenio',
+    payWith: 'Pagar con {medio}',
     refLabel: 'Referencia: tu número de cédula',
     videoLabel: 'Video: cómo pagar con {medio}',
     methodsNote: 'Si tienes dudas sobre tu referencia de pago, escríbenos por WhatsApp.',
@@ -305,20 +307,14 @@ export default {
       title: 'Sistemas de energía solar',
       subtitle: 'Genera tu propia energía limpia y ahorra en tu factura de luz.',
       imageAlt: 'Técnico de Cam Network instalando paneles solares en una casa',
-      importanceTitle: '¿Por qué la energía solar es importante?',
-      importance: [
-        'El sol es una fuente de energía gratuita e inagotable. Los paneles solares la convierten en electricidad para tu hogar, finca o negocio, sin ruido y sin emisiones.',
-        'En una región con tanto sol como la nuestra, aprovecharlo es una forma inteligente de reducir gastos, cuidar el medio ambiente y tener energía incluso en lugares donde la red eléctrica no llega o falla con frecuencia.'
-      ],
-      benefitsTitle: 'Beneficios de tener paneles solares',
-      benefits: [
-        { title: 'Ahorro en tu factura', text: 'Produces parte o toda la energía que consumes y pagas menos cada mes.' },
-        { title: 'Energía limpia', text: 'Reduces tu huella de carbono con una fuente renovable y silenciosa.' },
-        { title: 'Independencia energética', text: 'Dependes menos de la red y de las alzas en las tarifas.' },
-        { title: 'Energía sin red', text: 'Lleva electricidad a fincas y lugares apartados donde no llega la red.' },
-        { title: 'Bajo mantenimiento', text: 'Los paneles tienen larga vida útil y requieren poco cuidado.' },
-        { title: 'Valorización', text: 'Tu propiedad gana valor con un sistema de energía propio.' }
-      ],
+      plansTitle: 'Planes de energía solar',
+      plansSub: 'Elige el plan según lo que quieras mantener encendido con la energía del sol.',
+      idealFor: 'Ideal para',
+      includes: 'Incluye',
+      recommended: 'Más elegido',
+      requestPlan: 'Solicitar este plan',
+      requestPlanAria: 'Solicitar el {plan} por WhatsApp',
+      planMsg: 'Hola, me interesa el {plan} de energía solar (de {capacidad}). ¿Me pueden dar más información?',
       achieveTitle: '¿Qué puedes lograr con tu sistema instalado?',
       achieve: [
         'Iluminar tu casa, finca o negocio con energía propia',
@@ -326,8 +322,7 @@ export default {
         'Alimentar bombas de agua y sistemas de riego',
         'Mantener funcionando tu internet y tus cámaras de seguridad durante los cortes de luz',
         'Tener respaldo de energía ante cortes del servicio'
-      ],
-      achieveImageAlt: 'Paneles solares y torre de telecomunicaciones de Cam Network frente a las montañas'
+      ]
     },
     camaras: {
       title: 'Cámaras de seguridad',
@@ -425,7 +420,7 @@ export default {
     servicioInternet: { title: 'Internet urbano y rural en San Gil', description: 'Internet por fibra óptica en el casco urbano e inalámbrico para fincas y veredas en San Gil, Barichara, Curití, Mogotes y otros municipios de Santander.' },
     servicioSolar: { title: 'Energía solar en San Gil', description: 'Paneles solares para hogares, fincas y negocios en San Gil y otros municipios de Santander: ahorro en tu factura y energía propia.' },
     servicioCamaras: { title: 'Cámaras de seguridad en San Gil', description: 'Cámaras de seguridad IMOU para hogares, negocios y fincas en San Gil y Santander. Mira lo que pasa desde tu celular, estés donde estés.' },
-    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. con Daviplata, Bancolombia, Davivienda, ePayco o en efectivo en Efecty.' },
+    pagoEnLinea: { title: 'Pago en Línea', description: 'Paga tu factura de Cam Network Soluciones S.A.S. con ePayco, en efectivo en Efecty, o con Davivienda, Daviplata o Bancolombia.' },
     oficinas: { title: 'Nuestra oficina en San Gil', description: 'Oficina de Cam Network Soluciones S.A.S. en Calle 11 #9-19, Local 103, centro de San Gil, Santander: horario de atención y cómo llegar.' },
     home: { title: 'Internet, cámaras de seguridad y energía solar en San Gil', description: 'Internet por fibra óptica e inalámbrico, cámaras de seguridad y energía solar para hogares, fincas y empresas en San Gil y otros municipios de Santander.' },
     quienesSomos: { title: 'Quiénes Somos', description: 'Conoce la historia, la misión y los valores de Cam Network Soluciones S.A.S.' },

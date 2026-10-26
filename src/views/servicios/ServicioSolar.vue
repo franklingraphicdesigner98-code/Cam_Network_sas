@@ -4,28 +4,33 @@
     :title="t('servicios.solar.title')" :subtitle="t('servicios.solar.subtitle')"
     image="/img/hero/instalacion-solar-960.webp" :image-alt="t('servicios.solar.imageAlt')"
   >
-    <!-- Importancia: texto + imagen -->
-    <section class="svc-block">
-      <div class="container split">
-        <figure class="photo reveal">
-          <img src="/img/hero/paneles-torre-960.webp" :alt="t('servicios.solar.achieveImageAlt')" loading="lazy" />
-        </figure>
-        <div class="reveal reveal-2">
-          <h2 class="svc-heading">{{ t('servicios.solar.importanceTitle') }}</h2>
-          <p v-for="(p, i) in tm('servicios.solar.importance')" :key="i" class="paragraph">{{ rt(p) }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Beneficios -->
+    <!-- Planes (datos en src/data/planesSolares.js) -->
     <section class="svc-block">
       <div class="container">
-        <h2 class="svc-heading reveal">{{ t('servicios.solar.benefitsTitle') }}</h2>
-        <div class="benefits">
-          <article v-for="(b, i) in tm('servicios.solar.benefits')" :key="i" class="benefit card reveal" :class="`reveal-${(i % 3) + 1}`">
-            <IconTile :icon="benefitIcons[i]" :size="50" />
-            <h3>{{ rt(b.title) }}</h3>
-            <p>{{ rt(b.text) }}</p>
+        <h2 class="svc-heading reveal">{{ t('servicios.solar.plansTitle') }}</h2>
+        <p class="svc-sub reveal">{{ t('servicios.solar.plansSub') }}</p>
+        <div class="splans">
+          <article
+            v-for="(p, i) in planesSolares" :key="p.key"
+            class="splan card reveal" :class="[`reveal-${i + 1}`, { featured: p.recomendado }]"
+          >
+            <span v-if="p.recomendado" class="splan-badge"><Star :size="14" fill="currentColor" /> {{ t('servicios.solar.recommended') }}</span>
+            <h3>{{ tx(p.nombre) }}</h3>
+            <p class="splan-cap"><Zap :size="18" /> {{ tx(p.capacidad) }}</p>
+            <p class="splan-ideal"><span>{{ t('servicios.solar.idealFor') }}:</span> {{ tx(p.idealPara) }}</p>
+            <p class="splan-label">{{ t('servicios.solar.includes') }}</p>
+            <ul class="splan-list">
+              <li v-for="(it, k) in p.incluye" :key="k">
+                <span class="splan-icon" aria-hidden="true"><component :is="iconos[it.icono] || Check" :size="17" /></span>
+                {{ tx(it.texto) }}
+              </li>
+            </ul>
+            <a
+              :href="planLink(p)" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary splan-cta" :aria-label="t('servicios.solar.requestPlanAria', { plan: tx(p.nombre) })"
+            >
+              {{ t('servicios.solar.requestPlan') }} <MessageCircle :size="17" />
+            </a>
           </article>
         </div>
       </div>
@@ -47,26 +52,62 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n';
-import { SolarPanel, PiggyBank, Leaf, Plug, Mountain, Wrench, House, Check } from 'lucide-vue-next';
+import {
+  SolarPanel, Check,
+  Zap, Star, MessageCircle, Cctv, Tv, Fan, Wifi, Refrigerator, Lightbulb, WashingMachine
+} from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
-import IconTile from '../../components/ui/IconTile.vue';
+import { planesSolares } from '../../data/planesSolares.js';
+import { whatsappLink } from '../../data/contacto.js';
 
-const { t, tm, rt } = useI18n();
-// Mismo orden que servicios.solar.benefits en src/locales/*.js
-const benefitIcons = [PiggyBank, Leaf, Plug, Mountain, Wrench, House];
+const { t, tm, rt, locale } = useI18n();
+const tx = (o) => o[locale.value] || o.es;
+
+// Ícono de cada ítem de "Incluye" (clave "icono" en src/data/planesSolares.js)
+const iconos = { camaras: Cctv, tv: Tv, ventilador: Fan, internet: Wifi, nevera: Refrigerator, luces: Lightbulb, lavadora: WashingMachine };
+// WhatsApp de asesorías con el mensaje ya escrito (whatsappLink usa encodeURIComponent)
+const planLink = (p) => whatsappLink('asesorias', t('servicios.solar.planMsg', { plan: tx(p.nombre), capacidad: tx(p.capacidad) }));
 </script>
 
 <style scoped>
-/* imagen a la izquierda y texto a la derecha (alterna con el encabezado) */
-.split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center }
-.paragraph { margin: 0 0 1rem; font-size: 1.02rem; line-height: 1.75; color: var(--ink-dim) }
-.photo { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--r-xl); overflow: hidden; border: 6px solid #fff; box-shadow: var(--shadow-lg) }
-.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50% }
-
-.benefits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.2rem }
-.benefit { padding: 1.5rem }
-.benefit h3 { margin: 1rem 0 .4rem; font-size: 1.1rem; font-weight: 800; color: var(--ink) }
-.benefit p { margin: 0; font-size: .92rem; line-height: 1.55; color: var(--ink-dim) }
+/* ---------- Planes ---------- */
+.splans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: stretch; margin-top: 1.4rem }
+.splan {
+  position: relative; display: flex; flex-direction: column;
+  padding: 1.7rem 1.5rem 1.5rem;
+  background: var(--neu-lite-bg); border: 0; box-shadow: var(--neu-lite-raised);
+}
+.splan:hover { box-shadow: var(--neu-lite-hover) }
+.splan.featured { box-shadow: var(--neu-lite-raised), 0 0 0 2px var(--green) }
+.splan.featured:hover { box-shadow: var(--neu-lite-hover), 0 0 0 2px var(--green) }
+.splan-badge {
+  position: absolute; top: -.85rem; left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: .35rem; white-space: nowrap;
+  padding: .35rem .85rem; border-radius: 999px;
+  font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: #fff;
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, .35);
+}
+.splan h3 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--ink) }
+.splan-cap {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: .4rem;
+  margin: .8rem 0 0; padding: .45rem .9rem; border-radius: 999px;
+  font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em;
+  color: var(--green-deep); background: var(--green-soft); box-shadow: var(--neu-lite-inset);
+}
+.splan-cap :deep(svg) { color: var(--green) }
+.splan-ideal { margin: 1rem 0 0; font-size: .95rem; line-height: 1.5; color: var(--ink) }
+.splan-ideal span { font-weight: 700; color: var(--ink-dim) }
+.splan-label { margin: 1.2rem 0 .6rem; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--green) }
+.splan-list { list-style: none; margin: 0 0 1.5rem; padding: 0; display: flex; flex-direction: column; gap: .6rem }
+.splan-list li { display: flex; align-items: center; gap: .65rem; font-size: .95rem; color: var(--ink) }
+.splan-icon {
+  flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px;
+  color: var(--green-deep); background: #fff; box-shadow: var(--neu-lite-raised);
+}
+/* el botón siempre al fondo: las 3 tarjetas quedan parejas aunque tengan distinto número de ítems */
+.splan-cta { margin-top: auto; justify-content: center; gap: .45rem }
+.splan-cta:focus-visible { outline: 3px solid var(--green-deep); outline-offset: 3px }
 
 .achieve {
   padding: clamp(1.6rem, 4vw, 2.4rem); border-radius: var(--r-lg);
@@ -78,10 +119,9 @@ const benefitIcons = [PiggyBank, Leaf, Plug, Mountain, Wrench, House];
 .achieve li :deep(svg) { flex: none; color: var(--green); margin-top: 2px }
 
 @media (max-width: 900px) {
-  .split { grid-template-columns: 1fr }
-  .benefits { grid-template-columns: 1fr 1fr }
+  .splans { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; gap: 2rem }
 }
 @media (max-width: 600px) {
-  .benefits, .achieve ul { grid-template-columns: 1fr }
+  .achieve ul { grid-template-columns: 1fr }
 }
 </style>

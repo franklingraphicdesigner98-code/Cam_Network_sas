@@ -18,7 +18,7 @@
             </a>
             <p class="pay-note">{{ t('pago.requestNote') }}</p>
           </template>
-          <span class="powered">Daviplata · Bancolombia · Davivienda · ePayco · Efecty</span>
+          <span class="powered">ePayco · Efecty · Davivienda · Daviplata · Bancolombia</span>
         </div>
 
         <!-- Pasos -->
@@ -59,6 +59,10 @@
               {{ t('pago.accountLabel') }}: <strong>{{ m.number }}</strong>
               <span v-if="m.ref" class="method-ref">{{ t('pago.refLabel') }}</span>
             </p>
+            <!-- pago directo en línea (ej. el portal de recaudo de ePayco) -->
+            <a v-if="m.link" :href="m.link" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm method-link">
+              {{ t('pago.payWith', { medio: t(`pago.methods.${m.key}.name`) }) }} <ExternalLink :size="15" />
+            </a>
             <VerticalVideo
               v-if="m.video" :src="m.video" :poster="m.poster" :ratio="m.ratio"
               :title="t('pago.videoLabel', { medio: t(`pago.methods.${m.key}.name`) })"
@@ -105,7 +109,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2 } from 'lucide-vue-next';
+import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2, ExternalLink } from 'lucide-vue-next';
 import AppNav from '../components/landing/AppNav.vue';
 import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
@@ -163,7 +167,8 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 /* ---------- Medios de pago ---------- */
 .methods-title { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; letter-spacing: -.02em; color: var(--green-deep) }
 .methods-sub { margin: .4rem 0 1.4rem; color: var(--ink-dim) }
-.methods-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; align-items: start }
+/* los 5 medios en una fila, en el orden de src/data/pagos.js */
+.methods-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.1rem; align-items: start }
 .method { display: flex; flex-direction: column; padding: 1.2rem }
 .method-head { display: flex; flex-direction: column; align-items: center; gap: .6rem; text-align: center }
 /* todos los logos con la misma altura (cuadrados y horizontales) para que pesen igual */
@@ -178,11 +183,8 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 .method-number strong { color: var(--ink); font-size: 1.05rem }
 .method-ref { display: block; font-size: .8rem; color: var(--ink-mute) }
 .method-video { margin-top: 1rem; max-width: none }
+.method-link { margin-top: .9rem; align-self: center; gap: .4rem }
 /* Efecty (sin video): fila completa y compacta */
-.method.no-video { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; gap: .6rem 1.5rem }
-.method.no-video .method-head { flex-direction: row; align-items: center }
-.method.no-video .method-number { margin: 0 }
-.method.no-video .method-text { margin: 0; flex: 1 1 20rem }
 .methods-note { margin: 1rem 0 0; font-size: .82rem; color: var(--ink-mute) }
 
 .safety {
@@ -200,6 +202,9 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
 .office h2 { margin: 0 0 .3rem; font-size: 1.1rem }
 .office p { margin: 0; color: var(--ink-dim); font-size: .92rem }
 
+@media (max-width: 1100px) {
+  .methods-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) }
+}
 @media (max-width: 860px) {
   .pay-grid { grid-template-columns: 1fr }
   .methods-grid { grid-template-columns: 1fr 1fr }
@@ -210,10 +215,10 @@ h2 { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 800; letter-spacing: -.0
   .office { flex-direction: column; align-items: flex-start }
 }
 
-/* ---------- Neumorfismo: solo tarjetas con video ---------- */
-.method:not(.no-video) { background: var(--neu-bg); border: 0; box-shadow: var(--neu-raised) }
-.method:not(.no-video):hover { box-shadow: var(--neu-raised-hover) }
-.method:not(.no-video) .channel-tag { background: var(--neu-bg); box-shadow: var(--neu-small) }
-.method:not(.no-video) .method-video :deep(.vv-frame) { border: 0; box-shadow: var(--neu-inset); padding: 6px; background: var(--neu-bg) }
-.method:not(.no-video) .method-video :deep(video) { border-radius: calc(var(--r-lg) - 6px) }
+/* ---------- Neumorfismo en las tarjetas de los medios ---------- */
+.method { background: var(--neu-bg); border: 0; box-shadow: var(--neu-raised) }
+.method:hover { box-shadow: var(--neu-raised-hover) }
+.method .channel-tag { background: var(--neu-bg); box-shadow: var(--neu-small) }
+.method .method-video :deep(.vv-frame) { border: 0; box-shadow: var(--neu-inset); padding: 6px; background: var(--neu-bg) }
+.method .method-video :deep(video) { border-radius: calc(var(--r-lg) - 6px) }
 </style>

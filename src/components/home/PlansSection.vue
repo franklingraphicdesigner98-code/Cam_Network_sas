@@ -5,6 +5,7 @@
         <div
           v-for="(p, i) in plans" :key="p.key"
           class="plan card reveal" :class="[`reveal-${(i % 4) + 1}`, i % 2 ? 'from-right' : 'from-left', { contain: p.fit === 'contain' }]"
+          @click="abrir(p, $event)"
         >
           <img v-if="p.img" :src="p.img" :alt="t(`home.plans.${p.key}.alt`)" class="plan-img" loading="lazy" />
           <div class="plan-copy">
@@ -21,11 +22,21 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import BaseButton from '../ui/BaseButton.vue';
 import { whatsappLink } from '../../data/contacto.js';
 
 const { t } = useI18n();
+const router = useRouter();
+
+// clic en cualquier parte de la tarjeta = clic en su botón (el botón sigue siendo el enlace real,
+// así que con teclado y lector de pantalla todo funciona igual)
+function abrir(p, e) {
+  if (e.target.closest('a')) return;   // el clic ya fue en el botón
+  if (p.href) window.open(p.href, '_blank', 'noopener');
+  else router.push(p.to);
+}
 
 // TV no tiene página propia: el botón abre WhatsApp de Asesorías
 const plans = computed(() => [
@@ -60,6 +71,7 @@ const plans = computed(() => [
   content: ""; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(90deg, #fff 0%, #fff 40%, rgba(255,255,255,.75) 58%, rgba(255,255,255,0) 82%);
 }
+.plan { cursor: pointer }
 .plan-copy {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: flex-start;

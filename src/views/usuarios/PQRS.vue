@@ -1,22 +1,17 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.usuariosEyebrow')" :title="t('pages.pqrs.title')" :subtitle="t('pages.pqrs.subtitle')" />
     <div class="pqrs-wrap"><ContactSection pqrs /></div>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import ContactSection from '../../components/home/ContactSection.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
 const { t } = useI18n();
-useReveal();
 </script>
 
 <style scoped>

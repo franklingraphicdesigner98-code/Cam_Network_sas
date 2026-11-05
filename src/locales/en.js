@@ -37,7 +37,6 @@ export default {
   video: { play: 'Play video' },
   hero: {
     towerAlts: { original: 'Cam Network telecommunications tower on a mountaintop, with a technician at its base', signal: 'The same tower emitting signal: a glowing green network over the mountains of the region' },
-    skip: 'Skip',
     stepsLabel: 'Hero stages',
     scroll: 'Scroll down to see more',
     title: 'We connect your home and your business',
@@ -80,16 +79,15 @@ export default {
       office: { title: 'Our Office', text: 'Visit us in downtown San Gil.' }
     },
     plans: {
-      internet: { title: 'Internet', text: 'Fiber optics in town and wireless connection in the countryside.', alt: 'Technical team installing fiber optics in a rural area' },
+      internet: { title: 'Internet', text: 'Fiber optics in town and wireless connection in the countryside.', alt: 'Cam Network truck with a fiber optic reel in a rural area' },
       solar: { title: 'Solar Panels', text: 'Generate your own energy and save on your bill.', alt: 'Technician installing solar panels on a house' },
       camaras: { title: 'Security Cameras', text: 'Watch over your home or business from your phone.', alt: 'IMOU outdoor security camera' },
       tv: { title: 'TV', text: 'Your favorite channels at home. Ask about our plans.', alt: 'Family watching TV with the Cam Network TV service' },
       cta: 'See plans',
-      ctaInfo: 'Learn more',
-      tvMsg: "Hi, I'd like information about the TV service."
+      ctaInfo: 'Learn more'
     },
     coverage: {
-      title: 'Coverage in 13 towns',
+      title: 'Coverage in {total} towns',
       sub: 'We reach more places to keep you connected.',
       cta: 'See coverage areas'
     },
@@ -119,7 +117,7 @@ export default {
   cobertura: {
     eyebrow: 'Coverage',
     title: "We're closer to you",
-    subtitle: 'We bring connectivity, security, energy and technology solutions to these 13 towns in the region.',
+    subtitle: 'We bring connectivity, security, energy and technology solutions to these {total} towns in the region.',
     info: 'We connect homes, businesses and communities with quality technology.',
     features: {
       conectividad: { title: 'Connectivity', text: 'Fast, reliable internet.' },
@@ -155,10 +153,19 @@ export default {
     quote: 'To be the friendly solution for those who need it most.',
     history2: 'We especially want to thank the people of the countryside, for their tireless work for the country and for opening their doors so we could bring technology to the most remote corners of our region.',
     history3: 'With the same enthusiasm with which we reached the countryside, we keep growing in urban areas. Today we offer our customers much more than internet: security cameras, solar panels and now television service too, so our range of solutions meets everyone’s needs, whether they live in the city or the countryside.',
+    mvHeading: 'CAM NETWORK SOLUCIONES S.A.S',
     missionTitle: 'Mission',
-    mission: 'To improve the quality of life of households by providing technology solutions to every sector of our region, standing out for offering our customers timely, high-quality and reliable service at affordable prices. We strive to get closer to our communities every day, fostering their digital inclusion and committing to the development of our society.',
+    mission: 'To improve the quality of life of households by providing technology solutions in every sector of our region. We stand out for offering our customers timely, high-quality and reliable service at affordable prices. Our purpose is to get closer to our communities every day, fostering their digital inclusion and committing to the development of our society.',
     visionTitle: 'Vision',
-    vision: 'To be the leading organization in the region in delivering the best experience in technology solutions, meeting the needs and expectations of our customers, by establishing ourselves as a competitive, efficient, solid and profitable company in constant evolution and growth, contributing to the economic and social development of the department and the country.'
+    vision: 'By 2030, we will be the leading organization in the region, recognized for delivering the best experience in technology solutions and for fully meeting the needs and expectations of our customers. We will establish ourselves as a competitive, efficient, solid and profitable company, in constant evolution and growth, contributing significantly to the economic and social development of our region.',
+    valuesTitle: 'Corporate values',
+    values: [
+      { title: 'Innovation', text: 'We are dedicated to constant technological development, seeking new organizational models and innovative ways of relating to our customers.' },
+      { title: 'Commitment', text: 'We carry out our duties professionally, helping achieve the company mission and faithfully fulfilling every commitment we make.' },
+      { title: 'Service', text: 'We meet the needs of our customers and colleagues promptly, kindly and effectively, ensuring their satisfaction through exceptional service and customer care.' },
+      { title: 'Punctuality', text: 'We honor our obligations within the agreed deadlines, fully committed to planning and carrying out our activities.' },
+      { title: 'Responsibility', text: 'We perform our duties in a timely and efficient manner, accepting and owning the consequences of our decisions.' }
+    ]
   },
   normatividad: {
     intro: 'In compliance with Law 679 of 2001 and its regulations, we make available to our users the Colombian regulations that protect children and adolescents on the internet.',
@@ -274,13 +281,15 @@ export default {
       },
       rural: {
         title: 'Rural internet',
+        onWay: 'On the way',
+        onWayText: 'Working to bring fiber optics to more rural areas',
         imageAlt: 'Cam Network technician installing an antenna at a countryside home',
         text: "For farms and rural areas where cable doesn't reach. The signal travels through the air from our towers to an antenna installed at your home.",
         points: ["Connection where others don't reach", 'Antenna installation included', 'Technical support in your area']
       },
       corporate: {
         title: 'Corporate internet',
-        imageAlt: 'Cam Network vehicle in front of an institutional building',
+        imageAlt: 'Work team in an office meeting with laptops',
         text: 'For companies, institutions and shops that need a high-performance connection, with capacity and support tailored to their operation.',
         points: ['Solution designed for your operation', 'Priority service and support', 'Custom quote']
       },
@@ -294,9 +303,8 @@ export default {
       corporateMsg: "Hi, I'd like a quote for corporate internet for my business.",
       urbanPlans: 'Urban plans',
       ruralPlans: 'Rural plans',
-      speedPending: '— Mbps',
-      pricePending: 'Ask for the price',
-      perMonth: '/ month',
+      speedPending: '— to — Mbps',
+      speedRange: '{min} to {max} Mbps',
       plansLabel: 'Available plans',
       choose: 'Request',
       planMsg: "Hi, I'd like information about the {plan} ({zona}).",
@@ -311,7 +319,7 @@ export default {
       plansTitle: 'Solar energy plans',
       plansSub: 'Choose a plan based on what you want to keep running on solar power.',
       idealFor: 'Ideal for',
-      includes: 'Includes',
+      canPower: 'Able to power:',
       recommended: 'Most popular',
       requestPlan: 'Request this plan',
       requestPlanAria: 'Request the {plan} on WhatsApp',
@@ -331,6 +339,14 @@ export default {
       subtitle: 'Monitor your {hogar}, {empresa} or {fabrica} from your phone, wherever you are.',
       subWords: { hogar: 'home', empresa: 'business', fabrica: 'factory' },
       stat: '+1,000 protected customers',
+      systemsTitle: 'Camera systems',
+      systemsSub: 'We install two types of system, or sell you cameras individually.',
+      systems: {
+        analog: { title: 'Analog system', text: 'Works with a DVR and a hard drive.' },
+        ip: { title: 'IP system', text: 'A system with IP cameras. We help you choose the best fit for your place.' }
+      },
+      singleTitle: 'Only need one camera?',
+      singleText: 'We also sell cameras individually: each camera can work on its own.',
       featuresTitle: 'Everything you need for peace of mind',
       features: [
         { title: 'See everything on your phone', text: 'Live video from anywhere.' },
@@ -353,11 +369,38 @@ export default {
       closing: "Don't wait for something to happen. Protect what matters most today."
     },
   },
-  stats: {
-    title: 'Families and businesses that trust us',
-    items: {
-      internet: { title: 'Internet', sub: 'Fiber optics', value: 2000, label: 'customers' },
-      camaras: { title: 'Security cameras', sub: 'Protected homes and businesses', value: 1000, label: 'customers' }
+  contactLines: {
+    title: 'Contact lines',
+    sub: 'Call us or message us on WhatsApp on the line you need.',
+    call: 'Call',
+    callAria: 'Call {linea}: {numero}',
+    waAria: 'Message {linea} on WhatsApp'
+  },
+  works: {
+    title: 'Our work',
+    sub: 'Some of the installations our team has completed across the region.'
+  },
+  faq: {
+    items: [
+      { q: 'What should I do during a thunderstorm?', a: 'Unplug the router, the TV and other electronic devices while the storm lasts. This prevents damage from power surges. Plug them back in once it has passed.' },
+      { q: 'Who do I contact if I have a technical problem?', a: 'Contact our technical support line by phone or WhatsApp. These are our contact lines:', lineas: true },
+      { q: 'Why is the service sometimes interrupted?', a: 'When a technical fault occurs, the service may disconnect for a few minutes while our team fixes it. If the interruption lasts longer, message technical support.' }
+    ]
+  },
+  tv: {
+    title: 'Television',
+    subtitle: '{total} digital channels at home: sports, movies, news, kids and much more.',
+    imageAlt: 'Family watching TV with the Cam Network TV service',
+    gridTitle: 'Our channels',
+    gridSub: 'Search for a channel by name or number.',
+    searchLabel: 'Search channel',
+    searchPlaceholder: 'E.g. ESPN or 26',
+    noResults: 'We could not find that channel. Message us and we will tell you if it is available.',
+    closing: 'Want these channels at home?',
+    categories: {
+      nacionales: 'National', deportes: 'Sports', peliculas: 'Movies and entertainment', cultura: 'Culture',
+      infantiles: 'Kids', noticias: 'News', comedia: 'Comedy', telenovelas: 'Soap operas',
+      musica: 'Music', religiosos: 'Religious', gamers: 'Gamers'
     }
   },
   lineas: {
@@ -370,7 +413,7 @@ export default {
     introTitle: 'We are Cam Network',
     intro: [
       'We are a team of technicians, installers, advisors and office staff from the region, united by one purpose: to be the friendly solution for those who need it most.',
-      'We bring internet, security cameras and solar energy to homes, farms and businesses in 13 towns. We climb towers, travel dirt roads and reach the most remote rural areas so no one is left without a connection.',
+      'We bring internet, security cameras and solar energy to homes, farms and businesses in {total} towns. We climb towers, travel dirt roads and reach the most remote rural areas so no one is left without a connection.',
       'We know the region because we are from here. That is why we offer close, personal service, keep our promises and support every customer before, during and after installation.'
     ],
     valuesTitle: 'What defines us',
@@ -418,6 +461,7 @@ export default {
     }
   },
   meta: {
+    servicioTV: { title: 'Television in San Gil', description: '{canales} digital channels for your home in San Gil and Santander: sports, movies, news, kids, music and more.' },
     servicioInternet: { title: 'Urban and rural internet in San Gil', description: 'Fiber optic internet in town and wireless internet for farms and rural areas in San Gil, Barichara, Curití, Mogotes and other towns in Santander.' },
     servicioSolar: { title: 'Solar energy in San Gil', description: 'Solar panels for homes, farms and businesses in San Gil and other towns in Santander: lower bills and your own energy.' },
     servicioCamaras: { title: 'Security cameras in San Gil', description: 'IMOU security cameras for homes, businesses and farms in San Gil and Santander. See what is happening from your phone, wherever you are.' },
@@ -426,7 +470,7 @@ export default {
     home: { title: 'Internet, Security Cameras and Solar Energy in San Gil', description: 'Fiber optic and wireless internet, security cameras and solar energy for homes, farms and businesses in San Gil and other towns in Santander, Colombia.' },
     quienesSomos: { title: 'Who We Are', description: 'Learn about the history, mission and values of Cam Network Soluciones S.A.S.' },
     nuestroEquipo: { title: 'Our Team', description: 'Meet the team of professionals behind Cam Network Soluciones S.A.S.' },
-    cobertura: { title: 'Coverage in San Gil and Santander', description: 'We serve San Gil, Barichara, Villanueva, Cabrera, Curití, Pinchote, Mogotes, Valle de San José, Páramo, Ocamonte, San Joaquín, San Miguel and Pitiguao (Mogotes), in Santander.' },
+    cobertura: { title: 'Coverage in San Gil and Santander', description: 'We serve {lugares}, in Santander.' },
     normatividad: { title: 'Regulations', description: 'Current regulations applicable to the telecommunications services of Cam Network Soluciones S.A.S.' },
     pqrs: { title: 'PQRS', description: 'Submit your requests, complaints, claims and suggestions to Cam Network Soluciones S.A.S.' },
     testVelocidad: { title: 'Speed Test', description: 'Measure your internet connection speed with Cam Network Soluciones S.A.S.' },

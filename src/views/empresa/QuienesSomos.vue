@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.empresaEyebrow')" :title="t('pages.quienesSomos.title')" :subtitle="t('pages.quienesSomos.subtitle')" />
 
     <!-- Presentación -->
@@ -34,8 +33,11 @@
       </div>
     </section>
 
-    <!-- Misión y visión -->
+    <!-- Misión, visión y valores corporativos -->
     <section class="block last">
+      <div class="container">
+        <h2 class="mv-heading reveal">{{ t('about.mvHeading') }}</h2>
+      </div>
       <div class="container mv-grid">
         <article class="mv mission reveal">
           <IconTile :icon="Target" :size="58" />
@@ -48,22 +50,30 @@
           <p>{{ t('about.vision') }}</p>
         </article>
       </div>
+      <div class="container">
+        <h2 class="values-title reveal">{{ t('about.valuesTitle') }}</h2>
+        <div class="values">
+          <article v-for="(v, i) in tm('about.values')" :key="i" class="value reveal" :class="`reveal-${(i % 4) + 1}`">
+            <IconTile :icon="valueIcons[i]" :size="46" />
+            <h3>{{ rt(v.title) }}</h3>
+            <p>{{ rt(v.text) }}</p>
+          </article>
+        </div>
+      </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
-import { Quote, Target, Eye } from 'lucide-vue-next';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
+import { Quote, Target, Eye, Lightbulb, HandHeart, Headset, Clock, ShieldCheck } from 'lucide-vue-next';
 import PageHero from '../../components/ui/PageHero.vue';
 import IconTile from '../../components/ui/IconTile.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
-const { t } = useI18n();
-useReveal();
+const { t, tm, rt } = useI18n();
+// Mismo orden que about.values en src/locales/*.js
+const valueIcons = [Lightbulb, HandHeart, Headset, Clock, ShieldCheck];
 </script>
 
 <style scoped>
@@ -112,7 +122,15 @@ useReveal();
   margin: 0; color: #fff; font-size: 1.15rem; font-weight: 700; font-style: italic; line-height: 1.45;
 }
 
-/* ---------- Misión / Visión ---------- */
+/* ---------- Misión / Visión / Valores ---------- */
+.mv-heading { margin: 0 0 1.2rem; text-align: center; font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 800; letter-spacing: .08em; color: var(--green-deep) }
+.values-title { margin: 2.2rem 0 1.2rem; font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; color: var(--green-deep) }
+.values { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem }
+.value { padding: 1.4rem 1.2rem; border-radius: var(--r-lg); background: var(--neu-lite-bg); box-shadow: var(--neu-lite-raised) }
+.value h3 { margin: 1rem 0 .4rem; font-size: 1.05rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--ink) }
+.value p { margin: 0; font-size: .88rem; line-height: 1.6; color: var(--ink-dim) }
+@media (max-width: 1100px) { .values { grid-template-columns: repeat(3, minmax(0, 1fr)) } }
+@media (max-width: 640px) { .values { grid-template-columns: 1fr } }
 .mv-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem }
 .mv { padding: clamp(1.5rem, 3vw, 2.4rem); border-radius: var(--r-lg) }
 .mv h2 { margin: 1.2rem 0 .8rem; font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em }

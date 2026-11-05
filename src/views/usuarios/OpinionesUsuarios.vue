@@ -1,20 +1,15 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.usuariosEyebrow')" :title="t('pages.opiniones.title')" :subtitle="t('pages.opiniones.subtitle')" />
     <ComingSoon />
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import ComingSoon from '../../components/ui/ComingSoon.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
 const { t } = useI18n();
-useReveal();
 </script>

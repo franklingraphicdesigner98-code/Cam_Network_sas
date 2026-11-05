@@ -1,13 +1,7 @@
 <template>
-  <!-- Portada: cada vez que se abre arranca con la foto editada (brillos verdes); al primer scroll espera
-       un momento y se vuelve transparente hasta dejar ver la foto normal. Después, el carrusel normal.
-       Fotos, encuadre y textos por etapa en src/data/heroEtapas.js -->
+  <!-- Portada: arranca con la foto editada (brillos verdes); a los 1,5 s se funde con la foto normal y
+       sigue el carrusel. Va por tiempo: el scroll no la controla. Fotos, tiempos y textos en src/data/heroEtapas.js -->
   <header ref="root" class="hero" :class="`is-${phase}`">
-    <!-- botón para saltar la intro (primero en el orden de tabulación del hero) -->
-    <button v-if="phase === 'intro' && !auto" type="button" class="skip-btn" @click="skip">
-      {{ t('hero.skip') }} <ChevronsRight :size="16" />
-    </button>
-
     <!-- carrusel: "Lejos" + las 5 fotos de siempre (public/img/hero/, en 1920 y 960 px) -->
     <img
       v-for="(s, i) in slides" :key="s.key"
@@ -19,7 +13,7 @@
       @error="s.key === 'lejos' && onMissing('lejos')"
     />
 
-    <!-- foto de entrada: se aleja y se funde con "Lejos" -->
+    <!-- foto de entrada: se ve TRANSICION.intro ms y se funde con "Lejos" (mismo fundido que el carrusel) -->
     <img
       v-if="!missing.editada" ref="imgIntro" :src="IMAGENES.editada"
       :srcset="`${IMAGENES.editadaMovil} 960w, ${IMAGENES.editada} 1837w`" sizes="100vw" :alt="phase === 'carousel' ? '' : t('hero.towerAlts.signal')"
@@ -56,21 +50,23 @@
     </div>
 
     <!-- invita a bajar a ver el resto de la página -->
-    <button v-if="phase !== 'intro'" type="button" class="scroll-hint" :aria-label="t('hero.scroll')" @click="scrollDown">
+    <button type="button" class="scroll-hint" :aria-label="t('hero.scroll')" @click="scrollDown">
       <ChevronDown :size="26" />
     </button>
   </header>
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { useRotacion, decodificar } from '../../composables/useRotacion.js';
 import { useI18n } from 'vue-i18n';
-import { Handshake, ArrowRight, ChevronDown, ChevronsRight } from 'lucide-vue-next';
+import { useTx } from '../../composables/useTx.js';
+import { Handshake, ArrowRight, ChevronDown } from 'lucide-vue-next';
 import BaseButton from '../ui/BaseButton.vue';
 import { IMAGENES, TRANSICION, etapas, etapaPorFoto } from '../../data/heroEtapas.js';
 
-const { t, tm, rt, locale } = useI18n();
-const tx = (o) => o[locale.value] || o.es;
+const { t, tm, rt } = useI18n();
+const tx = useTx();
 
 // Mismo orden que hero.alts en src/locales/*.js
 const photos = ['montanas-antena', 'instalacion-solar', 'paneles-torre', 'valle', 'panorama'];
@@ -92,109 +88,31 @@ const root = ref(null);
 const imgIntro = ref(null);
 let imgLejos = null;
 const setSlideRef = (el, key) => { if (el && key === 'lejos') imgLejos = el; };
-// pending (antes de decidir) → intro (foto editada esperando el scroll / fundiéndose) → carousel
+// pending (antes de montar) → intro (foto editada visible) → carousel (la editada se funde y sigue el carrusel)
 const phase = ref('pending');
-const auto = ref(false);          // celular: sin bloqueo de scroll ni botón "Saltar"
 const active = ref(0);
 // fotos del carrusel ya pedidas: al inicio solo la primera; cada foto se pide justo antes de su turno
 const cargadas = reactive(new Set([0]));
 // durante la intro el título inicial queda fijo; en el carrusel sigue la etapa de cada foto
 const step = computed(() => (phase.value === 'carousel' ? etapaPorFoto[slides.value[active.value]?.key] ?? 0 : 0));
 
-// ---------- Alejamiento ----------
-const clamp01 = (v) => Math.min(1, Math.max(0, v));
-const easeInOut = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
-// una sola escritura por cuadro: la foto editada se vuelve transparente y deja ver "Lejos"
-function apply(p) {
-  const el = imgIntro.value;
-  if (el) el.style.opacity = (1 - easeInOut(clamp01(p))).toFixed(3);
-}
-
-// ---------- Disparo: al primer scroll, espera TRANSICION.pausa y se funde sola ----------
-let ready = false, triggered = false, raf = null, safety = null, delayTimer = null, timer = null;
-
-function play() {
-  const t0 = performance.now();
-  const tick = (now) => {
-    if (phase.value !== 'intro') return;
-    const p = clamp01((now - t0) / TRANSICION.duracion);
-    apply(p);
-    if (p >= 1) finish(450); else raf = requestAnimationFrame(tick);   // pausa: la inercia de la rueda no baja la página de golpe
-  };
-  raf = requestAnimationFrame(tick);
-}
-function trigger() {
-  if (!ready || triggered) return;
-  triggered = true;
-  delayTimer = setTimeout(play, TRANSICION.pausa);
-  // seguridad: el scroll nunca queda bloqueado más de 10 s
-  safety = setTimeout(() => finish(), 10000);
-}
-
-// PC: mientras dura la intro la página no baja; el primer gesto hacia abajo dispara el alejamiento
-function onWheel(e) { e.preventDefault(); if (e.deltaY > 0) trigger(); }
-let touchY = null;
-function onTouchStart(e) { touchY = e.touches[0].clientY; }
-function onTouchMove(e) {
-  if (!auto.value) e.preventDefault();
-  if (touchY != null && touchY - e.touches[0].clientY > 8) trigger();
-}
-function onKey(e) {
-  if (e.key === 'Escape') { finish(); return; }
-  const tag = e.target?.tagName;
-  if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag) || e.target?.isContentEditable) return;
-  if (e.key === ' ' && (tag === 'BUTTON' || tag === 'A')) return;     // Espacio sobre un botón lo activa
-  if (['ArrowDown', 'PageDown', ' ', 'End', 'ArrowUp', 'PageUp', 'Home'].includes(e.key)) {
-    e.preventDefault();
-    if (!['ArrowUp', 'PageUp', 'Home'].includes(e.key)) trigger();
-  }
-}
-const keepTop = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };   // p. ej. arrastrando la barra
-// celular: sin bloqueo; el primer desplazamiento de la página dispara el alejamiento
-const onMobileScroll = () => { if (window.scrollY > 4) trigger(); };
-
-function listen() {
-  window.addEventListener('touchstart', onTouchStart, { passive: true });
-  if (auto.value) {
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('scroll', onMobileScroll, { passive: true });
-    return;
-  }
-  window.addEventListener('wheel', onWheel, { passive: false });
-  window.addEventListener('touchmove', onTouchMove, { passive: false });
-  window.addEventListener('keydown', onKey);
-  window.addEventListener('scroll', keepTop, { passive: true });
-}
-function unlisten() {
-  window.removeEventListener('wheel', onWheel);
-  window.removeEventListener('touchstart', onTouchStart);
-  window.removeEventListener('touchmove', onTouchMove);
-  window.removeEventListener('keydown', onKey);
-  window.removeEventListener('scroll', keepTop);
-  window.removeEventListener('scroll', onMobileScroll);
-}
+// ---------- Intro por tiempo (sin scroll): la editada se ve TRANSICION.intro ms y luego se funde ----------
+let introTimer = null;
 
 // ---------- Fin de la intro → carrusel normal ----------
-function startCarousel() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  clearInterval(timer);
-  cargadas.add(1 % slides.value.length);
-  timer = setInterval(() => {
-    active.value = (active.value + 1) % slides.value.length;
-    cargadas.add((active.value + 1) % slides.value.length);   // la siguiente se va cargando mientras tanto
-  }, TRANSICION.carrusel);
-}
-function finish(pausa = 0) {
+const { paso, iniciar: startCarousel } = useRotacion(TRANSICION.carrusel, { auto: false });
+watch(paso, () => {
+  active.value = (active.value + 1) % slides.value.length;
+  cargadas.add((active.value + 1) % slides.value.length);   // la siguiente se va cargando mientras tanto
+});
+function finish() {
   if (phase.value === 'carousel') return;
-  if (pausa) setTimeout(unlisten, pausa); else unlisten();
-  clearTimeout(safety);
-  clearTimeout(delayTimer);
-  cancelAnimationFrame(raf); raf = null;
-  phase.value = 'carousel';
+  clearTimeout(introTimer);
+  phase.value = 'carousel';            // la clase .gone hace el fundido de la editada (solo opacity)
   active.value = 0;
+  cargadas.add(1 % slides.value.length);
   startCarousel();
 }
-function skip() { finish(); }       // botón "Saltar" o Escape: directo al carrusel
 
 function onMissing(cual) {
   if (missing[cual]) return;
@@ -204,16 +122,6 @@ function onMissing(cual) {
   finish();
 }
 
-// espera a que la imagen esté cargada y decodificada (evita saltos al mostrarla)
-function decodeImg(im) {
-  if (!im) return Promise.reject(new Error('sin imagen'));
-  if (im.complete && !im.naturalWidth) return Promise.reject(new Error('no cargó'));
-  const loaded = im.complete ? Promise.resolve() : new Promise((res, rej) => {
-    im.addEventListener('load', res, { once: true });
-    im.addEventListener('error', rej, { once: true });
-  });
-  return loaded.then(() => (im.decode ? im.decode() : undefined));
-}
 
 function scrollDown() {
   const hero = root.value;
@@ -221,32 +129,21 @@ function scrollDown() {
 }
 
 onMounted(async () => {
-  // la intro se muestra cada vez que se abre el inicio, salvo con "reducir movimiento" o ahorro de datos
+  // con "reducir movimiento" o ahorro de datos: directo al carrusel
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = !!(navigator.connection && navigator.connection.saveData);
-  const abajo = window.scrollY > window.innerHeight / 2;     // volvió con la página ya bajada
-  if (missing.editada || missing.lejos || reduced || saveData || abajo) { finish(); return; }
-
-  auto.value = window.innerWidth < 768;
+  if (missing.editada || missing.lejos || reduced || saveData) { finish(); return; }
   phase.value = 'intro';
-  if (!auto.value) window.scrollTo(0, 0);
-  listen();                                                     // en PC la página queda quieta desde ya
 
-  // las dos fotos, cargadas y decodificadas antes de empezar
-  const [ed, le] = await Promise.allSettled([decodeImg(imgIntro.value), decodeImg(imgLejos)]);
+  // precarga: las dos fotos cargadas y decodificadas antes de empezar a contar (sin saltos)
+  const [ed, le] = await Promise.allSettled([decodificar(imgIntro.value), decodificar(imgLejos)]);
   if (ed.status === 'rejected') { onMissing('editada'); return; }
   if (le.status === 'rejected') { onMissing('lejos'); return; }
-  if (phase.value !== 'intro') return;                          // saltada mientras cargaba
-  apply(0);
-  ready = true;
-  if (auto.value && window.scrollY > 4) trigger();
+  if (phase.value !== 'intro') return;
+  introTimer = setTimeout(finish, TRANSICION.intro);
 });
 onBeforeUnmount(() => {
-  unlisten();
-  cancelAnimationFrame(raf);
-  clearTimeout(safety);
-  clearTimeout(delayTimer);
-  clearInterval(timer);
+  clearTimeout(introTimer);
 });
 </script>
 
@@ -276,7 +173,8 @@ onBeforeUnmount(() => {
 
 /* foto de entrada: encima de "Lejos"; solo cambia su opacidad */
 .intro-img { will-change: opacity }
-.intro-img.gone { opacity: 0 !important; transition: opacity .8s ease; pointer-events: none }
+.intro-img { transition: opacity 1s ease }          /* mismo fundido que el carrusel */
+.intro-img.gone { opacity: 0; pointer-events: none }
 
 /* degradado neutro oscuro, solo lo necesario para leer el texto */
 .hero-shade {
@@ -325,16 +223,6 @@ onBeforeUnmount(() => {
 .hero-steps li.active { color: #fff }
 .hero-steps li.active .dot { background: var(--green-3); box-shadow: 0 0 0 4px rgba(74,222,128,.22), 0 0 12px rgba(74,222,128,.7) }
 
-.skip-btn {
-  position: absolute; z-index: 3; left: 50%; bottom: 1.4rem; transform: translateX(-50%);
-  display: inline-flex; align-items: center; gap: .3rem;
-  padding: .45rem .95rem; border-radius: 999px;
-  font-size: .82rem; font-weight: 600; color: #fff;
-  background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.35);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-}
-.skip-btn:hover { background: rgba(0,0,0,.5) }
-.skip-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px }
 
 .scroll-hint {
   position: absolute; z-index: 2; left: 50%; bottom: 1.1rem; transform: translateX(-50%);

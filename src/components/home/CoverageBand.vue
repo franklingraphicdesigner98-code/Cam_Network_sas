@@ -3,7 +3,7 @@
     <div class="container">
       <div class="panel band reveal">
         <div class="band-copy">
-          <h2 class="section-title">{{ t('home.coverage.title') }}</h2>
+          <h2 class="section-title">{{ t('home.coverage.title', { total: totalLugares }) }}</h2>
           <p class="section-sub">{{ t('home.coverage.sub') }}</p>
           <router-link :to="{ name: 'cobertura' }" class="pill-link">
             {{ t('home.coverage.cta') }} <ChevronRight :size="14" />
@@ -24,6 +24,7 @@
 import { useI18n } from 'vue-i18n';
 import { ChevronRight } from 'lucide-vue-next';
 import MapPins from '../ui/MapPins.vue';
+import { totalLugares } from '../../data/cobertura.js';
 
 const { t } = useI18n();
 

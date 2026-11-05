@@ -28,7 +28,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed } from 'vue';
+import { useRotacion } from '../../composables/useRotacion.js';
 import { useI18n } from 'vue-i18n';
 import { Check, ChevronRight, Shield, Zap, BadgeCheck } from 'lucide-vue-next';
 
@@ -42,13 +43,9 @@ const teamPhotos = [
   '/img/equipo/torre-antenas.webp',
   '/img/equipo/torre-enlaces.webp'
 ];
-const photo = ref(0);
-let timer = null;
-onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  timer = setInterval(() => { photo.value = (photo.value + 1) % teamPhotos.length; }, 4500);
-});
-onBeforeUnmount(() => clearInterval(timer));
+// foto activa: cambia cada 4,5 s
+const { paso } = useRotacion(4500);
+const photo = computed(() => paso.value % teamPhotos.length);
 
 const showMore = ref(false);
 const tips = computed(() => [

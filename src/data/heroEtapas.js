@@ -1,6 +1,8 @@
+import { totalLugares } from './cobertura.js';
+
 // Portada del inicio (HeroSection.vue).
-// Intro (cada vez que se abre el inicio): carga con la foto editada con brillos verdes; al primer scroll
-// espera "pausa" y se vuelve transparente hasta dejar ver la foto normal. Luego sigue el carrusel normal:
+// Intro (cada vez que se abre el inicio): la foto editada con brillos verdes se ve TRANSICION.intro ms y se
+// funde (1 s, igual que el carrusel) hasta dejar ver la foto normal. Luego sigue el carrusel normal:
 // "Lejos" como primera diapositiva + las 5 fotos de siempre.
 //
 // Fotos en public/img/hero/. Si falta alguna, se avisa en la consola y no se usa reemplazo.
@@ -14,8 +16,7 @@ export const IMAGENES = {
 
 // Tiempos de la transición (en milisegundos)
 export const TRANSICION = {
-  pausa: 200,              // la foto editada sigue quieta después del primer scroll
-  duracion: 600,            // lo que tarda en volverse transparente
+  intro: 1500,              // cuánto se ve la foto editada al abrir, antes de fundirse (no depende del scroll)
   carrusel: 3500            // cada cuánto cambia la foto del carrusel (y su etapa): 1 s de fundido + 2,5 s visible
 };
 
@@ -38,7 +39,7 @@ export const etapas = [
   },
   {
     paso: { es: 'Cobertura', en: 'Coverage' },
-    title: { es: 'Presentes en 13 municipios', en: 'Present in 13 towns' },
+    title: { es: `Presentes en ${totalLugares} municipios`, en: `Present in ${totalLugares} towns` },
     text: { es: 'Cerca de ti, con atención y soporte técnico en toda la región.', en: 'Close to you, with service and technical support across the region.' }
   }
 ];

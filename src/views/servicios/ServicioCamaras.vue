@@ -4,8 +4,7 @@
     :title="t('servicios.camaras.title')" :stat="t('servicios.camaras.stat')"
     :cta-title="t('servicios.camaras.closing')"
   >
-    <!-- A la derecha del texto: cámara que barre de lado a lado (fotos en public/img/Rotacion/;
-         hay una versión 3D con Camara.glb en CameraSweep3D.vue, sin usar por ahora) -->
+    <!-- A la derecha del texto: cámara que barre de lado a lado (fotos en public/img/Rotacion/) -->
     <template #visual>
       <CameraSweep :label="t('servicios.camaras.sweepAlt')" />
     </template>
@@ -35,6 +34,28 @@
       </div>
     </section>
 
+    <!-- Tipos de sistema y venta de cámaras por separado -->
+    <section class="svc-block">
+      <div class="container">
+        <h2 class="svc-heading reveal">{{ t('servicios.camaras.systemsTitle') }}</h2>
+        <p class="svc-sub reveal">{{ t('servicios.camaras.systemsSub') }}</p>
+        <div class="systems">
+          <article v-for="(s, i) in systems" :key="s.key" class="system reveal" :class="`reveal-${i + 1}`">
+            <IconTile :icon="s.icon" :size="50" />
+            <div>
+              <h3>{{ t(`servicios.camaras.systems.${s.key}.title`) }}</h3>
+              <p>{{ t(`servicios.camaras.systems.${s.key}.text`) }}</p>
+            </div>
+          </article>
+        </div>
+        <!-- cámaras sueltas -->
+        <p class="single-note reveal">
+          <span class="single-icon" aria-hidden="true"><Cctv :size="20" /></span>
+          <span><strong>{{ t('servicios.camaras.singleTitle') }}</strong> {{ t('servicios.camaras.singleText') }}</span>
+        </p>
+      </div>
+    </section>
+
     <!-- Cámaras disponibles (datos en src/data/camaras.js) -->
     <section class="svc-block">
       <div class="container">
@@ -61,9 +82,10 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n';
-import { Cctv, Smartphone, Moon, BellRing, Video } from 'lucide-vue-next';
+import { Cctv, Smartphone, Moon, BellRing, Video, HardDrive, Network } from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
 import CameraSweep from '../../components/ui/CameraSweep.vue';
+import IconTile from '../../components/ui/IconTile.vue';
 import { camaras } from '../../data/camaras.js';
 import { whatsappLink } from '../../data/contacto.js';
 
@@ -71,6 +93,11 @@ const { t, tm, rt } = useI18n();
 
 // Mismo orden que servicios.camaras.features en src/locales/*.js
 const featureIcons = [Smartphone, Moon, BellRing, Video];
+// Tipos de sistema (textos en src/locales/*.js → servicios.camaras.systems)
+const systems = [
+  { key: 'analog', icon: HardDrive },
+  { key: 'ip', icon: Network }
+];
 
 const productLink = (cam) => {
   const msg = t('servicios.camaras.productMsg', { producto: t(`servicios.camaras.products.${cam.key}.name`) });
@@ -104,8 +131,27 @@ const productLink = (cam) => {
 .product p { margin: 0 0 1.2rem; font-size: .92rem; line-height: 1.55; color: var(--ink-dim) }
 .product .btn { margin-top: auto }
 
+/* tipos de sistema: dos tarjetas + nota de cámaras sueltas */
+.systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.2rem }
+.system {
+  display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem;
+  border-radius: var(--r-lg); background: var(--neu-lite-bg); box-shadow: var(--neu-lite-raised);
+}
+.system h3 { margin: .2rem 0 .35rem; font-size: 1.15rem; font-weight: 800; color: var(--ink) }
+.system p { margin: 0; font-size: .95rem; line-height: 1.55; color: var(--ink-dim) }
+.single-note {
+  display: flex; align-items: center; gap: .8rem; margin: 1.25rem 0 0; padding: 1rem 1.2rem;
+  border-radius: var(--r-md); background: var(--green-soft); box-shadow: var(--neu-lite-inset);
+  font-size: .95rem; line-height: 1.5; color: var(--ink);
+}
+.single-note strong { color: var(--green-deep) }
+.single-icon { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: var(--green-deep); background: #fff; box-shadow: var(--neu-lite-raised) }
+
 @media (max-width: 1000px) {
   .features { grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 640px) {
+  .systems { grid-template-columns: 1fr }
 }
 @media (max-width: 860px) {
   .products { grid-template-columns: 1fr 1fr }

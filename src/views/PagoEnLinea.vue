@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :title="t('pages.pagoEnLinea.title')" :subtitle="t('pages.pagoEnLinea.subtitle')" />
 
     <section class="block">
@@ -102,22 +101,19 @@
         </div>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../components/landing/PageLayout.vue';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { CreditCard, ArrowRight, ChevronRight, ShieldCheck, Building2, ExternalLink } from 'lucide-vue-next';
-import AppNav from '../components/landing/AppNav.vue';
-import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import VerticalVideo from '../components/ui/VerticalVideo.vue';
 import { mediosDePago } from '../data/pagos.js';
-import { useReveal } from '../composables/useReveal.js';
 import { whatsappLink } from '../data/contacto.js';
 
 // TODO: pegar aquí el enlace de pago de ePayco cuando esté disponible.
@@ -127,8 +123,6 @@ const EPAYCO_URL = '';
 const { t, tm, rt } = useI18n();
 
 const waLink = computed(() => whatsappLink('facturacion', t('pago.waMessage')));
-
-useReveal();
 </script>
 
 <style scoped>

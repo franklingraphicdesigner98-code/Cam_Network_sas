@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <header class="coverage-hero">
       <!-- Malla de terreno 3D (scripts/generar-terreno-3d.cjs): nace de partículas, gira y se asienta -->
       <ParticleTerrain src="/img/terreno-3d-ancho.webp" class="terrain" @settle="mapReady = true" />
@@ -9,7 +8,7 @@
           <span class="eyebrow reveal">{{ t('cobertura.eyebrow') }}</span>
           <h1 class="display reveal reveal-1">{{ t('cobertura.title') }}</h1>
           <p class="lead subtitle reveal reveal-2">
-            {{ t('cobertura.subtitle') }}
+            {{ t('cobertura.subtitle', { total: totalLugares }) }}
           </p>
           <div class="info-card reveal reveal-3">
             <IconTile :icon="Users" :size="44" />
@@ -23,11 +22,11 @@
           <div class="pins-area" :class="{ ready: mapReady }" aria-hidden="true">
             <template v-if="mapReady">
               <span class="zone" />
-              <MapPins :pins="towns" :size="34" intro :intro-delay="0.5" />
+              <MapPins :pins="lugares" :size="34" intro :intro-delay="0.5" />
             </template>
           </div>
           <ul class="sr-only">
-            <li v-for="town in towns" :key="town.name">{{ town.name }}</li>
+            <li v-for="lugar in lugares" :key="lugar.name">{{ lugar.name }}</li>
           </ul>
         </div>
       </div>
@@ -51,42 +50,25 @@
         <BaseButton :to="{ name: 'contacto' }" variant="primary">{{ t('cobertura.ask') }}</BaseButton>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../components/landing/PageLayout.vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Users, Wifi, ShieldCheck, Sun, Headphones, Cpu } from 'lucide-vue-next';
-import AppNav from '../components/landing/AppNav.vue';
-import AppFooter from '../components/landing/AppFooter.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import MapPins from '../components/ui/MapPins.vue';
+import { lugares, totalLugares } from '../data/cobertura.js';
 import ParticleTerrain from '../components/ui/ParticleTerrain.vue';
-import { useReveal } from '../composables/useReveal.js';
 
 const { t } = useI18n();
+// lugares y posiciones de los pines: src/data/cobertura.js
 
-// x = oeste → este, y = norte → sur (en % del área del mapa)
 const mapReady = ref(false);
 
-const towns = [
-  { name: 'Villanueva', x: 26, y: 30 },
-  { name: 'Barichara', x: 13, y: 39 },
-  { name: 'Cabrera', x: 5, y: 50 },
-  { name: 'Curití', x: 46, y: 43 },
-  { name: 'San Gil', x: 34, y: 56 },
-  { name: 'Pinchote', x: 19, y: 63 },
-  { name: 'Pitiguao', x: 70, y: 55 },
-  { name: 'San Miguel', x: 91, y: 45 },
-  { name: 'Mogotes', x: 60, y: 68 },
-  { name: 'Valle de San José', x: 36, y: 75 },
-  { name: 'Páramo', x: 17, y: 83 },
-  { name: 'San Joaquín', x: 80, y: 82 },
-  { name: 'Ocamonte', x: 36, y: 95 }
-];
 
 const features = [
   { key: 'conectividad', icon: Wifi },
@@ -95,8 +77,6 @@ const features = [
   { key: 'soporte', icon: Headphones },
   { key: 'tecnologia', icon: Cpu }
 ];
-
-useReveal();
 </script>
 
 <style scoped>
@@ -140,10 +120,6 @@ useReveal();
 .zone {
   position: absolute; inset: 12% 0 0 0; border-radius: 50%;
   background: radial-gradient(closest-side, rgba(34,197,94,.3), rgba(34,197,94,.1) 65%, rgba(34,197,94,0));
-}
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 .coverage-inner {
   position: relative; z-index: 1;

@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.usuariosEyebrow')" :title="t('pages.testVelocidad.title')" :subtitle="t('pages.testVelocidad.subtitle')" />
 
     <section class="block last">
@@ -62,18 +61,15 @@
         </div>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { ref, computed, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ArrowDown, ArrowUp, Activity, Waves, Info, RotateCcw } from 'lucide-vue-next';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
 const { t } = useI18n();
 
@@ -187,8 +183,6 @@ onBeforeUnmount(() => {
   engine?.pause();
   cancelAnimationFrame(raf);
 });
-
-useReveal();
 </script>
 
 <style scoped>

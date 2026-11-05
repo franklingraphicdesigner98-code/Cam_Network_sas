@@ -25,7 +25,6 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import BaseButton from '../ui/BaseButton.vue';
-import { whatsappLink } from '../../data/contacto.js';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -38,13 +37,12 @@ function abrir(p, e) {
   else router.push(p.to);
 }
 
-// TV no tiene página propia: el botón abre WhatsApp de Asesorías
 const plans = computed(() => [
-  { key: 'internet', img: '/img/instalacion-fibra-optica.jpeg', to: { name: 'servicio-internet' } },
+  { key: 'internet', img: '/img/servicios/plan-internet.webp', to: { name: 'servicio-internet' } },
   { key: 'solar', img: '/img/hero/instalacion-solar-960.webp', to: { name: 'servicio-solar' } },
   // foto PNG sin fondo: se muestra completa (no recortada)
   { key: 'camaras', img: '/img/servicios/plan-camaras.webp', to: { name: 'servicio-camaras' }, fit: 'contain' },
-  { key: 'tv', img: '/img/servicios/plan-tv.webp', href: whatsappLink('asesorias', t('home.plans.tvMsg')) }
+  { key: 'tv', img: '/img/servicios/plan-tv.webp', to: { name: 'servicio-tv' } }
 ]);
 </script>
 

@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.empresaEyebrow')" :title="t('pages.nuestroEquipo.title')" :subtitle="t('pages.nuestroEquipo.subtitle')" />
 
     <!-- Foto del equipo -->
@@ -9,6 +8,12 @@
         <figure class="team-photo reveal">
           <img src="/img/equipo/equipo-oficina-grupo.webp" :alt="t('equipo.photoAlt')" width="1400" height="770" fetchpriority="high" />
         </figure>
+        <!-- más fotos del equipo (lista editable en src/data/trabajos.js → fotosEquipo) -->
+        <ul class="team-mosaic">
+          <li v-for="(f, i) in fotosEquipo" :key="f.src" class="reveal" :class="`reveal-${(i % 3) + 1}`">
+            <img :src="f.src" :alt="tx(f.alt)" loading="lazy" width="600" height="600" />
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -17,7 +22,7 @@
       <div class="container">
         <div class="panel intro reveal">
           <h2>{{ t('equipo.introTitle') }}</h2>
-          <p v-for="(p, i) in tm('equipo.intro')" :key="i">{{ rt(p) }}</p>
+          <p v-for="(p, i) in tm('equipo.intro')" :key="i">{{ rt(p, { total: totalLugares }) }}</p>
         </div>
       </div>
     </section>
@@ -35,24 +40,23 @@
         </div>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
+import { useTx } from '../../composables/useTx.js';
+import { totalLugares } from '../../data/cobertura.js';
+import { fotosEquipo } from '../../data/trabajos.js';
 import { HeartHandshake, Mountain, Wrench, ShieldCheck } from 'lucide-vue-next';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
 import IconTile from '../../components/ui/IconTile.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
 const { t, tm, rt } = useI18n();
+const tx = useTx();
 // Mismo orden que equipo.values en src/locales/*.js
 const valueIcons = [HeartHandshake, Mountain, Wrench, ShieldCheck];
-
-useReveal();
 </script>
 
 <style scoped>
@@ -64,6 +68,11 @@ useReveal();
   border: 6px solid #fff; box-shadow: var(--shadow-lg); background: var(--bg-2);
 }
 .team-photo img { width: 100%; height: 100%; object-fit: cover }
+.team-mosaic { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .8rem }
+.team-mosaic li { aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; border: 4px solid #fff; box-shadow: var(--shadow) }
+.team-mosaic img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease }
+.team-mosaic li:hover img { transform: scale(1.06) }
+@media (max-width: 860px) { .team-mosaic { grid-template-columns: repeat(3, minmax(0, 1fr)) } }
 
 .intro { max-width: 860px; margin: 0 auto; padding: clamp(1.6rem, 4vw, 2.6rem) }
 .intro h2 { margin: 0 0 1rem; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; color: var(--green-deep) }

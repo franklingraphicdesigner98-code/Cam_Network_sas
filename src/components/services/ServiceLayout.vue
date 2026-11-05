@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <!-- Encabezado corto del servicio -->
     <header class="svc-hero">
       <div class="grid-bg" aria-hidden="true" />
@@ -52,23 +51,21 @@
         </div>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
 // Layout base de las páginas de servicio (Internet, Energía solar, Cámaras):
 // encabezado corto + contenido (slot) + cierre con "Solicitar información" / WhatsApp.
 // Las secciones internas usan las clases globales .svc-block, .svc-heading y .svc-sub (src/style.css).
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import PageLayout from '../landing/PageLayout.vue';
+import { computed, onMounted } from 'vue';
+import { useRotacion } from '../../composables/useRotacion.js';
 import { useI18n } from 'vue-i18n';
 import { ArrowRight, Users } from 'lucide-vue-next';
-import AppNav from '../landing/AppNav.vue';
-import AppFooter from '../landing/AppFooter.vue';
 import IconTile from '../ui/IconTile.vue';
 import BaseButton from '../ui/BaseButton.vue';
 import { whatsappLink } from '../../data/contacto.js';
-import { useReveal } from '../../composables/useReveal.js';
 
 const props = defineProps({
   serviceKey: { type: String, required: true },   // internet | solar | camaras (preselecciona el formulario)
@@ -80,6 +77,7 @@ const props = defineProps({
   imageAlt: { type: String, default: '' },
   images: { type: Array, default: () => [] },     // [{ src, alt }] → se alternan cada pocos segundos
   imageRatio: { type: String, default: '16 / 10' },
+  interval: { type: Number, default: 3500 },       // ms entre fotos cuando hay varias (images)
   ctaTitle: { type: String, default: '' },
   ctaText: { type: String, default: '' }
 });
@@ -89,16 +87,10 @@ const waLink = computed(() =>
   whatsappLink('asesorias', t('servicios.waMsg', { servicio: props.title }))
 );
 
-// Rotación de las fotos del encabezado
-const active = ref(0);
-let timer = null;
-onMounted(() => {
-  if (props.images.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  timer = setInterval(() => { active.value = (active.value + 1) % props.images.length; }, 3500);
-});
-onBeforeUnmount(() => clearInterval(timer));
-
-useReveal();
+// Rotación de las fotos del encabezado (solo si hay varias)
+const { paso, iniciar } = useRotacion(props.interval, { precargar: props.images.map((i) => i.src), auto: false });
+const active = computed(() => (props.images.length ? paso.value % props.images.length : 0));
+onMounted(() => { if (props.images.length > 1) iniciar(); });
 </script>
 
 <style scoped>
@@ -137,7 +129,7 @@ useReveal();
 .svc-hero-photo.rotating { position: relative; max-width: 440px; justify-self: center; width: 100% }
 .svc-hero-photo.rotating img {
   position: absolute; inset: 0; opacity: 0; transform: scale(1.03);
-  transition: opacity .8s ease, transform 3.5s ease-out;
+  transition: opacity .45s ease, transform 3.5s ease-out;   /* fundido corto: las fotos pueden cambiar cada 1 s */
 }
 .svc-hero-photo.rotating img.active { opacity: 1; transform: scale(1) }
 

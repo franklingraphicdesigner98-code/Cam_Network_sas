@@ -2,6 +2,8 @@ import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { negocioJsonLd } from '../data/negocio.js'
+import { listaLugares, totalLugares } from '../data/cobertura.js'
+import { totalCanales } from '../data/canales.js'
 
 const DEFAULT_TITLE = 'Cam Network Soluciones S.A.S.'
 const DEFAULT_DESCRIPTION = 'Cam Network Soluciones S.A.S. — Internet, cámaras de seguridad y energía solar para hogares y empresas en Colombia.'
@@ -25,7 +27,10 @@ export function useRouteMeta() {
   }
   const description = () => {
     const key = route.meta.i18n
-    return key && te(`meta.${key}.description`) ? t(`meta.${key}.description`) : DEFAULT_DESCRIPTION
+    // {lugares} y {total} salen de la lista única de cobertura (src/data/cobertura.js)
+    return key && te(`meta.${key}.description`)
+      ? t(`meta.${key}.description`, { lugares: listaLugares(locale.value), total: totalLugares, canales: totalCanales })
+      : DEFAULT_DESCRIPTION
   }
 
   useHead({

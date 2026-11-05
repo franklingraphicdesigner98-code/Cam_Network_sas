@@ -39,6 +39,12 @@ export const routes = [
     meta: { i18n: 'servicioCamaras' }
   },
   {
+    path: '/servicios/television',
+    name: 'servicio-tv',
+    component: () => import('../views/servicios/ServicioTV.vue'),
+    meta: { i18n: 'servicioTV' }
+  },
+  {
     path: '/cobertura',
     name: 'cobertura',
     component: () => import('../views/Cobertura.vue'),

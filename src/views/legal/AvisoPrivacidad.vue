@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :eyebrow="t('pages.legalEyebrow')" :title="t('legal.aviso.title')" />
     <section class="s">
       <div class="container legal-doc reveal">
@@ -20,19 +19,15 @@
         </i18n-t>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
-import AppNav from '../../components/landing/AppNav.vue';
-import AppFooter from '../../components/landing/AppFooter.vue';
 import PageHero from '../../components/ui/PageHero.vue';
-import { useReveal } from '../../composables/useReveal.js';
 
 const { t, tm, rt } = useI18n();
-useReveal();
 </script>
 
 <style scoped>

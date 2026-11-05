@@ -2,7 +2,7 @@
   <ServiceLayout
     service-key="solar" :icon="SolarPanel"
     :title="t('servicios.solar.title')" :subtitle="t('servicios.solar.subtitle')"
-    image="/img/hero/instalacion-solar-960.webp" :image-alt="t('servicios.solar.imageAlt')"
+    :images="heroFotos" image-ratio="16 / 10" :interval="INTERVALO_SOLAR"
   >
     <!-- Planes (datos en src/data/planesSolares.js) -->
     <section class="svc-block">
@@ -18,9 +18,9 @@
             <h3>{{ tx(p.nombre) }}</h3>
             <p class="splan-cap"><Zap :size="18" /> {{ tx(p.capacidad) }}</p>
             <p class="splan-ideal"><span>{{ t('servicios.solar.idealFor') }}:</span> {{ tx(p.idealPara) }}</p>
-            <p class="splan-label">{{ t('servicios.solar.includes') }}</p>
+            <p class="splan-label">{{ t('servicios.solar.canPower') }}</p>
             <ul class="splan-list">
-              <li v-for="(it, k) in p.incluye" :key="k">
+              <li v-for="(it, k) in p.soporta" :key="k">
                 <span class="splan-icon" aria-hidden="true"><component :is="iconos[it.icono] || Check" :size="17" /></span>
                 {{ tx(it.texto) }}
               </li>
@@ -51,19 +51,23 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useTx } from '../../composables/useTx.js';
 import {
   SolarPanel, Check,
   Zap, Star, MessageCircle, Cctv, Tv, Fan, Wifi, Refrigerator, Lightbulb, WashingMachine
 } from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
-import { planesSolares } from '../../data/planesSolares.js';
+import { planesSolares, fotosSolar, INTERVALO_SOLAR } from '../../data/planesSolares.js';
 import { whatsappLink } from '../../data/contacto.js';
 
-const { t, tm, rt, locale } = useI18n();
-const tx = (o) => o[locale.value] || o.es;
+const { t, tm, rt } = useI18n();
+const tx = useTx();
+// encabezado: fotos de paneles que se alternan (src/data/planesSolares.js → fotosSolar)
+const heroFotos = computed(() => fotosSolar.map((f) => ({ src: f.src, alt: tx(f.alt) })));
 
-// Ícono de cada ítem de "Incluye" (clave "icono" en src/data/planesSolares.js)
+// Ícono de cada ítem de "Con capacidad para alimentar" (clave "icono" en src/data/planesSolares.js)
 const iconos = { camaras: Cctv, tv: Tv, ventilador: Fan, internet: Wifi, nevera: Refrigerator, luces: Lightbulb, lavadora: WashingMachine };
 // WhatsApp de asesorías con el mensaje ya escrito (whatsappLink usa encodeURIComponent)
 const planLink = (p) => whatsappLink('asesorias', t('servicios.solar.planMsg', { plan: tx(p.nombre), capacidad: tx(p.capacidad) }));

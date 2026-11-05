@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :title="t('pages.normatividad.title')" :subtitle="t('pages.normatividad.subtitle')" />
 
     <section class="block">
@@ -96,20 +95,17 @@
         </div>
       </div>
     </Teleport>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../components/landing/PageLayout.vue';
 import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { FileText, Eye, Download, ShieldAlert, ExternalLink, Phone, X } from 'lucide-vue-next';
-import AppNav from '../components/landing/AppNav.vue';
-import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
 import IconTile from '../components/ui/IconTile.vue';
-import { useReveal } from '../composables/useReveal.js';
 
 const { t, te } = useI18n();
 const route = useRoute();
@@ -153,8 +149,6 @@ const docs = [
   { key: 'decreto1524', year: '2002', pages: 5, size: '294 KB', file: '/docs/normatividad/decreto-1524-de-2002.pdf' },
   { key: 'ley1336', year: '2009', pages: 12, size: '598 KB', file: '/docs/normatividad/ley-1336-de-2009.pdf' }
 ];
-
-useReveal();
 </script>
 
 <style scoped>
@@ -247,10 +241,6 @@ useReveal();
 .report-info h3 { display: inline; margin: 0 .35rem 0 0; font-size: .82rem; font-weight: 800; color: var(--ink) }
 .report-info p { display: inline; font-size: .8rem; line-height: 1.55; color: var(--ink-mute) }
 
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-}
 
 @media (min-width: 760px) {
   .channels { grid-template-columns: 1fr 1fr; column-gap: 1.5rem }

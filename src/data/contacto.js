@@ -6,6 +6,9 @@ export const LINEAS = {
   soporte: { number: '573112286504', display: '311 228 6504' }      // fallas técnicas
 };
 
+// Líneas en el orden en que se muestran al cliente (soporte primero: es la más buscada ante una falla)
+export const lineasAtencion = ['soporte', 'asesorias', 'facturacion'].map((key) => ({ key, ...LINEAS[key] }));
+
 export const EMAIL = 'comercial@camnetworksoluciones.com';
 
 // Enlace de WhatsApp a una línea, con un mensaje ya escrito (opcional)

@@ -2,7 +2,7 @@
 // No se ven en la página: van en el <head> de todas las páginas. Deben coincidir EXACTAMENTE con los
 // del Perfil de Empresa de Google, las redes y los directorios (nombre, dirección y teléfono).
 import { LINEAS, EMAIL } from './contacto.js';
-import { municipios } from './planes.js';
+import { lugares } from './cobertura.js';
 
 const tel = (n) => `+${n}`;
 
@@ -29,8 +29,8 @@ export function negocioJsonLd(siteUrl) {
       { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '13:30', closes: '17:30' },
       { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '08:00', closes: '13:00' }
     ],
-    // zona de servicio: las localidades con cobertura (src/data/planes.js)
-    areaServed: municipios.map((m) => ({ '@type': 'Place', name: `${m}, Santander, Colombia` })),
+    // zona de servicio: los lugares con cobertura (src/data/cobertura.js)
+    areaServed: lugares.map((l) => ({ '@type': 'Place', name: `${l.name}, Santander, Colombia` })),
     contactPoint: [
       { '@type': 'ContactPoint', contactType: 'sales', telephone: tel(LINEAS.asesorias.number), availableLanguage: 'es' },
       { '@type': 'ContactPoint', contactType: 'billing support', telephone: tel(LINEAS.facturacion.number), availableLanguage: 'es' },

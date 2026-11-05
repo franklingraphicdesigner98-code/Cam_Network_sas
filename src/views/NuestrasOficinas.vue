@@ -1,6 +1,5 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <PageHero :title="t('pages.oficinas.title')" :subtitle="t('pages.oficinas.subtitle')" />
 
     <!-- Celular: video, dirección y mapa, uno debajo del otro.
@@ -72,20 +71,17 @@
         </div>
       </div>
     </section>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
+import PageLayout from '../components/landing/PageLayout.vue';
 import { useI18n } from 'vue-i18n';
 import { MapPin, Clock, Phone, Navigation, CirclePlay, MessageCircle } from 'lucide-vue-next';
-import AppNav from '../components/landing/AppNav.vue';
-import AppFooter from '../components/landing/AppFooter.vue';
 import PageHero from '../components/ui/PageHero.vue';
 import IconTile from '../components/ui/IconTile.vue';
 import InstagramEmbed from '../components/ui/InstagramEmbed.vue';
 import VerticalVideo from '../components/ui/VerticalVideo.vue';
-import { useReveal } from '../composables/useReveal.js';
 import { LINEAS, whatsappLink } from '../data/contacto.js';
 
 const { t } = useI18n();
@@ -99,8 +95,6 @@ const DIRECTIONS_VIDEO = 'https://www.instagram.com/p/DbykNgTCplm/';
 // Video alojado en el sitio (vertical 9:16, comprimido para la web). Si se deja VIDEO_SRC vacío, se usa el embed de Instagram.
 const VIDEO_SRC = '/video/como-llegar.mp4';
 const VIDEO_POSTER = '/video/como-llegar-portada.webp';
-
-useReveal();
 </script>
 
 <style scoped>

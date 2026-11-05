@@ -1,35 +1,31 @@
 <template>
-  <AppNav />
-  <main>
+  <PageLayout>
     <HeroSection />
     <div class="home-sections">
       <PlansSection />
-      <!-- Seguridad eléctrica y cifras de clientes, lado a lado en PC -->
+      <!-- Seguridad eléctrica y líneas de atención, lado a lado en PC -->
       <div class="container duo">
         <ServicesSection />
-        <StatsBand />
+        <ContactLines />
       </div>
       <QuickAccess />
+      <WorksGallery />
       <CoverageBand />
       <ContactSection />
     </div>
-  </main>
-  <AppFooter />
+  </PageLayout>
 </template>
 
 <script setup>
-import AppNav from '../components/landing/AppNav.vue';
-import AppFooter from '../components/landing/AppFooter.vue';
+import PageLayout from '../components/landing/PageLayout.vue';
 import HeroSection from '../components/landing/HeroSection.vue';
 import ServicesSection from '../components/home/ServicesSection.vue';
-import StatsBand from '../components/home/StatsBand.vue';
+import ContactLines from '../components/home/ContactLines.vue';
+import WorksGallery from '../components/home/WorksGallery.vue';
 import QuickAccess from '../components/home/QuickAccess.vue';
 import PlansSection from '../components/home/PlansSection.vue';
 import CoverageBand from '../components/home/CoverageBand.vue';
 import ContactSection from '../components/home/ContactSection.vue';
-import { useReveal } from '../composables/useReveal.js';
-
-useReveal();
 </script>
 
 <style scoped>
@@ -39,8 +35,7 @@ useReveal();
 /* los dos bloques traen su propio contenedor: aquí se neutraliza para que quepan en la cuadrícula */
 .duo :deep(> .block) { padding: 0 }
 .duo :deep(> .block > .container) { max-width: none; padding: 0; height: 100% }
-.duo :deep(.safety), .duo :deep(.stats) { height: 100% }
-.duo :deep(.stats-grid) { grid-template-columns: 1fr }
+.duo :deep(.safety), .duo :deep(.lines) { height: 100% }
 @media (min-width: 1001px) {
   .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) }
 }

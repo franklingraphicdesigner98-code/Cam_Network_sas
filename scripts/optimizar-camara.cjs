@@ -1,5 +1,5 @@
 // Genera las copias livianas (WebP) de los fotogramas de la cámara que gira en /servicios/camaras-de-seguridad.
-//   Origen:  public/img/Rotacion/Camaras arregladas/  (PNG con fondo transparente)
+//   Origen:  recursos-originales/camaras-arregladas/  (PNG con fondo transparente; fuera del sitio publicado)
 //   Destino: public/img/Rotacion/webp/cam_izq_10.webp … cam_der_60.webp  (lo que carga CameraSweep.vue)
 // Uso: node scripts/optimizar-camara.cjs
 //
@@ -8,7 +8,7 @@
 const sharp = require('sharp');
 const path = require('path');
 
-const ORIGEN = path.join(__dirname, '../public/img/Rotacion/Camaras arregladas');
+const ORIGEN = path.join(__dirname, '../recursos-originales/camaras-arregladas');
 const DESTINO = path.join(__dirname, '../public/img/Rotacion/webp');
 const LIENZO = { width: 848, height: 1254 };   // tamaño común (el de las fotos "Izquierda")
 const ANCHO_FINAL = 700;                       // ancho de las copias para la web

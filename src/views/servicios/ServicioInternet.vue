@@ -1,7 +1,7 @@
 <template>
   <ServiceLayout
     service-key="internet" :icon="Wifi"
-    :title="t('servicios.internet.title')" :subtitle="t('servicios.internet.subtitle')" :stat="t('servicios.internet.stat')"
+    :title="t('servicios.internet.title')" :subtitle="t('servicios.internet.subtitle')"
     :images="encabezado" image-ratio="16 / 10" :interval="INTERVALO_FOTOS"
   >
     <!-- Tipos de internet; cada tarjeta incluye sus propios planes -->
@@ -31,12 +31,6 @@
               </li>
             </ul>
 
-            <!-- rural: fibra óptica "en camino" con barra de progreso (se llena al entrar la tarjeta en pantalla) -->
-            <div v-if="type.key === 'rural'" class="on-way">
-              <span class="on-way-tag"><Truck :size="18" aria-hidden="true" />{{ t('servicios.internet.rural.onWay') }}</span>
-              <div class="progress" role="img" :aria-label="t('servicios.internet.rural.onWayText')"><span class="progress-fill" /></div>
-              <p class="on-way-text">{{ t('servicios.internet.rural.onWayText') }}</p>
-            </div>
 
             <!-- Planes urbanos / rurales (datos en src/data/planes.js) -->
             <div v-if="type.zone" class="type-plans">
@@ -95,7 +89,7 @@
 import { computed } from 'vue';
 import { useRotacion } from '../../composables/useRotacion.js';
 import { useI18n } from 'vue-i18n';
-import { Wifi, Building2, Trees, Briefcase, Check, MapPin, ChevronRight, School, Store, Truck } from 'lucide-vue-next';
+import { Wifi, Building2, Trees, Briefcase, Check, MapPin, ChevronRight, School, Store } from 'lucide-vue-next';
 import ServiceLayout from '../../components/services/ServiceLayout.vue';
 import IconTile from '../../components/ui/IconTile.vue';
 import { planes, fotosInternet, fotosEncabezadoInternet, INTERVALO_FOTOS } from '../../data/planes.js';
@@ -145,32 +139,6 @@ const planLink = (plan, type) => {
 /* fotos que se alternan: apiladas, solo la activa es visible (fundido suave) */
 .type-photo.rotating { position: relative }
 
-/* "En camino": la barra crece cuando la tarjeta aparece (clase .in de las animaciones de entrada) */
-.on-way { margin: .2rem 0 1rem; padding: 1rem 1.1rem; border-radius: var(--r-md); background: #fbfdfa; box-shadow: var(--neu-lite-inset) }
-.on-way-tag {
-  display: inline-flex; align-items: center; gap: .45rem; padding: .4rem .95rem; border-radius: 999px;
-  font-size: 1.05rem; font-weight: 800; color: #fff;
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%); box-shadow: 0 6px 16px rgba(22,163,74,.3);
-}
-.progress { position: relative; height: 10px; margin: .9rem 0 .55rem; border-radius: 999px; overflow: hidden; background: rgba(22,163,74,.14) }
-.progress-fill {
-  position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; border-radius: inherit;
-  background: linear-gradient(90deg, var(--green-3) 0%, var(--green) 60%, var(--green-deep) 100%);
-  transition: transform 2.4s cubic-bezier(.2,.7,.2,1) .4s;
-}
-.type.in .progress-fill { transform: scaleX(1) }
-/* brillo que recorre la barra */
-.progress-fill::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
-  animation: shine 2.2s ease-in-out 3s infinite; transform: translateX(-100%);
-}
-@keyframes shine { to { transform: translateX(100%) } }
-.on-way-text { margin: 0; font-size: .9rem; font-weight: 600; line-height: 1.45; color: var(--green-deep) }
-@media (prefers-reduced-motion: reduce) {
-  .progress-fill { transform: none; transition: none }
-  .progress-fill::after { animation: none; display: none }
-}
 .type-photo.rotating img { position: absolute; inset: 0; opacity: 0; transition: opacity .45s ease, transform .6s ease }
 .type-photo.rotating img.active { opacity: 1 }
 .type:hover .type-photo img { transform: scale(1.05) }

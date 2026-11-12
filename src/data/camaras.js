@@ -7,6 +7,5 @@ export const camaras = [
   { key: 'titanPro', image: '/img/camaras/titan-pro-aurora.webp' },
   { key: 'cruiserDual', image: '/img/camaras/cruiser-dual-2.webp' },
   { key: 'ranger2Pro', image: '/img/camaras/ranger-2-pro.webp' },
-  { key: 'ranger', image: '/img/camaras/ranger.webp' },
-  { key: 'rex', image: '/img/camaras/rex-4mp.webp' }
+  { key: 'ranger', image: '/img/camaras/ranger.webp' }
 ];

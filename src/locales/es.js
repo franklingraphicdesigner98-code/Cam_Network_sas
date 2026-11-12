@@ -268,7 +268,6 @@ export default {
     internet: {
       title: 'Internet',
       subtitle: 'Conexión rápida y estable en la ciudad y en el campo.',
-      stat: '+2.000 clientes con fibra óptica',
       imageAlt: 'Antena de Cam Network en las montañas de la región',
       typesTitle: '¿Qué tipo de internet necesitas?',
       typesSub: 'Llevamos internet a la ciudad, al campo y a las empresas con la tecnología adecuada para cada caso.',
@@ -280,10 +279,8 @@ export default {
       },
       rural: {
         title: 'Internet rural',
-        onWay: 'En camino',
-        onWayText: 'Trabajando para llevar fibra óptica a más lugares rurales',
         imageAlt: 'Técnico de Cam Network instalando una antena en una casa del campo',
-        text: 'Para fincas y veredas donde no llega el cable. La señal viaja por el aire desde nuestras torres hasta una antena instalada en tu casa.',
+        text: 'Para fincas y veredas donde no llega el cable. La señal viaja por el aire desde nuestras torres hasta una antena instalada en tu casa. Estamos trabajando para llevarla por fibra óptica y mejorar nuestro servicio.',
         points: ['Conexión donde otros no llegan', 'Instalación de antena incluida', 'Soporte técnico en tu zona']
       },
       corporate: {
@@ -337,7 +334,6 @@ export default {
       sweepAlt: 'Cámara de seguridad monitoreando',
       subtitle: 'Monitorea tu {hogar}, {empresa} o {fabrica} desde tu celular, estés donde estés.',
       subWords: { hogar: 'hogar', empresa: 'empresa', fabrica: 'fábrica' },
-      stat: '+1.000 clientes protegidos',
       systemsTitle: 'Sistemas de cámaras',
       systemsSub: 'Instalamos dos tipos de sistema, o te vendemos las cámaras por separado.',
       systems: {
@@ -360,7 +356,6 @@ export default {
         titanPro: { name: 'IMOU Titan Pro Aurora', text: 'Para exteriores. 6 MP, cobertura de 360°, visión a color e inteligencia artificial.' },
         ranger2Pro: { name: 'IMOU IP Ranger 2 Pro', text: 'Para interiores. 5 MP, seguimiento inteligente, audio bidireccional y sirena.' },
         ranger: { name: 'IMOU Ranger', text: 'Para interiores. Hasta 5 MP, micrófono y altavoz incorporados.' },
-        rex: { name: 'IMOU Rex 4MP', text: 'Para interiores. 4 MP, visión nocturna y detección de personas.' },
         cruiserDual: { name: 'IMOU Cruiser Dual 2', text: 'Para exteriores. Doble lente (4 MP + 4 MP), visión nocturna a color y luces de advertencia.' }
       },
       productCta: 'Cotizar esta cámara',

@@ -1,7 +1,7 @@
 <template>
   <ServiceLayout
     service-key="camaras" :icon="Cctv"
-    :title="t('servicios.camaras.title')" :stat="t('servicios.camaras.stat')"
+    :title="t('servicios.camaras.title')"
     :cta-title="t('servicios.camaras.closing')"
   >
     <!-- A la derecha del texto: cámara que barre de lado a lado (fotos en public/img/Rotacion/) -->

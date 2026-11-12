@@ -66,7 +66,7 @@
         <div class="map-card reveal">
           <iframe
             :src="mapEmbed" :title="t('oficinas.mapTitle')"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+            loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
           />
         </div>
       </div>

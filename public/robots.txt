@@ -4,5 +4,4 @@
 User-agent: *
 Allow: /
 
-# TODO: cuando esté el dominio definitivo, generar el sitemap y añadir aquí:
-# Sitemap: https://<dominio>/sitemap.xml
+Sitemap: https://camnetworksoluciones.com/sitemap.xml

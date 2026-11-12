@@ -33,7 +33,7 @@ const router = useRouter();
 // así que con teclado y lector de pantalla todo funciona igual)
 function abrir(p, e) {
   if (e.target.closest('a')) return;   // el clic ya fue en el botón
-  if (p.href) window.open(p.href, '_blank', 'noopener');
+  if (p.href) window.open(p.href, '_blank', 'noopener,noreferrer');
   else router.push(p.to);
 }
 

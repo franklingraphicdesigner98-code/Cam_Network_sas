@@ -1,0 +1,68 @@
+# ==========================================================================
+# Cam Network Soluciones S.A.S. — configuración para Apache (cPanel)
+# Este archivo se copia a dist/ en cada build: súbelo junto con el resto a public_html.
+# ==========================================================================
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # --- HTTPS: actívalo cuando el certificado SSL del dominio esté funcionando ---
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Quitar la barra final: /cobertura/ → /cobertura
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+  # URLs sin .html: /servicios/internet.html → /servicios/internet (evita contenido duplicado)
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteCond %{REQUEST_URI} !^/docs/ [NC]
+  RewriteRule ^ /%1 [L,R=301]
+
+  # Rutas limpias: /servicios/internet sirve servicios/internet.html (páginas ya generadas por vite-ssg)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+
+  # Cualquier otra ruta que no exista: la aplicación (igual que en Vercel)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# --- Cabeceras de seguridad ---
+<IfModule mod_headers.c>
+  # Política de contenido EN MODO PRUEBA: no bloquea nada, solo avisa en la consola del navegador.
+  # Cuando no aparezcan avisos en ninguna página, cambia "Content-Security-Policy-Report-Only"
+  # por "Content-Security-Policy" para que sea obligatoria.
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; connect-src 'self' https://speed.cloudflare.com; frame-src https://www.google.com https://maps.google.com https://www.instagram.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # HSTS: NO activar hasta confirmar que HTTPS funciona en camnetworksoluciones.com
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Caché: los archivos de /assets llevan un código en el nombre y nunca cambian; el HTML siempre se revisa
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(webp|jpe?g|png|svg|ico|mp4|pdf)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# --- Compresión (páginas, estilos y scripts más livianos) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>

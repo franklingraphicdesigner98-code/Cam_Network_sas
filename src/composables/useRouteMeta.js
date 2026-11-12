@@ -7,8 +7,8 @@ import { totalCanales } from '../data/canales.js'
 
 const DEFAULT_TITLE = 'Cam Network Soluciones S.A.S.'
 const DEFAULT_DESCRIPTION = 'Cam Network Soluciones S.A.S. — Internet, cámaras de seguridad y energía solar para hogares y empresas en Colombia.'
-// Dirección pública del sitio (despliegue de Vercel). TODO: cambiarla por el dominio propio cuando esté definido
-const SITE_URL = 'https://cam-network-sas.vercel.app'
+// Dirección pública del sitio (dominio final). La usan canonical, Open Graph, datos del negocio y el sitemap
+export const SITE_URL = 'https://camnetworksoluciones.com'
 
 // Aplica el title/description de la ruta como <title> y <meta name="description">
 // reales en el <head>, en el idioma activo. Cada ruta define meta.i18n en

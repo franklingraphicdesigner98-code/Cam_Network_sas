@@ -28,12 +28,33 @@
 
 <script setup>
 import PageLayout from '../../components/landing/PageLayout.vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useHead } from '@unhead/vue';
 import { ChevronDown, Phone, MessageCircle } from 'lucide-vue-next';
 import PageHero from '../../components/ui/PageHero.vue';
 import { lineasAtencion as lineas, whatsappLink } from '../../data/contacto.js';
 
 const { t, tm, rt } = useI18n();
+
+// Datos estructurados FAQPage (schema.org) para Google y las IA de búsqueda: las mismas preguntas y
+// respuestas de la página; en la de fallas técnicas se agregan las líneas de atención como texto.
+const lineasTexto = () => ' ' + lineas.map((l) => `${t(`lineas.${l.key}`)}: ${l.display}`).join('. ') + '.';
+useHead({
+  script: [{
+    key: 'faq',
+    type: 'application/ld+json',
+    innerHTML: computed(() => JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: tm('faq.items').map((item) => ({
+        '@type': 'Question',
+        name: rt(item.q),
+        acceptedAnswer: { '@type': 'Answer', text: rt(item.a) + (item.lineas ? lineasTexto() : '') }
+      }))
+    }))
+  }]
+});
 </script>
 
 <style scoped>

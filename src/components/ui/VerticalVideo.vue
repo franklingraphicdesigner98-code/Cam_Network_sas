@@ -19,7 +19,7 @@
         <VolumeX :size="18" /> {{ soundLabel }}
       </button>
     </div>
-    <a v-if="link" :href="link" target="_blank" rel="noopener" class="vv-link">
+    <a v-if="link" :href="link" target="_blank" rel="noopener noreferrer" class="vv-link">
       <Instagram :size="16" /> {{ linkLabel }} <ExternalLink :size="14" />
     </a>
   </div>

@@ -21,7 +21,7 @@
               <span class="doc-meta">{{ t('normatividad.pages', { n: doc.pages }) }} · {{ doc.size }}</span>
             </div>
             <div class="doc-actions">
-              <a :href="doc.file" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              <a :href="doc.file" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
                 <Eye :size="16" /> {{ t('normatividad.view') }}
               </a>
               <a :href="doc.file" :download="doc.file.split('/').pop()" class="btn btn-outline btn-sm">

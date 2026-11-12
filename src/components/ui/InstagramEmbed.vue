@@ -3,11 +3,11 @@
     <div class="ig-frame">
       <iframe
         :src="embedUrl" :title="title"
-        loading="lazy" scrolling="no" allowtransparency="true"
+        loading="lazy" scrolling="no" allowtransparency="true" referrerpolicy="strict-origin-when-cross-origin"
         allow="encrypted-media; picture-in-picture; clipboard-write"
       />
     </div>
-    <a :href="postUrl" target="_blank" rel="noopener" class="ig-link">
+    <a :href="postUrl" target="_blank" rel="noopener noreferrer" class="ig-link">
       <Instagram :size="16" /> {{ linkLabel }} <ExternalLink :size="14" />
     </a>
   </div>

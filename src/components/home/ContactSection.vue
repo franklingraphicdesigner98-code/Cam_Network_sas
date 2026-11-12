@@ -101,7 +101,7 @@ function send() {
     form.message
   ].filter((l) => l !== null);
   const url = whatsappLink('asesorias', lines.join('\n'));
-  window.open(url, '_blank', 'noopener');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 </script>
 
